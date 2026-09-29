@@ -186,6 +186,8 @@ h3{
     gap:12px;
 }
 
+/* FIELD */
+
 .field label{
     display:block;
 
@@ -347,7 +349,157 @@ th{
     margin-bottom:10px;
 }
 
-/* DASHBOARD */
+
+/* =========================================================
+   DASHBOARD - NEW PROFESSIONAL DESIGN
+========================================================= */
+
+.dashboard-header{
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f766e 0%,
+            #0d9488 55%,
+            #14b8a6 100%
+        );
+
+    color:white;
+
+    border-radius:20px;
+
+    padding:22px;
+
+    margin-bottom:16px;
+
+    box-shadow:
+        0 10px 28px rgba(15,118,110,.20);
+}
+
+.dashboard-header::before{
+    content:"";
+
+    position:absolute;
+
+    width:170px;
+    height:170px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    right:-55px;
+    top:-65px;
+}
+
+.dashboard-header::after{
+    content:"";
+
+    position:absolute;
+
+    width:110px;
+    height:110px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.06);
+
+    right:75px;
+    bottom:-70px;
+}
+
+.dashboard-header-content{
+    position:relative;
+    z-index:2;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+}
+
+.dashboard-welcome{
+    min-width:0;
+}
+
+.dashboard-welcome .eyebrow{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    letter-spacing:.7px;
+
+    text-transform:uppercase;
+
+    background:rgba(255,255,255,.14);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    padding:5px 9px;
+
+    border-radius:20px;
+
+    margin-bottom:8px;
+}
+
+.dashboard-welcome h2{
+    margin:0;
+
+    font-size:27px;
+
+    line-height:1.15;
+
+    color:white;
+}
+
+.dashboard-welcome p{
+    margin:7px 0 0;
+
+    font-size:13px;
+
+    color:rgba(255,255,255,.88);
+
+    line-height:1.5;
+}
+
+.dashboard-icon{
+    flex:0 0 auto;
+
+    width:64px;
+    height:64px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:rgba(255,255,255,.14);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    font-size:31px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.12);
+}
+
+
+/* DASHBOARD STAT GRID */
 
 .dashboard-grid{
     display:grid;
@@ -355,7 +507,388 @@ th{
     grid-template-columns:repeat(4,minmax(0,1fr));
 
     gap:12px;
+
+    margin-bottom:16px;
 }
+
+.dashboard-stat{
+    position:relative;
+
+    overflow:hidden;
+
+    background:white;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:16px;
+
+    padding:15px;
+
+    min-height:116px;
+
+    box-shadow:
+        0 3px 12px rgba(15,23,42,.045);
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease;
+}
+
+.dashboard-stat:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(15,23,42,.08);
+}
+
+.dashboard-stat::after{
+    content:"";
+
+    position:absolute;
+
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    background:#f0fdfa;
+
+    right:-28px;
+    bottom:-28px;
+}
+
+.dashboard-stat-top{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+.dashboard-stat-icon{
+    width:38px;
+    height:38px;
+
+    border-radius:11px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#f0fdfa;
+
+    color:#0f766e;
+
+    font-size:18px;
+
+    font-weight:800;
+
+    flex:0 0 auto;
+}
+
+.dashboard-stat .label{
+    font-size:11px;
+
+    color:#64748b;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:.35px;
+
+    margin-top:11px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+.dashboard-stat .value{
+    font-size:22px;
+
+    font-weight:850;
+
+    margin-top:3px;
+
+    color:#0f172a;
+
+    line-height:1.25;
+
+    position:relative;
+
+    z-index:2;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+.dashboard-stat.sales .dashboard-stat-icon{
+    background:#eff6ff;
+    color:#2563eb;
+}
+
+.dashboard-stat.purchase .dashboard-stat-icon{
+    background:#fff7ed;
+    color:#ea580c;
+}
+
+.dashboard-stat.stock .dashboard-stat-icon{
+    background:#f0fdf4;
+    color:#16a34a;
+}
+
+.dashboard-stat.due .dashboard-stat-icon{
+    background:#fef2f2;
+    color:#dc2626;
+}
+
+.dashboard-stat.profit .dashboard-stat-icon{
+    background:#f5f3ff;
+    color:#7c3aed;
+}
+
+.dashboard-stat.collection .dashboard-stat-icon{
+    background:#ecfeff;
+    color:#0891b2;
+}
+
+
+/* DASHBOARD LOWER AREA */
+
+.dashboard-lower{
+    display:grid;
+
+    grid-template-columns:1.15fr .85fr;
+
+    gap:15px;
+
+    margin-bottom:0;
+}
+
+
+/* BUSINESS OVERVIEW */
+
+.dashboard-card{
+    background:white;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:16px;
+
+    padding:16px;
+
+    box-shadow:
+        0 3px 12px rgba(15,23,42,.045);
+
+    margin-bottom:15px;
+}
+
+.dashboard-card-header{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-bottom:12px;
+}
+
+.dashboard-card-title{
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+}
+
+.dashboard-card-title-icon{
+    width:36px;
+    height:36px;
+
+    border-radius:10px;
+
+    background:#f0fdfa;
+
+    color:#0f766e;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:17px;
+}
+
+.dashboard-card h3{
+    margin:0;
+
+    font-size:16px;
+
+    color:#0f172a;
+}
+
+.dashboard-card-subtitle{
+    font-size:11px;
+
+    color:#94a3b8;
+
+    margin-top:2px;
+}
+
+.dashboard-badge{
+    background:#f0fdfa;
+
+    color:#0f766e;
+
+    border:1px solid #ccfbf1;
+
+    padding:5px 8px;
+
+    border-radius:20px;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+}
+
+
+/* OVERVIEW LIST */
+
+.overview-list{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+}
+
+.overview-row{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    padding:11px 12px;
+
+    background:#f8fafc;
+
+    border:1px solid #eef2f7;
+
+    border-radius:10px;
+}
+
+.overview-row-left{
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    min-width:0;
+}
+
+.overview-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#0f766e;
+
+    flex:0 0 auto;
+}
+
+.overview-row-label{
+    font-size:12px;
+
+    font-weight:700;
+
+    color:#475569;
+}
+
+.overview-row-value{
+    font-size:13px;
+
+    font-weight:850;
+
+    color:#0f172a;
+
+    text-align:right;
+
+    white-space:nowrap;
+}
+
+
+/* TODAY SUMMARY */
+
+.today-summary-grid{
+    display:grid;
+
+    grid-template-columns:repeat(2,minmax(0,1fr));
+
+    gap:9px;
+}
+
+.today-item{
+    border:1px solid #e2e8f0;
+
+    background:#f8fafc;
+
+    border-radius:11px;
+
+    padding:12px;
+
+    min-height:82px;
+}
+
+.today-item .today-icon{
+    font-size:16px;
+
+    margin-bottom:6px;
+}
+
+.today-item .today-label{
+    font-size:10px;
+
+    color:#64748b;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:.3px;
+}
+
+.today-item .today-value{
+    font-size:15px;
+
+    font-weight:850;
+
+    color:#0f172a;
+
+    margin-top:3px;
+}
+
+
+/* KEEP ORIGINAL STAT STYLE FOR REPORTS */
 
 .stat{
     background:white;
@@ -411,17 +944,31 @@ th{
     padding:18px;
 }
 
-/* MOBILE */
 
-@media(max-width:900px){
+/* MOBILE / TABLET */
 
-    .grid,
-    .form-grid,
+@media(max-width:1000px){
+
     .dashboard-grid{
         grid-template-columns:repeat(2,minmax(0,1fr));
     }
 
+    .dashboard-lower{
+        grid-template-columns:1fr;
+    }
+
 }
+
+
+@media(max-width:900px){
+
+    .grid,
+    .form-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+}
+
 
 @media(max-width:600px){
 
@@ -454,8 +1001,7 @@ th{
     }
 
     .grid,
-    .form-grid,
-    .dashboard-grid{
+    .form-grid{
         grid-template-columns:1fr;
     }
 
@@ -470,6 +1016,162 @@ th{
     table{
         min-width:800px;
     }
+
+
+    /* MOBILE DASHBOARD */
+
+    .dashboard-header{
+        border-radius:16px;
+
+        padding:17px;
+
+        margin-bottom:12px;
+    }
+
+    .dashboard-header-content{
+        align-items:flex-start;
+    }
+
+    .dashboard-welcome h2{
+        font-size:22px;
+    }
+
+    .dashboard-welcome p{
+        font-size:11px;
+
+        max-width:245px;
+    }
+
+    .dashboard-icon{
+        width:48px;
+        height:48px;
+
+        border-radius:14px;
+
+        font-size:23px;
+    }
+
+    .dashboard-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+
+        gap:9px;
+
+        margin-bottom:12px;
+    }
+
+    .dashboard-stat{
+        min-height:106px;
+
+        padding:12px;
+
+        border-radius:13px;
+    }
+
+    .dashboard-stat-icon{
+        width:32px;
+        height:32px;
+
+        border-radius:9px;
+
+        font-size:15px;
+    }
+
+    .dashboard-stat .label{
+        font-size:9px;
+
+        margin-top:9px;
+    }
+
+    .dashboard-stat .value{
+        font-size:16px;
+    }
+
+    .dashboard-card{
+        padding:13px;
+
+        border-radius:13px;
+
+        margin-bottom:12px;
+    }
+
+    .dashboard-card-title-icon{
+        width:32px;
+        height:32px;
+
+        font-size:15px;
+    }
+
+    .dashboard-card h3{
+        font-size:14px;
+    }
+
+    .dashboard-badge{
+        font-size:9px;
+
+        padding:4px 7px;
+    }
+
+    .overview-row{
+        padding:10px;
+    }
+
+    .overview-row-label{
+        font-size:11px;
+    }
+
+    .overview-row-value{
+        font-size:11px;
+    }
+
+    .today-summary-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .today-item{
+        min-height:76px;
+
+        padding:10px;
+    }
+
+    .today-item .today-label{
+        font-size:9px;
+    }
+
+    .today-item .today-value{
+        font-size:12px;
+    }
+
+}
+
+
+/* VERY SMALL PHONES */
+
+@media(max-width:380px){
+
+    .dashboard-grid{
+        gap:7px;
+    }
+
+    .dashboard-stat{
+        padding:10px;
+
+        min-height:100px;
+    }
+
+    .dashboard-stat .value{
+        font-size:14px;
+    }
+
+    .dashboard-welcome h2{
+        font-size:20px;
+    }
+
+    .dashboard-icon{
+        width:43px;
+        height:43px;
+        font-size:20px;
+    }
+
 }
 </style>
 </head>
@@ -534,104 +1236,486 @@ th{
 
 <section id="dashboard" class="page active">
 
-    <h2>Dashboard</h2>
+    <!-- PROFESSIONAL DASHBOARD HEADER -->
+
+    <div class="dashboard-header">
+
+        <div class="dashboard-header-content">
+
+            <div class="dashboard-welcome">
+
+                <div class="eyebrow">
+                    ● Live Business Overview
+                </div>
+
+                <h2>
+                    Dashboard
+                </h2>
+
+                <p>
+                    Manage your electronics shop,
+                    monitor sales, stock, customers
+                    and outstanding dues from one place.
+                </p>
+
+            </div>
+
+            <div class="dashboard-icon">
+                ⚡
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DASHBOARD STAT CARDS -->
 
     <div class="dashboard-grid">
 
-        <div class="stat">
-            <div class="label">Products</div>
-            <div class="value" id="dashProducts">0</div>
+        <div class="dashboard-stat">
+
+            <div class="dashboard-stat-top">
+
+                <div>
+                    <div class="label">
+                        Products
+                    </div>
+                </div>
+
+                <div class="dashboard-stat-icon">
+                    📦
+                </div>
+
+            </div>
+
+            <div class="value"
+                 id="dashProducts">
+                0
+            </div>
+
         </div>
 
-        <div class="stat">
-            <div class="label">Customers</div>
-            <div class="value" id="dashCustomers">0</div>
+
+        <div class="dashboard-stat">
+
+            <div class="dashboard-stat-top">
+
+                <div>
+                    <div class="label">
+                        Customers
+                    </div>
+                </div>
+
+                <div class="dashboard-stat-icon">
+                    👥
+                </div>
+
+            </div>
+
+            <div class="value"
+                 id="dashCustomers">
+                0
+            </div>
+
         </div>
 
-        <div class="stat">
-            <div class="label">Total Purchase</div>
-            <div class="value" id="dashPurchase">৳0.00</div>
+
+        <div class="dashboard-stat purchase">
+
+            <div class="dashboard-stat-top">
+
+                <div>
+                    <div class="label">
+                        Total Purchase
+                    </div>
+                </div>
+
+                <div class="dashboard-stat-icon">
+                    🛒
+                </div>
+
+            </div>
+
+            <div class="value"
+                 id="dashPurchase">
+                ৳0.00
+            </div>
+
         </div>
 
-        <div class="stat">
-            <div class="label">Total Sales</div>
-            <div class="value" id="dashSales">৳0.00</div>
+
+        <div class="dashboard-stat sales">
+
+            <div class="dashboard-stat-top">
+
+                <div>
+                    <div class="label">
+                        Total Sales
+                    </div>
+                </div>
+
+                <div class="dashboard-stat-icon">
+                    💰
+                </div>
+
+            </div>
+
+            <div class="value"
+                 id="dashSales">
+                ৳0.00
+            </div>
+
         </div>
 
-        <div class="stat">
-            <div class="label">Stock Value</div>
-            <div class="value" id="dashStock">৳0.00</div>
+
+        <div class="dashboard-stat stock">
+
+            <div class="dashboard-stat-top">
+
+                <div>
+                    <div class="label">
+                        Stock Value
+                    </div>
+                </div>
+
+                <div class="dashboard-stat-icon">
+                    🏪
+                </div>
+
+            </div>
+
+            <div class="value"
+                 id="dashStock">
+                ৳0.00
+            </div>
+
         </div>
 
-        <div class="stat">
-            <div class="label">Total Due</div>
-            <div class="value" id="dashDue">৳0.00</div>
+
+        <div class="dashboard-stat due">
+
+            <div class="dashboard-stat-top">
+
+                <div>
+                    <div class="label">
+                        Total Due
+                    </div>
+                </div>
+
+                <div class="dashboard-stat-icon">
+                    ⚠️
+                </div>
+
+            </div>
+
+            <div class="value"
+                 id="dashDue">
+                ৳0.00
+            </div>
+
         </div>
 
-        <div class="stat">
-            <div class="label">Estimated Profit</div>
-            <div class="value" id="dashProfit">৳0.00</div>
+
+        <div class="dashboard-stat profit">
+
+            <div class="dashboard-stat-top">
+
+                <div>
+                    <div class="label">
+                        Estimated Profit
+                    </div>
+                </div>
+
+                <div class="dashboard-stat-icon">
+                    📈
+                </div>
+
+            </div>
+
+            <div class="value"
+                 id="dashProfit">
+                ৳0.00
+            </div>
+
         </div>
 
-        <div class="stat">
-            <div class="label">Due Collection</div>
-            <div class="value" id="dashCollection">৳0.00</div>
+
+        <div class="dashboard-stat collection">
+
+            <div class="dashboard-stat-top">
+
+                <div>
+                    <div class="label">
+                        Due Collection
+                    </div>
+                </div>
+
+                <div class="dashboard-stat-icon">
+                    💵
+                </div>
+
+            </div>
+
+            <div class="value"
+                 id="dashCollection">
+                ৳0.00
+            </div>
+
         </div>
 
     </div>
 
 
-    <div class="card">
+    <!-- LOWER DASHBOARD -->
 
-        <h3>Business Overview</h3>
+    <div class="dashboard-lower">
 
-        <div class="table-wrap">
 
-            <table>
+        <!-- BUSINESS OVERVIEW -->
 
-                <tbody>
+        <div class="dashboard-card">
 
-                    <tr>
-                        <td>Total Products</td>
-                        <td id="overviewProducts">0</td>
-                    </tr>
+            <div class="dashboard-card-header">
 
-                    <tr>
-                        <td>Total Customers</td>
-                        <td id="overviewCustomers">0</td>
-                    </tr>
+                <div class="dashboard-card-title">
 
-                    <tr>
-                        <td>Total Purchase</td>
-                        <td id="overviewPurchase">৳0.00</td>
-                    </tr>
+                    <div class="dashboard-card-title-icon">
+                        📊
+                    </div>
 
-                    <tr>
-                        <td>Total Sales</td>
-                        <td id="overviewSales">৳0.00</td>
-                    </tr>
+                    <div>
 
-                    <tr>
-                        <td>Total Due</td>
-                        <td id="overviewDue">৳0.00</td>
-                    </tr>
+                        <h3>
+                            Business Overview
+                        </h3>
 
-                </tbody>
+                        <div class="dashboard-card-subtitle">
+                            Current business position
+                        </div>
 
-            </table>
+                    </div>
+
+                </div>
+
+                <div class="dashboard-badge">
+                    OVERVIEW
+                </div>
+
+            </div>
+
+
+            <div class="overview-list">
+
+                <div class="overview-row">
+
+                    <div class="overview-row-left">
+
+                        <span class="overview-dot"></span>
+
+                        <span class="overview-row-label">
+                            Total Products
+                        </span>
+
+                    </div>
+
+                    <span class="overview-row-value"
+                          id="overviewProducts">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="overview-row">
+
+                    <div class="overview-row-left">
+
+                        <span class="overview-dot"></span>
+
+                        <span class="overview-row-label">
+                            Total Customers
+                        </span>
+
+                    </div>
+
+                    <span class="overview-row-value"
+                          id="overviewCustomers">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="overview-row">
+
+                    <div class="overview-row-left">
+
+                        <span class="overview-dot"></span>
+
+                        <span class="overview-row-label">
+                            Total Purchase
+                        </span>
+
+                    </div>
+
+                    <span class="overview-row-value"
+                          id="overviewPurchase">
+                        ৳0.00
+                    </span>
+
+                </div>
+
+
+                <div class="overview-row">
+
+                    <div class="overview-row-left">
+
+                        <span class="overview-dot"></span>
+
+                        <span class="overview-row-label">
+                            Total Sales
+                        </span>
+
+                    </div>
+
+                    <span class="overview-row-value"
+                          id="overviewSales">
+                        ৳0.00
+                    </span>
+
+                </div>
+
+
+                <div class="overview-row">
+
+                    <div class="overview-row-left">
+
+                        <span class="overview-dot"></span>
+
+                        <span class="overview-row-label">
+                            Total Due
+                        </span>
+
+                    </div>
+
+                    <span class="overview-row-value"
+                          id="overviewDue">
+                        ৳0.00
+                    </span>
+
+                </div>
+
+            </div>
 
         </div>
 
-    </div>
+
+        <!-- TODAY SUMMARY -->
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-card-header">
+
+                <div class="dashboard-card-title">
+
+                    <div class="dashboard-card-title-icon">
+                        📅
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Today's Summary
+                        </h3>
+
+                        <div class="dashboard-card-subtitle">
+                            Today's activity
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="dashboard-badge">
+                    TODAY
+                </div>
+
+            </div>
 
 
-    <div class="card">
+            <div id="todaySummary"
+                 class="today-summary-grid">
 
-        <h3>Today's Summary</h3>
+                <div class="today-item">
 
-        <div id="todaySummary"
-             class="empty">
-            No transactions today.
+                    <div class="today-icon">
+                        🛒
+                    </div>
+
+                    <div class="today-label">
+                        Purchase
+                    </div>
+
+                    <div class="today-value">
+                        ৳0.00
+                    </div>
+
+                </div>
+
+
+                <div class="today-item">
+
+                    <div class="today-icon">
+                        💰
+                    </div>
+
+                    <div class="today-label">
+                        Sales
+                    </div>
+
+                    <div class="today-value">
+                        ৳0.00
+                    </div>
+
+                </div>
+
+
+                <div class="today-item">
+
+                    <div class="today-icon">
+                        💵
+                    </div>
+
+                    <div class="today-label">
+                        Due Collection
+                    </div>
+
+                    <div class="today-value">
+                        ৳0.00
+                    </div>
+
+                </div>
+
+
+                <div class="today-item">
+
+                    <div class="today-icon">
+                        🧾
+                    </div>
+
+                    <div class="today-label">
+                        Transactions
+                    </div>
+
+                    <div class="today-value">
+                        0
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
@@ -4245,29 +5329,68 @@ function updateDashboard(){
         "todaySummary"
     ).innerHTML = `
 
-        <div class="grid">
+        <div class="today-item">
 
-            <div>
-                <b>Purchase</b>
-                <br>
+            <div class="today-icon">
+                🛒
+            </div>
+
+            <div class="today-label">
+                Purchase
+            </div>
+
+            <div class="today-value">
                 ${money(todayPurchase)}
             </div>
 
-            <div>
-                <b>Sales</b>
-                <br>
+        </div>
+
+
+        <div class="today-item">
+
+            <div class="today-icon">
+                💰
+            </div>
+
+            <div class="today-label">
+                Sales
+            </div>
+
+            <div class="today-value">
                 ${money(todaySales)}
             </div>
 
-            <div>
-                <b>Due Collection</b>
-                <br>
+        </div>
+
+
+        <div class="today-item">
+
+            <div class="today-icon">
+                💵
+            </div>
+
+            <div class="today-label">
+                Due Collection
+            </div>
+
+            <div class="today-value">
                 ${money(todayCollection)}
             </div>
 
-            <div>
-                <b>Transactions</b>
-                <br>
+        </div>
+
+
+        <div class="today-item">
+
+            <div class="today-icon">
+                🧾
+            </div>
+
+            <div class="today-label">
+                Transactions
+            </div>
+
+            <div class="today-value">
                 ${transactionCount}
             </div>
 
