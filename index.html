@@ -1,159 +1,122 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#1565c0">
-<title>Electronics Shop হিসাব</title>
+<title>Electronics Shop</title>
 
 <style>
 *{box-sizing:border-box}
 body{
-  margin:0;
-  font-family:Arial,"Noto Sans Bengali",sans-serif;
-  background:#f3f6fa;
-  color:#222;
+margin:0;
+font-family:Arial,sans-serif;
+background:#f3f6fa;
+color:#222
 }
 header{
-  background:#1565c0;
-  color:white;
-  padding:18px 15px;
-  text-align:center;
-  font-size:22px;
-  font-weight:bold;
+background:#1565c0;
+color:#fff;
+padding:18px;
+text-align:center;
+font-size:23px;
+font-weight:bold
 }
-.container{
-  max-width:900px;
-  margin:auto;
-  padding:15px;
-}
+.container{max-width:950px;margin:auto;padding:15px}
 .card{
-  background:white;
-  border-radius:12px;
-  padding:15px;
-  margin-bottom:15px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
+background:#fff;
+border-radius:12px;
+padding:15px;
+margin-bottom:15px;
+box-shadow:0 2px 8px rgba(0,0,0,.08)
 }
-h2{
-  margin-top:0;
-  font-size:20px;
-}
+h2{margin-top:0}
 .grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px
 }
 input,select,button,textarea{
-  width:100%;
-  padding:12px;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font-size:16px;
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px
 }
-textarea{
-  min-height:70px;
-  resize:vertical;
-}
+textarea{min-height:70px}
 button{
-  border:0;
-  background:#1565c0;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
+border:0;
+background:#1565c0;
+color:white;
+font-weight:bold
 }
-button.secondary{background:#607d8b}
 button.green{background:#2e7d32}
 button.red{background:#c62828}
 button.orange{background:#ef6c00}
-button.small{
-  width:auto;
-  padding:7px 10px;
-  font-size:14px;
-}
 label{
-  display:block;
-  margin-bottom:5px;
-  font-weight:bold;
+display:block;
+font-weight:bold;
+margin-bottom:5px
 }
-.form-group{
-  margin-bottom:12px;
-}
+.form-group{margin-bottom:12px}
 .stat-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px
 }
 .stat{
-  background:#e3f2fd;
-  padding:15px;
-  border-radius:10px;
-  text-align:center;
+background:#e3f2fd;
+padding:15px;
+border-radius:10px;
+text-align:center
 }
 .stat strong{
-  display:block;
-  font-size:24px;
-  margin-top:5px;
+display:block;
+font-size:24px;
+margin-top:5px
 }
 .nav{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-bottom:15px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px;
+margin-bottom:15px
 }
-.nav button{
-  background:#455a64;
-}
-.nav button.active{
-  background:#1565c0;
-}
+.nav button{background:#455a64}
 table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:10px;
-  font-size:14px;
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+font-size:14px
 }
 th,td{
-  border:1px solid #ddd;
-  padding:8px;
-  text-align:left;
+border:1px solid #ddd;
+padding:8px;
+text-align:left
 }
-th{
-  background:#e3f2fd;
-}
-.right{text-align:right}
+th{background:#e3f2fd}
 .hidden{display:none}
 .total-box{
-  background:#fff3e0;
-  padding:12px;
-  border-radius:8px;
-  margin-top:10px;
-  font-weight:bold;
+background:#fff3e0;
+padding:12px;
+border-radius:8px;
+margin-top:10px;
+font-weight:bold
 }
-.due{
-  color:#c62828;
-  font-weight:bold;
-}
-.paid{
-  color:#2e7d32;
-  font-weight:bold;
-}
+.due{color:#c62828;font-weight:bold}
+.paid{color:#2e7d32;font-weight:bold}
+
 @media(max-width:600px){
-  .grid,.stat-grid{
-    grid-template-columns:1fr;
-  }
-  table{
-    font-size:12px;
-  }
-  th,td{
-    padding:6px;
-  }
+.grid,.stat-grid{grid-template-columns:1fr}
+.nav{grid-template-columns:repeat(2,1fr)}
+table{font-size:12px}
+th,td{padding:6px}
 }
 </style>
 </head>
 
 <body>
 
-<header>📱 Electronics Shop হিসাব</header>
+<header>📱 Electronics Shop</header>
 
 <div class="container">
 
@@ -166,32 +129,32 @@ th{
 <div class="stat-grid">
 
 <div class="stat">
-মোট পণ্য
+Total Products
 <strong id="totalProducts">0</strong>
 </div>
 
 <div class="stat">
-মোট স্টক
+Total Stock
 <strong id="totalStock">0</strong>
 </div>
 
 <div class="stat">
-আজকের ক্রয়
+Today's Purchase
 <strong id="todayPurchase">৳0</strong>
 </div>
 
 <div class="stat">
-আজকের বিক্রয়
+Today's Sales
 <strong id="todaySales">৳0</strong>
 </div>
 
 <div class="stat">
-মোট কাস্টমার বাকি
+Total Customer Due
 <strong id="totalDue">৳0</strong>
 </div>
 
 <div class="stat">
-আজকের আদায়
+Today's Collection
 <strong id="todayPayment">৳0</strong>
 </div>
 
@@ -199,68 +162,70 @@ th{
 </div>
 
 <div class="nav">
-<button onclick="showSection('productSection')">➕ পণ্য</button>
-<button onclick="showSection('purchaseSection')">📦 ক্রয়</button>
-<button onclick="showSection('salesSection')">🛒 বিক্রয়</button>
-<button onclick="showSection('customerSection')">👤 কাস্টমার</button>
-<button onclick="showSection('paymentSection')">💰 আদায়</button>
-<button onclick="showSection('reportSection')">📊 রিপোর্ট</button>
+<button onclick="showSection('productSection')">➕ Products</button>
+<button onclick="showSection('purchaseSection')">📦 Purchase</button>
+<button onclick="showSection('salesSection')">🛒 Sales</button>
+<button onclick="showSection('customerSection')">👤 Customers</button>
+<button onclick="showSection('paymentSection')">💰 Collection</button>
+<button onclick="showSection('reportSection')">📊 Reports</button>
 </div>
 
 </div>
 
 
-<!-- PRODUCT -->
+<!-- PRODUCTS -->
 <div id="productSection" class="card hidden">
 
-<h2>➕ নতুন পণ্য</h2>
+<h2>➕ Add Product</h2>
 
 <div class="grid">
 
 <div class="form-group">
-<label>পণ্যের নাম *</label>
-<input id="productName" placeholder="যেমন: Capacitor">
+<label>Product Name *</label>
+<input id="productName" placeholder="Example: Capacitor">
 </div>
 
 <div class="form-group">
-<label>ক্যাটাগরি</label>
-<input id="productCategory" placeholder="যেমন: Capacitor">
+<label>Category</label>
+<input id="productCategory" placeholder="Example: Capacitor">
 </div>
 
 <div class="form-group">
 <label>Part Number</label>
-<input id="productPart" placeholder="যেমন: 2N3055">
+<input id="productPart" placeholder="Example: 2N3055">
 </div>
 
 <div class="form-group">
-<label>Value / মান</label>
-<input id="productValue" placeholder="যেমন: 470 µF">
+<label>Value</label>
+<input id="productValue" placeholder="Example: 470 µF">
 </div>
 
 <div class="form-group">
 <label>Voltage</label>
-<input id="productVoltage" placeholder="যেমন: 25V">
+<input id="productVoltage" placeholder="Example: 25V">
 </div>
 
 <div class="form-group">
-<label>বিক্রয় মূল্য</label>
-<input id="productSalePrice" type="number" min="0" placeholder="পরে দিলেও হবে">
+<label>Sale Price</label>
+<input id="productSalePrice" type="number" min="0" placeholder="Can be added later">
 </div>
 
 </div>
 
 <div class="form-group">
-<label>অন্যান্য তথ্য</label>
-<textarea id="productNote" placeholder="প্রয়োজন হলে লিখুন"></textarea>
+<label>Other Information</label>
+<textarea id="productNote" placeholder="Optional"></textarea>
 </div>
 
-<button onclick="addProduct()">💾 পণ্য সংরক্ষণ</button>
+<button onclick="addProduct()">💾 Save Product</button>
 
 <hr>
 
-<h2>🔎 পণ্য তালিকা</h2>
+<h2>🔎 Product List</h2>
 
-<input id="productSearch" placeholder="পণ্যের নাম, Part Number, Value বা Voltage দিয়ে খুঁজুন" oninput="renderProducts()">
+<input id="productSearch"
+placeholder="Search by product, part number, value or voltage"
+oninput="renderProducts()">
 
 <div id="productList"></div>
 
@@ -270,49 +235,53 @@ th{
 <!-- PURCHASE -->
 <div id="purchaseSection" class="card hidden">
 
-<h2>📦 পণ্য ক্রয়</h2>
+<h2>📦 Purchase</h2>
 
 <div class="grid">
 
 <div class="form-group">
-<label>ক্রয়ের তারিখ *</label>
+<label>Purchase Date *</label>
 <input id="purchaseDate" type="date">
 </div>
 
 <div class="form-group">
-<label>দোকান / সরবরাহকারীর নাম</label>
-<input id="supplierName" placeholder="দোকানের নাম">
+<label>Supplier / Shop Name</label>
+<input id="supplierName" placeholder="Shop name">
 </div>
 
 <div class="form-group">
-<label>মোবাইল নম্বর</label>
-<input id="supplierMobile" type="tel" placeholder="মোবাইল নম্বর">
+<label>Mobile Number</label>
+<input id="supplierMobile" type="tel" placeholder="Mobile number">
 </div>
 
 <div class="form-group">
-<label>পণ্য *</label>
+<label>Product *</label>
 <select id="purchaseProduct"></select>
 </div>
 
 <div class="form-group">
-<label>পরিমাণ *</label>
-<input id="purchaseQty" type="number" min="1" oninput="calculatePurchase()">
+<label>Quantity *</label>
+<input id="purchaseQty" type="number" min="1"
+oninput="calculatePurchase()">
 </div>
 
 <div class="form-group">
-<label>প্রতি পিস ক্রয় মূল্য *</label>
-<input id="purchasePrice" type="number" min="0" oninput="calculatePurchase()">
+<label>Purchase Price per Piece *</label>
+<input id="purchasePrice" type="number" min="0"
+oninput="calculatePurchase()">
 </div>
 
 </div>
 
 <div class="total-box">
-মোট ক্রয় মূল্য: <span id="purchaseTotal">৳0</span>
+Total Purchase: <span id="purchaseTotal">৳0</span>
 </div>
 
 <br>
 
-<button class="green" onclick="addPurchase()">📦 ক্রয় সংরক্ষণ</button>
+<button class="green" onclick="addPurchase()">
+📦 Save Purchase
+</button>
 
 <div id="purchaseList"></div>
 
@@ -322,812 +291,996 @@ th{
 <!-- SALES -->
 <div id="salesSection" class="card hidden">
 
-<h2>🛒 পণ্য বিক্রয়</h2>
+<h2>🛒 Sales</h2>
 
 <div class="grid">
 
 <div class="form-group">
-<label>বিক্রয়ের তারিখ *</label>
+<label>Sales Date *</label>
 <input id="salesDate" type="date">
 </div>
 
 <div class="form-group">
-<label>কাস্টমারের নাম</label>
-<input id="customerName" placeholder="কাস্টমারের নাম">
+<label>Customer Name</label>
+<input id="customerName" placeholder="Customer name">
 </div>
 
 <div class="form-group">
-<label>মোবাইল নম্বর</label>
-<input id="customerMobile" type="tel" placeholder="মোবাইল নম্বর">
+<label>Mobile Number</label>
+<input id="customerMobile" type="tel"
+placeholder="Mobile number">
 </div>
 
 <div class="form-group">
-<label>পণ্য *</label>
-<select id="salesProduct" onchange="loadProductSalePrice()"></select>
+<label>Product *</label>
+<select id="salesProduct"
+onchange="loadProductSalePrice()"></select>
 </div>
 
 <div class="form-group">
-<label>পরিমাণ *</label>
-<input id="salesQty" type="number" min="1" oninput="calculateSale()">
+<label>Quantity *</label>
+<input id="salesQty" type="number" min="1"
+oninput="calculateSale()">
 </div>
 
 <div class="form-group">
-<label>প্রতি পিস বিক্রয় মূল্য *</label>
-<input id="salesPrice" type="number" min="0" oninput="calculateSale()">
+<label>Sale Price per Piece *</label>
+<input id="salesPrice" type="number" min="0"
+oninput="calculateSale()">
 </div>
 
 <div class="form-group">
-<label>পরিশোধের ধরন</label>
-<select id="paymentType" onchange="togglePaidAmount()">
-<option value="full">সম্পূর্ণ পরিশোধ</option>
-<option value="partial">আংশিক পরিশোধ</option>
-<option value="due">বাকিতে</option>
+<label>Payment Type</label>
+<select id="paymentType"
+onchange="togglePaidAmount()">
+<option value="full">Fully Paid</option>
+<option value="partial">Partially Paid</option>
+<option value="due">Due</option>
 </select>
 </div>
 
 <div class="form-group">
-<label>এখন কত টাকা দিল</label>
-<input id="paidAmount" type="number" min="0" value="0" oninput="calculateSale()">
+<label>Paid Now</label>
+<input id="paidAmount" type="number" min="0"
+value="0" oninput="calculateSale()">
 </div>
 
 </div>
 
 <div class="total-box">
-মোট বিক্রয়: <span id="salesTotal">৳0</span><br>
-বাকি: <span id="salesDue">৳0</span>
+Total Sale: <span id="salesTotal">৳0</span><br>
+Due: <span id="salesDue">৳0</span>
 </div>
 
 <br>
 
-<button class="green" onclick="addSale()">🛒 বিক্রয় সংরক্ষণ</button>
+<button class="green" onclick="addSale()">
+🛒 Save Sale
+</button>
 
 <div id="salesList"></div>
 
 </div>
 
 
-<!-- CUSTOMER -->
+<!-- CUSTOMERS -->
 <div id="customerSection" class="card hidden">
 
-<h2>👤 কাস্টমার হিসাব</h2>
+<h2>👤 Customer Accounts</h2>
 
-<input id="customerSearch" placeholder="কাস্টমারের নাম বা মোবাইল দিয়ে খুঁজুন" oninput="renderCustomers()">
+<input id="customerSearch"
+placeholder="Search customer name or mobile"
+oninput="renderCustomers()">
 
 <div id="customerList"></div>
 
 </div>
 
 
-<!-- PAYMENT -->
+<!-- COLLECTION -->
 <div id="paymentSection" class="card hidden">
 
-<h2>💰 বাকি টাকা আদায়</h2>
+<h2>💰 Due Collection</h2>
 
 <div class="grid">
 
 <div class="form-group">
-<label>পরিশোধের তারিখ *</label>
+<label>Payment Date *</label>
 <input id="paymentDate" type="date">
 </div>
 
 <div class="form-group">
-<label>কাস্টমার *</label>
+<label>Customer *</label>
 <select id="paymentCustomer"></select>
 </div>
 
 <div class="form-group">
-<label>কত টাকা পরিশোধ করেছে *</label>
+<label>Payment Amount *</label>
 <input id="paymentAmount" type="number" min="1">
 </div>
 
 </div>
 
 <div class="form-group">
-<label>মন্তব্য</label>
-<input id="paymentNote" placeholder="প্রয়োজন হলে লিখুন">
+<label>Note</label>
+<input id="paymentNote" placeholder="Optional">
 </div>
 
-<button class="green" onclick="addPayment()">💰 টাকা আদায় সংরক্ষণ</button>
+<button class="green" onclick="addPayment()">
+💰 Save Collection
+</button>
 
 <div id="paymentList"></div>
 
 </div>
 
 
-<!-- REPORT -->
+<!-- REPORTS -->
 <div id="reportSection" class="card hidden">
 
-<h2>📊 রিপোর্ট</h2>
+<h2>📊 Reports</h2>
 
 <div class="grid">
-<button onclick="showPurchaseReport()">📦 ক্রয় রিপোর্ট</button>
-<button onclick="showSalesReport()">🛒 বিক্রয় রিপোর্ট</button>
-<button onclick="showStockReport()">📋 স্টক রিপোর্ট</button>
-<button onclick="showDueReport()">💰 বাকি রিপোর্ট</button>
+
+<button onclick="showPurchaseReport()">
+📦 Purchase Report
+</button>
+
+<button onclick="showSalesReport()">
+🛒 Sales Report
+</button>
+
+<button onclick="showStockReport()">
+📋 Stock Report
+</button>
+
+<button onclick="showDueReport()">
+💰 Due Report
+</button>
+
 </div>
 
 <div id="reportResult"></div>
 
 </div>
 
-
 </div>
 
 
 <script>
 
-const DB_KEY = "electronicsShopDataV1";
+const DB_KEY="electronicsShopDataV1";
 
-let db = JSON.parse(localStorage.getItem(DB_KEY)) || {
-  products: [],
-  purchases: [],
-  sales: [],
-  payments: []
+let db=JSON.parse(localStorage.getItem(DB_KEY))||{
+products:[],
+purchases:[],
+sales:[],
+payments:[]
 };
 
 function saveDB(){
-  localStorage.setItem(DB_KEY, JSON.stringify(db));
+localStorage.setItem(DB_KEY,JSON.stringify(db));
 }
 
 function today(){
-  return new Date().toISOString().split("T")[0];
+return new Date().toISOString().split("T")[0];
 }
 
-document.getElementById("purchaseDate").value = today();
-document.getElementById("salesDate").value = today();
-document.getElementById("paymentDate").value = today();
-
+document.getElementById("purchaseDate").value=today();
+document.getElementById("salesDate").value=today();
+document.getElementById("paymentDate").value=today();
 
 function money(n){
-  return "৳" + Number(n || 0).toLocaleString("en-US",{
-    minimumFractionDigits:2,
-    maximumFractionDigits:2
-  });
+return "৳"+Number(n||0).toLocaleString("en-US",{
+minimumFractionDigits:2,
+maximumFractionDigits:2
+});
 }
-
 
 function showSection(id){
 
-  document.querySelectorAll(".card").forEach(el=>{
-    if(
-      el.id==="productSection" ||
-      el.id==="purchaseSection" ||
-      el.id==="salesSection" ||
-      el.id==="customerSection" ||
-      el.id==="paymentSection" ||
-      el.id==="reportSection"
-    ){
-      el.classList.add("hidden");
-    }
-  });
+document.querySelectorAll(".card").forEach(el=>{
+if([
+"productSection",
+"purchaseSection",
+"salesSection",
+"customerSection",
+"paymentSection",
+"reportSection"
+].includes(el.id)){
+el.classList.add("hidden");
+}
+});
 
-  document.getElementById(id).classList.remove("hidden");
+document.getElementById(id).classList.remove("hidden");
 
-  refreshSelects();
+refreshSelects();
 
-  if(id==="productSection") renderProducts();
-  if(id==="purchaseSection") renderPurchases();
-  if(id==="salesSection") renderSales();
-  if(id==="customerSection") renderCustomers();
-  if(id==="paymentSection") renderPayments();
-
+if(id==="productSection")renderProducts();
+if(id==="purchaseSection")renderPurchases();
+if(id==="salesSection")renderSales();
+if(id==="customerSection")renderCustomers();
+if(id==="paymentSection")renderPayments();
 }
 
 
 function addProduct(){
 
-  const name = document.getElementById("productName").value.trim();
+const name=document.getElementById("productName").value.trim();
 
-  if(!name){
-    alert("পণ্যের নাম লিখুন।");
-    return;
-  }
+if(!name){
+alert("Please enter product name.");
+return;
+}
 
-  const product = {
-    id: Date.now(),
-    name:name,
-    category:document.getElementById("productCategory").value.trim(),
-    part:document.getElementById("productPart").value.trim(),
-    value:document.getElementById("productValue").value.trim(),
-    voltage:document.getElementById("productVoltage").value.trim(),
-    salePrice:Number(document.getElementById("productSalePrice").value)||0,
-    note:document.getElementById("productNote").value.trim(),
-    stock:0
-  };
+const product={
+id:Date.now(),
+name:name,
+category:document.getElementById("productCategory").value.trim(),
+part:document.getElementById("productPart").value.trim(),
+value:document.getElementById("productValue").value.trim(),
+voltage:document.getElementById("productVoltage").value.trim(),
+salePrice:Number(document.getElementById("productSalePrice").value)||0,
+note:document.getElementById("productNote").value.trim(),
+stock:0
+};
 
-  db.products.push(product);
-  saveDB();
+db.products.push(product);
+saveDB();
 
-  document.getElementById("productName").value="";
-  document.getElementById("productCategory").value="";
-  document.getElementById("productPart").value="";
-  document.getElementById("productValue").value="";
-  document.getElementById("productVoltage").value="";
-  document.getElementById("productSalePrice").value="";
-  document.getElementById("productNote").value="";
+[
+"productName",
+"productCategory",
+"productPart",
+"productValue",
+"productVoltage",
+"productSalePrice",
+"productNote"
+].forEach(id=>{
+document.getElementById(id).value="";
+});
 
-  refreshAll();
+refreshAll();
 
-  alert("পণ্য সংরক্ষণ হয়েছে।");
+alert("Product saved successfully.");
 }
 
 
 function renderProducts(){
 
-  const search=(document.getElementById("productSearch")?.value||"").toLowerCase();
+const search=(
+document.getElementById("productSearch")?.value||""
+).toLowerCase();
 
-  let list=db.products.filter(p=>
-    `${p.name} ${p.category} ${p.part} ${p.value} ${p.voltage}`
-    .toLowerCase()
-    .includes(search)
-  );
+const list=db.products.filter(p=>
+`${p.name} ${p.category} ${p.part} ${p.value} ${p.voltage}`
+.toLowerCase()
+.includes(search)
+);
 
-  if(!list.length){
-    document.getElementById("productList").innerHTML="<p>কোনো পণ্য পাওয়া যায়নি।</p>";
-    return;
-  }
+if(!list.length){
+document.getElementById("productList").innerHTML=
+"<p>No products found.</p>";
+return;
+}
 
-  let html="<table><tr><th>পণ্য</th><th>Value</th><th>Voltage</th><th>স্টক</th><th>বিক্রয় মূল্য</th></tr>";
+let html=`
+<table>
+<tr>
+<th>Product</th>
+<th>Value</th>
+<th>Voltage</th>
+<th>Stock</th>
+<th>Sale Price</th>
+</tr>`;
 
-  list.forEach(p=>{
-    html+=`
-    <tr>
-      <td><b>${esc(p.name)}</b><br>${esc(p.part||"")}</td>
-      <td>${esc(p.value||"-")}</td>
-      <td>${esc(p.voltage||"-")}</td>
-      <td>${p.stock}</td>
-      <td>${p.salePrice?money(p.salePrice):"—"}</td>
-    </tr>`;
-  });
+list.forEach(p=>{
+html+=`
+<tr>
+<td><b>${esc(p.name)}</b><br>${esc(p.part||"")}</td>
+<td>${esc(p.value||"-")}</td>
+<td>${esc(p.voltage||"-")}</td>
+<td>${p.stock}</td>
+<td>${p.salePrice?money(p.salePrice):"—"}</td>
+</tr>`;
+});
 
-  html+="</table>";
+html+="</table>";
 
-  document.getElementById("productList").innerHTML=html;
+document.getElementById("productList").innerHTML=html;
 }
 
 
 function refreshSelects(){
 
-  const options='<option value="">পণ্য নির্বাচন করুন</option>'+
-    db.products.map(p=>
-      `<option value="${p.id}">${esc(p.name)} ${p.value?"- "+esc(p.value):""} ${p.voltage?"- "+esc(p.voltage):""}</option>`
-    ).join("");
+const options=
+'<option value="">Select Product</option>'+
+db.products.map(p=>
+`<option value="${p.id}">
+${esc(p.name)}
+${p.value?" - "+esc(p.value):""}
+${p.voltage?" - "+esc(p.voltage):""}
+</option>`
+).join("");
 
-  document.getElementById("purchaseProduct").innerHTML=options;
-  document.getElementById("salesProduct").innerHTML=options;
+document.getElementById("purchaseProduct").innerHTML=options;
+document.getElementById("salesProduct").innerHTML=options;
 
-  const customers=getCustomers();
+const customers=getCustomers();
 
-  document.getElementById("paymentCustomer").innerHTML=
-    '<option value="">কাস্টমার নির্বাচন করুন</option>'+
-    customers.map(c=>
-      `<option value="${esc(c.key)}">${esc(c.name)} ${c.mobile?"- "+esc(c.mobile):""}</option>`
-    ).join("");
+document.getElementById("paymentCustomer").innerHTML=
+'<option value="">Select Customer</option>'+
+customers.map(c=>
+`<option value="${esc(c.key)}">
+${esc(c.name)}
+${c.mobile?" - "+esc(c.mobile):""}
+</option>`
+).join("");
 }
 
 
 function calculatePurchase(){
 
-  const qty=Number(document.getElementById("purchaseQty").value)||0;
-  const price=Number(document.getElementById("purchasePrice").value)||0;
+const qty=Number(
+document.getElementById("purchaseQty").value
+)||0;
 
-  document.getElementById("purchaseTotal").textContent=money(qty*price);
+const price=Number(
+document.getElementById("purchasePrice").value
+)||0;
+
+document.getElementById("purchaseTotal").textContent=
+money(qty*price);
 }
 
 
 function addPurchase(){
 
-  const date=document.getElementById("purchaseDate").value;
-  const productId=Number(document.getElementById("purchaseProduct").value);
-  const qty=Number(document.getElementById("purchaseQty").value);
-  const price=Number(document.getElementById("purchasePrice").value);
+const date=document.getElementById("purchaseDate").value;
+const productId=Number(
+document.getElementById("purchaseProduct").value
+);
+const qty=Number(
+document.getElementById("purchaseQty").value
+);
+const price=Number(
+document.getElementById("purchasePrice").value
+);
 
-  if(!date || !productId || qty<=0 || price<0){
-    alert("ক্রয়ের তথ্য সম্পূর্ণ দিন।");
-    return;
-  }
+if(!date||!productId||qty<=0||price<0){
+alert("Please complete the purchase information.");
+return;
+}
 
-  const p=db.products.find(x=>x.id===productId);
+const p=db.products.find(x=>x.id===productId);
 
-  const purchase={
-    id:Date.now(),
-    date:date,
-    supplier:document.getElementById("supplierName").value.trim(),
-    mobile:document.getElementById("supplierMobile").value.trim(),
-    productId:productId,
-    productName:p.name,
-    qty:qty,
-    price:price,
-    total:qty*price
-  };
+const purchase={
+id:Date.now(),
+date:date,
+supplier:document.getElementById("supplierName").value.trim(),
+mobile:document.getElementById("supplierMobile").value.trim(),
+productId:productId,
+productName:p.name,
+qty:qty,
+price:price,
+total:qty*price
+};
 
-  db.purchases.push(purchase);
-  p.stock+=qty;
+db.purchases.push(purchase);
+p.stock+=qty;
 
-  saveDB();
+saveDB();
 
-  document.getElementById("purchaseQty").value="";
-  document.getElementById("purchasePrice").value="";
-  document.getElementById("supplierName").value="";
-  document.getElementById("supplierMobile").value="";
+document.getElementById("purchaseQty").value="";
+document.getElementById("purchasePrice").value="";
+document.getElementById("supplierName").value="";
+document.getElementById("supplierMobile").value="";
 
-  refreshAll();
+refreshAll();
 
-  alert("ক্রয় সংরক্ষণ হয়েছে এবং স্টক বৃদ্ধি পেয়েছে।");
+alert("Purchase saved and stock increased.");
 }
 
 
 function renderPurchases(){
 
-  let html="<h3>সাম্প্রতিক ক্রয়</h3>";
+let html="<h3>Recent Purchases</h3>";
 
-  if(!db.purchases.length){
-    html+="<p>এখনও কোনো ক্রয় নেই।</p>";
-  }else{
+if(!db.purchases.length){
+html+="<p>No purchases yet.</p>";
+}else{
 
-    html+="<table><tr><th>তারিখ</th><th>পণ্য</th><th>পরিমাণ</th><th>দর</th><th>মোট</th><th>দোকান</th></tr>";
+html+=`
+<table>
+<tr>
+<th>Date</th>
+<th>Product</th>
+<th>Qty</th>
+<th>Price</th>
+<th>Total</th>
+<th>Supplier</th>
+</tr>`;
 
-    db.purchases.slice().reverse().forEach(x=>{
-      html+=`
-      <tr>
-        <td>${formatDate(x.date)}</td>
-        <td>${esc(x.productName)}</td>
-        <td>${x.qty}</td>
-        <td>${money(x.price)}</td>
-        <td>${money(x.total)}</td>
-        <td>${esc(x.supplier||"-")}</td>
-      </tr>`;
-    });
+db.purchases.slice().reverse().forEach(x=>{
+html+=`
+<tr>
+<td>${formatDate(x.date)}</td>
+<td>${esc(x.productName)}</td>
+<td>${x.qty}</td>
+<td>${money(x.price)}</td>
+<td>${money(x.total)}</td>
+<td>${esc(x.supplier||"-")}</td>
+</tr>`;
+});
 
-    html+="</table>";
-  }
+html+="</table>";
+}
 
-  document.getElementById("purchaseList").innerHTML=html;
+document.getElementById("purchaseList").innerHTML=html;
 }
 
 
 function loadProductSalePrice(){
 
-  const id=Number(document.getElementById("salesProduct").value);
-  const p=db.products.find(x=>x.id===id);
+const id=Number(
+document.getElementById("salesProduct").value
+);
 
-  document.getElementById("salesPrice").value=p && p.salePrice ? p.salePrice : "";
+const p=db.products.find(x=>x.id===id);
 
-  calculateSale();
+document.getElementById("salesPrice").value=
+p&&p.salePrice?p.salePrice:"";
+
+calculateSale();
 }
 
 
 function calculateSale(){
 
-  const qty=Number(document.getElementById("salesQty").value)||0;
-  const price=Number(document.getElementById("salesPrice").value)||0;
-  const total=qty*price;
+const qty=Number(
+document.getElementById("salesQty").value
+)||0;
 
-  let paid=Number(document.getElementById("paidAmount").value)||0;
+const price=Number(
+document.getElementById("salesPrice").value
+)||0;
 
-  if(document.getElementById("paymentType").value==="full"){
-    paid=total;
-    document.getElementById("paidAmount").value=total||0;
-  }
+const total=qty*price;
 
-  if(document.getElementById("paymentType").value==="due"){
-    paid=0;
-    document.getElementById("paidAmount").value=0;
-  }
+let paid=Number(
+document.getElementById("paidAmount").value
+)||0;
 
-  if(paid>total){
-    paid=total;
-    document.getElementById("paidAmount").value=total;
-  }
+const type=document.getElementById("paymentType").value;
 
-  document.getElementById("salesTotal").textContent=money(total);
-  document.getElementById("salesDue").textContent=money(total-paid);
+if(type==="full"){
+paid=total;
+document.getElementById("paidAmount").value=total||0;
+}
+
+if(type==="due"){
+paid=0;
+document.getElementById("paidAmount").value=0;
+}
+
+if(paid>total){
+paid=total;
+document.getElementById("paidAmount").value=total;
+}
+
+document.getElementById("salesTotal").textContent=money(total);
+document.getElementById("salesDue").textContent=money(total-paid);
 }
 
 
 function togglePaidAmount(){
-  calculateSale();
+calculateSale();
 }
 
 
 function addSale(){
 
-  const date=document.getElementById("salesDate").value;
-  const productId=Number(document.getElementById("salesProduct").value);
-  const qty=Number(document.getElementById("salesQty").value);
-  const price=Number(document.getElementById("salesPrice").value);
+const date=document.getElementById("salesDate").value;
 
-  const customerName=document.getElementById("customerName").value.trim();
-  const customerMobile=document.getElementById("customerMobile").value.trim();
+const productId=Number(
+document.getElementById("salesProduct").value
+);
 
-  let paid=Number(document.getElementById("paidAmount").value)||0;
+const qty=Number(
+document.getElementById("salesQty").value
+);
 
-  if(!date || !productId || qty<=0 || price<0){
-    alert("বিক্রয়ের তথ্য সম্পূর্ণ দিন।");
-    return;
-  }
+const price=Number(
+document.getElementById("salesPrice").value
+);
 
-  const p=db.products.find(x=>x.id===productId);
+const customerName=
+document.getElementById("customerName").value.trim();
 
-  if(!p || p.stock<qty){
-    alert("এই পণ্যের পর্যাপ্ত স্টক নেই। বর্তমান স্টক: "+(p?p.stock:0));
-    return;
-  }
+const customerMobile=
+document.getElementById("customerMobile").value.trim();
 
-  const total=qty*price;
+let paid=Number(
+document.getElementById("paidAmount").value
+)||0;
 
-  if(document.getElementById("paymentType").value==="full"){
-    paid=total;
-  }
+if(!date||!productId||qty<=0||price<0){
+alert("Please complete the sales information.");
+return;
+}
 
-  if(document.getElementById("paymentType").value==="due"){
-    paid=0;
-  }
+const p=db.products.find(x=>x.id===productId);
 
-  if(paid>total) paid=total;
+if(!p||p.stock<qty){
+alert(
+"Insufficient stock. Current stock: "+
+(p?p.stock:0)
+);
+return;
+}
 
-  const sale={
-    id:Date.now(),
-    date:date,
-    customer:customerName,
-    mobile:customerMobile,
-    productId:productId,
-    productName:p.name,
-    qty:qty,
-    price:price,
-    total:total,
-    paid:paid,
-    due:total-paid
-  };
+const total=qty*price;
 
-  db.sales.push(sale);
-  p.stock-=qty;
+const type=document.getElementById("paymentType").value;
 
-  saveDB();
+if(type==="full")paid=total;
+if(type==="due")paid=0;
+if(paid>total)paid=total;
 
-  document.getElementById("salesQty").value="";
-  document.getElementById("salesPrice").value="";
-  document.getElementById("customerName").value="";
-  document.getElementById("customerMobile").value="";
-  document.getElementById("paidAmount").value=0;
-  document.getElementById("paymentType").value="full";
+const sale={
+id:Date.now(),
+date:date,
+customer:customerName,
+mobile:customerMobile,
+productId:productId,
+productName:p.name,
+qty:qty,
+price:price,
+total:total,
+paid:paid,
+due:total-paid
+};
 
-  refreshAll();
+db.sales.push(sale);
+p.stock-=qty;
 
-  alert("বিক্রয় সংরক্ষণ হয়েছে।");
+saveDB();
+
+document.getElementById("salesQty").value="";
+document.getElementById("salesPrice").value="";
+document.getElementById("customerName").value="";
+document.getElementById("customerMobile").value="";
+document.getElementById("paidAmount").value=0;
+document.getElementById("paymentType").value="full";
+
+refreshAll();
+
+alert("Sale saved successfully.");
 }
 
 
 function renderSales(){
 
-  let html="<h3>সাম্প্রতিক বিক্রয়</h3>";
+let html="<h3>Recent Sales</h3>";
 
-  if(!db.sales.length){
-    html+="<p>এখনও কোনো বিক্রয় নেই।</p>";
-  }else{
+if(!db.sales.length){
+html+="<p>No sales yet.</p>";
+}else{
 
-    html+="<table><tr><th>তারিখ</th><th>কাস্টমার</th><th>পণ্য</th><th>মোট</th><th>পরিশোধ</th><th>বাকি</th></tr>";
+html+=`
+<table>
+<tr>
+<th>Date</th>
+<th>Customer</th>
+<th>Product</th>
+<th>Total</th>
+<th>Paid</th>
+<th>Due</th>
+</tr>`;
 
-    db.sales.slice().reverse().forEach(x=>{
-      html+=`
-      <tr>
-        <td>${formatDate(x.date)}</td>
-        <td>${esc(x.customer||"সাধারণ")}</td>
-        <td>${esc(x.productName)}</td>
-        <td>${money(x.total)}</td>
-        <td>${money(x.paid)}</td>
-        <td class="due">${money(x.due)}</td>
-      </tr>`;
-    });
+db.sales.slice().reverse().forEach(x=>{
+html+=`
+<tr>
+<td>${formatDate(x.date)}</td>
+<td>${esc(x.customer||"General")}</td>
+<td>${esc(x.productName)}</td>
+<td>${money(x.total)}</td>
+<td>${money(x.paid)}</td>
+<td class="due">${money(x.due)}</td>
+</tr>`;
+});
 
-    html+="</table>";
-  }
+html+="</table>";
+}
 
-  document.getElementById("salesList").innerHTML=html;
+document.getElementById("salesList").innerHTML=html;
 }
 
 
 function customerKey(name,mobile){
-  return `${name.trim().toLowerCase()}|${mobile.trim()}`;
+return `${name.trim().toLowerCase()}|${mobile.trim()}`;
 }
 
 
 function getCustomers(){
 
-  const map={};
+const map={};
 
-  db.sales.forEach(s=>{
+db.sales.forEach(s=>{
 
-    if(!s.customer) return;
+if(!s.customer)return;
 
-    const key=customerKey(s.customer,s.mobile||"");
+const key=customerKey(
+s.customer,
+s.mobile||""
+);
 
-    if(!map[key]){
-      map[key]={
-        key:key,
-        name:s.customer,
-        mobile:s.mobile||""
-      };
-    }
-  });
+if(!map[key]){
+map[key]={
+key:key,
+name:s.customer,
+mobile:s.mobile||""
+};
+}
+});
 
-  db.payments.forEach(p=>{
-    const key=customerKey(p.customer,p.mobile||"");
+db.payments.forEach(p=>{
 
-    if(!map[key]){
-      map[key]={
-        key:key,
-        name:p.customer,
-        mobile:p.mobile||""
-      };
-    }
-  });
+const key=customerKey(
+p.customer,
+p.mobile||""
+);
 
-  return Object.values(map);
+if(!map[key]){
+map[key]={
+key:key,
+name:p.customer,
+mobile:p.mobile||""
+};
+}
+});
+
+return Object.values(map);
 }
 
 
 function getCustomerBalance(key){
 
-  let total=0;
-  let paid=0;
+let total=0;
+let paid=0;
 
-  db.sales.forEach(s=>{
-    if(customerKey(s.customer||"",s.mobile||"")===key){
-      total+=Number(s.total)||0;
-      paid+=Number(s.paid)||0;
-    }
-  });
+db.sales.forEach(s=>{
 
-  db.payments.forEach(p=>{
-    if(customerKey(p.customer||"",p.mobile||"")===key){
-      paid+=Number(p.amount)||0;
-    }
-  });
+if(
+customerKey(s.customer||"",s.mobile||"")===key
+){
+total+=Number(s.total)||0;
+paid+=Number(s.paid)||0;
+}
+});
 
-  return {
-    total:total,
-    paid:paid,
-    due:Math.max(0,total-paid)
-  };
+db.payments.forEach(p=>{
+
+if(
+customerKey(p.customer||"",p.mobile||"")===key
+){
+paid+=Number(p.amount)||0;
+}
+});
+
+return{
+total:total,
+paid:paid,
+due:Math.max(0,total-paid)
+};
 }
 
 
 function renderCustomers(){
 
-  const search=(document.getElementById("customerSearch")?.value||"").toLowerCase();
+const search=(
+document.getElementById("customerSearch")?.value||""
+).toLowerCase();
 
-  let customers=getCustomers().filter(c=>
-    `${c.name} ${c.mobile}`.toLowerCase().includes(search)
-  );
+const customers=getCustomers().filter(c=>
+`${c.name} ${c.mobile}`
+.toLowerCase()
+.includes(search)
+);
 
-  if(!customers.length){
-    document.getElementById("customerList").innerHTML="<p>কোনো কাস্টমার পাওয়া যায়নি।</p>";
-    return;
-  }
+if(!customers.length){
+document.getElementById("customerList").innerHTML=
+"<p>No customers found.</p>";
+return;
+}
 
-  let html="<table><tr><th>কাস্টমার</th><th>মোবাইল</th><th>মোট মাল</th><th>পরিশোধ</th><th>বর্তমান বাকি</th></tr>";
+let html=`
+<table>
+<tr>
+<th>Customer</th>
+<th>Mobile</th>
+<th>Total Sales</th>
+<th>Paid</th>
+<th>Current Due</th>
+</tr>`;
 
-  customers.forEach(c=>{
+customers.forEach(c=>{
 
-    const b=getCustomerBalance(c.key);
+const b=getCustomerBalance(c.key);
 
-    html+=`
-    <tr>
-      <td>${esc(c.name)}</td>
-      <td>${esc(c.mobile||"-")}</td>
-      <td>${money(b.total)}</td>
-      <td class="paid">${money(b.paid)}</td>
-      <td class="due">${money(b.due)}</td>
-    </tr>`;
-  });
+html+=`
+<tr>
+<td>${esc(c.name)}</td>
+<td>${esc(c.mobile||"-")}</td>
+<td>${money(b.total)}</td>
+<td class="paid">${money(b.paid)}</td>
+<td class="due">${money(b.due)}</td>
+</tr>`;
+});
 
-  html+="</table>";
+html+="</table>";
 
-  document.getElementById("customerList").innerHTML=html;
+document.getElementById("customerList").innerHTML=html;
 }
 
 
 function addPayment(){
 
-  const date=document.getElementById("paymentDate").value;
-  const key=document.getElementById("paymentCustomer").value;
-  const amount=Number(document.getElementById("paymentAmount").value);
+const date=document.getElementById("paymentDate").value;
 
-  if(!date || !key || amount<=0){
-    alert("পরিশোধের তথ্য সম্পূর্ণ দিন।");
-    return;
-  }
+const key=document.getElementById("paymentCustomer").value;
 
-  const customer=getCustomers().find(c=>c.key===key);
+const amount=Number(
+document.getElementById("paymentAmount").value
+);
 
-  if(!customer){
-    alert("কাস্টমার পাওয়া যায়নি।");
-    return;
-  }
+if(!date||!key||amount<=0){
+alert("Please complete the payment information.");
+return;
+}
 
-  const balance=getCustomerBalance(key);
+const customer=getCustomers().find(
+c=>c.key===key
+);
 
-  if(amount>balance.due){
-    alert("কাস্টমারের বর্তমান বাকি "+money(balance.due)+"। এর বেশি নেওয়া যাবে না।");
-    return;
-  }
+if(!customer){
+alert("Customer not found.");
+return;
+}
 
-  db.payments.push({
-    id:Date.now(),
-    date:date,
-    customer:customer.name,
-    mobile:customer.mobile,
-    amount:amount,
-    note:document.getElementById("paymentNote").value.trim()
-  });
+const balance=getCustomerBalance(key);
 
-  saveDB();
+if(amount>balance.due){
+alert(
+"Current customer due is "+
+money(balance.due)+
+". You cannot collect more than this."
+);
+return;
+}
 
-  document.getElementById("paymentAmount").value="";
-  document.getElementById("paymentNote").value="";
+db.payments.push({
+id:Date.now(),
+date:date,
+customer:customer.name,
+mobile:customer.mobile,
+amount:amount,
+note:document.getElementById("paymentNote").value.trim()
+});
 
-  refreshAll();
+saveDB();
 
-  alert("টাকা আদায় সংরক্ষণ হয়েছে।");
+document.getElementById("paymentAmount").value="";
+document.getElementById("paymentNote").value="";
+
+refreshAll();
+
+alert("Payment collected successfully.");
 }
 
 
 function renderPayments(){
 
-  let html="<h3>সাম্প্রতিক টাকা আদায়</h3>";
+let html="<h3>Recent Collections</h3>";
 
-  if(!db.payments.length){
-    html+="<p>এখনও কোনো টাকা আদায় নেই।</p>";
-  }else{
+if(!db.payments.length){
+html+="<p>No collections yet.</p>";
+}else{
 
-    html+="<table><tr><th>তারিখ</th><th>কাস্টমার</th><th>পরিমাণ</th><th>মন্তব্য</th></tr>";
+html+=`
+<table>
+<tr>
+<th>Date</th>
+<th>Customer</th>
+<th>Amount</th>
+<th>Note</th>
+</tr>`;
 
-    db.payments.slice().reverse().forEach(x=>{
-      html+=`
-      <tr>
-        <td>${formatDate(x.date)}</td>
-        <td>${esc(x.customer)}</td>
-        <td class="paid">${money(x.amount)}</td>
-        <td>${esc(x.note||"-")}</td>
-      </tr>`;
-    });
+db.payments.slice().reverse().forEach(x=>{
+html+=`
+<tr>
+<td>${formatDate(x.date)}</td>
+<td>${esc(x.customer)}</td>
+<td class="paid">${money(x.amount)}</td>
+<td>${esc(x.note||"-")}</td>
+</tr>`;
+});
 
-    html+="</table>";
-  }
+html+="</table>";
+}
 
-  document.getElementById("paymentList").innerHTML=html;
+document.getElementById("paymentList").innerHTML=html;
 }
 
 
 function showPurchaseReport(){
 
-  let total=db.purchases.reduce((a,x)=>a+x.total,0);
+const total=db.purchases.reduce(
+(a,x)=>a+x.total,0
+);
 
-  document.getElementById("reportResult").innerHTML=`
-  <div class="total-box">
-  মোট ক্রয়: ${money(total)}
-  </div>
-  `;
+document.getElementById("reportResult").innerHTML=`
+<div class="total-box">
+Total Purchase: ${money(total)}
+</div>`;
 }
 
 
 function showSalesReport(){
 
-  let total=db.sales.reduce((a,x)=>a+x.total,0);
-  let paid=db.sales.reduce((a,x)=>a+x.paid,0);
-  let due=db.sales.reduce((a,x)=>a+x.due,0);
+const total=db.sales.reduce(
+(a,x)=>a+x.total,0
+);
 
-  document.getElementById("reportResult").innerHTML=`
-  <div class="total-box">
-  মোট বিক্রয়: ${money(total)}<br>
-  মোট পরিশোধ: ${money(paid)}<br>
-  বিক্রয় থেকে বাকি: ${money(due)}
-  </div>
-  `;
+const paid=db.sales.reduce(
+(a,x)=>a+x.paid,0
+);
+
+const due=db.sales.reduce(
+(a,x)=>a+x.due,0
+);
+
+document.getElementById("reportResult").innerHTML=`
+<div class="total-box">
+Total Sales: ${money(total)}<br>
+Total Paid: ${money(paid)}<br>
+Sales Due: ${money(due)}
+</div>`;
 }
 
 
 function showStockReport(){
 
-  let html="<table><tr><th>পণ্য</th><th>Value</th><th>Voltage</th><th>স্টক</th></tr>";
+let html=`
+<table>
+<tr>
+<th>Product</th>
+<th>Value</th>
+<th>Voltage</th>
+<th>Stock</th>
+</tr>`;
 
-  db.products.forEach(p=>{
-    html+=`
-    <tr>
-      <td>${esc(p.name)}</td>
-      <td>${esc(p.value||"-")}</td>
-      <td>${esc(p.voltage||"-")}</td>
-      <td>${p.stock}</td>
-    </tr>`;
-  });
+db.products.forEach(p=>{
+html+=`
+<tr>
+<td>${esc(p.name)}</td>
+<td>${esc(p.value||"-")}</td>
+<td>${esc(p.voltage||"-")}</td>
+<td>${p.stock}</td>
+</tr>`;
+});
 
-  html+="</table>";
+html+="</table>";
 
-  document.getElementById("reportResult").innerHTML=html;
+document.getElementById("reportResult").innerHTML=html;
 }
 
 
 function showDueReport(){
 
-  let html="<table><tr><th>কাস্টমার</th><th>মোবাইল</th><th>বর্তমান বাকি</th></tr>";
+let html=`
+<table>
+<tr>
+<th>Customer</th>
+<th>Mobile</th>
+<th>Current Due</th>
+</tr>`;
 
-  getCustomers().forEach(c=>{
+getCustomers().forEach(c=>{
 
-    const b=getCustomerBalance(c.key);
+const b=getCustomerBalance(c.key);
 
-    if(b.due>0){
-      html+=`
-      <tr>
-        <td>${esc(c.name)}</td>
-        <td>${esc(c.mobile||"-")}</td>
-        <td class="due">${money(b.due)}</td>
-      </tr>`;
-    }
-  });
+if(b.due>0){
 
-  html+="</table>";
+html+=`
+<tr>
+<td>${esc(c.name)}</td>
+<td>${esc(c.mobile||"-")}</td>
+<td class="due">${money(b.due)}</td>
+</tr>`;
+}
+});
 
-  document.getElementById("reportResult").innerHTML=html;
+html+="</table>";
+
+document.getElementById("reportResult").innerHTML=html;
 }
 
 
 function updateDashboard(){
 
-  document.getElementById("totalProducts").textContent=db.products.length;
+document.getElementById("totalProducts").textContent=
+db.products.length;
 
-  document.getElementById("totalStock").textContent=
-    db.products.reduce((a,p)=>a+(Number(p.stock)||0),0);
+document.getElementById("totalStock").textContent=
+db.products.reduce(
+(a,p)=>a+(Number(p.stock)||0),0
+);
 
-  const t=today();
+const t=today();
 
-  document.getElementById("todayPurchase").textContent=
-    money(db.purchases.filter(x=>x.date===t).reduce((a,x)=>a+x.total,0));
+document.getElementById("todayPurchase").textContent=
+money(
+db.purchases
+.filter(x=>x.date===t)
+.reduce((a,x)=>a+x.total,0)
+);
 
-  document.getElementById("todaySales").textContent=
-    money(db.sales.filter(x=>x.date===t).reduce((a,x)=>a+x.total,0));
+document.getElementById("todaySales").textContent=
+money(
+db.sales
+.filter(x=>x.date===t)
+.reduce((a,x)=>a+x.total,0)
+);
 
-  document.getElementById("todayPayment").textContent=
-    money(db.payments.filter(x=>x.date===t).reduce((a,x)=>a+x.amount,0));
+document.getElementById("todayPayment").textContent=
+money(
+db.payments
+.filter(x=>x.date===t)
+.reduce((a,x)=>a+x.amount,0)
+);
 
-  document.getElementById("totalDue").textContent=
-    money(getCustomers().reduce((a,c)=>a+getCustomerBalance(c.key).due,0));
+document.getElementById("totalDue").textContent=
+money(
+getCustomers().reduce(
+(a,c)=>a+getCustomerBalance(c.key).due,0
+)
+);
 }
 
 
 function refreshAll(){
 
-  refreshSelects();
-  updateDashboard();
-  renderProducts();
-  renderPurchases();
-  renderSales();
-  renderCustomers();
-  renderPayments();
-
+refreshSelects();
+updateDashboard();
+renderProducts();
+renderPurchases();
+renderSales();
+renderCustomers();
+renderPayments();
 }
 
 
 function formatDate(d){
 
-  if(!d) return "-";
+if(!d)return"-";
 
-  const p=d.split("-");
+const p=d.split("-");
 
-  if(p.length!==3) return d;
+if(p.length!==3)return d;
 
-  return `${p[2]}-${p[1]}-${p[0]}`;
+return`${p[2]}-${p[1]}-${p[0]}`;
 }
 
 
 function esc(str){
 
-  return String(str??"")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+return String(str??"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 }
 
 
