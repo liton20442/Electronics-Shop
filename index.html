@@ -2,8 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <meta name="theme-color" content="#0f766e">
+
+<!-- iPhone / iOS PWA -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Electronics Shop">
+
+<!-- Android / other browsers -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="Electronics Shop">
+
+<link rel="manifest" href="manifest.json">
+
+<!-- iPhone Home Screen Icon -->
+<link rel="apple-touch-icon" href="icon-180.png">
+
 <title>Electronics Shop</title>
 
 <style>
@@ -11,81 +29,114 @@
     box-sizing:border-box;
 }
 
+html,
 body{
     margin:0;
+    padding:0;
+    min-height:100%;
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-    background:#f3f6f8;
-    color:#17202a;
-    font-size:16px;
+    background:#f1f5f9;
+    color:#0f172a;
+}
+
+body{
+    padding-bottom:env(safe-area-inset-bottom);
 }
 
 button,
 input,
 select,
 textarea{
-    font-family:inherit;
-    font-size:16px;
+    font:inherit;
 }
 
 button{
     cursor:pointer;
 }
 
-header{
+/* HEADER */
+
+.header{
     background:#0f766e;
     color:white;
-    padding:18px 16px;
+    padding:
+        calc(14px + env(safe-area-inset-top))
+        18px
+        14px;
+
     position:sticky;
     top:0;
     z-index:100;
-    box-shadow:0 2px 8px rgba(0,0,0,.15);
+
+    box-shadow:0 2px 10px rgba(0,0,0,.12);
 }
 
-.header-title{
-    font-size:25px;
-    font-weight:700;
-    text-align:center;
+.header-inner{
+    max-width:1200px;
+    margin:auto;
 }
 
-.header-subtitle{
-    text-align:center;
-    font-size:14px;
-    margin-top:4px;
-    opacity:.9;
+.brand{
+    font-size:22px;
+    font-weight:800;
 }
 
-nav{
-    background:white;
+.subtitle{
+    font-size:12px;
+    opacity:.88;
+    margin-top:2px;
+}
+
+/* NAVIGATION */
+
+.nav{
+    max-width:1200px;
+    margin:0 auto;
+
+    padding:9px 10px;
+
     display:flex;
-    overflow-x:auto;
     gap:7px;
-    padding:10px;
-    border-bottom:1px solid #ddd;
+
+    overflow-x:auto;
+
+    background:white;
+
+    border-bottom:1px solid #e2e8f0;
+
     position:sticky;
-    top:73px;
+    top:67px;
+
     z-index:90;
 }
 
-nav button{
-    border:1px solid #d1d5db;
-    background:#fff;
-    color:#374151;
-    padding:10px 15px;
-    border-radius:9px;
+.nav button{
+    border:0;
+
+    background:#f1f5f9;
+
+    color:#334155;
+
+    padding:9px 13px;
+
+    border-radius:10px;
+
     white-space:nowrap;
+
     font-weight:600;
 }
 
-nav button.active{
+.nav button.active{
     background:#0f766e;
     color:white;
-    border-color:#0f766e;
 }
 
-main{
-    max-width:1400px;
-    margin:auto;
-    padding:18px;
+/* MAIN */
+
+.container{
+    max-width:1200px;
+    margin:0 auto;
+    padding:16px;
 }
 
 .page{
@@ -96,332 +147,328 @@ main{
     display:block;
 }
 
-.page-title{
-    font-size:26px;
-    font-weight:750;
-    margin:5px 0 18px;
+h2{
+    margin:4px 0 15px;
+    font-size:22px;
 }
+
+h3{
+    margin:0 0 12px;
+}
+
+/* CARD */
 
 .card{
     background:white;
+
+    border:1px solid #e2e8f0;
+
     border-radius:14px;
-    padding:18px;
-    margin-bottom:18px;
-    box-shadow:0 2px 10px rgba(0,0,0,.07);
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+    box-shadow:0 2px 8px rgba(15,23,42,.04);
 }
 
-.card-title{
-    font-size:20px;
-    font-weight:700;
-    margin-bottom:15px;
+/* GRID */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:12px;
 }
 
 .form-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:12px;
 }
 
-.form-group{
-    display:flex;
-    flex-direction:column;
+.field label{
+    display:block;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    margin-bottom:5px;
+
+    color:#334155;
 }
 
-.form-group.full{
-    grid-column:1/-1;
-}
-
-label{
-    font-weight:650;
-    margin-bottom:6px;
-    color:#374151;
-}
-
-input,
-select,
-textarea{
+.field input,
+.field select,
+.field textarea{
     width:100%;
-    padding:11px 12px;
+
     border:1px solid #cbd5e1;
-    border-radius:8px;
+
+    border-radius:9px;
+
+    padding:10px;
+
     background:white;
+
     outline:none;
 }
 
-input:focus,
-select:focus,
-textarea:focus{
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
     border-color:#0f766e;
-    box-shadow:0 0 0 2px rgba(15,118,110,.12);
+
+    box-shadow:0 0 0 2px rgba(15,118,110,.1);
 }
 
-textarea{
+.field textarea{
     min-height:80px;
     resize:vertical;
 }
 
+.full{
+    grid-column:1/-1;
+}
+
+/* BUTTONS */
+
 .actions{
     display:flex;
+
+    gap:8px;
+
     flex-wrap:wrap;
-    gap:9px;
-    margin-top:16px;
+
+    margin-top:12px;
 }
 
 .btn{
     border:0;
-    border-radius:8px;
-    padding:11px 17px;
+
+    border-radius:9px;
+
+    padding:10px 14px;
+
     font-weight:700;
 }
 
-.btn-primary{
+.primary{
     background:#0f766e;
     color:white;
 }
 
-.btn-secondary{
-    background:#64748b;
-    color:white;
+.secondary{
+    background:#e2e8f0;
+    color:#0f172a;
 }
 
-.btn-success{
-    background:#15803d;
-    color:white;
-}
-
-.btn-danger{
+.danger{
     background:#dc2626;
     color:white;
 }
 
-.btn-warning{
+.warning{
     background:#d97706;
     color:white;
 }
 
-.btn-light{
-    background:#e5e7eb;
-    color:#111827;
-}
-
-.small-btn{
-    padding:7px 10px;
-    border:0;
-    border-radius:6px;
-    color:white;
-    font-weight:650;
-    margin:2px;
-}
-
-.search-box{
-    margin-bottom:14px;
-}
+/* TABLE */
 
 .table-wrap{
-    overflow-x:auto;
-    width:100%;
+    overflow:auto;
 }
 
 table{
     width:100%;
+
     border-collapse:collapse;
-    min-width:700px;
+
+    min-width:720px;
 }
 
 th,
 td{
-    border:1px solid #dbe2e8;
-    padding:10px 9px;
+    border-bottom:1px solid #e2e8f0;
+
+    padding:9px 8px;
+
     text-align:left;
-    vertical-align:middle;
+
+    font-size:13px;
 }
 
 th{
-    background:#e8f3f1;
-    color:#164e49;
-    font-weight:750;
+    background:#f8fafc;
+
+    font-weight:800;
+
+    position:sticky;
+    top:0;
 }
 
-tr:nth-child(even){
-    background:#fafafa;
+/* SMALL BUTTON */
+
+.small-btn{
+    border:0;
+
+    border-radius:7px;
+
+    padding:6px 9px;
+
+    margin:2px;
+
+    font-size:12px;
+
+    font-weight:700;
 }
 
-.empty{
-    text-align:center;
-    padding:25px;
-    color:#64748b;
+.edit{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.del{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+/* SEARCH */
+
+.search{
+    width:100%;
+
+    padding:10px;
+
+    border:1px solid #cbd5e1;
+
+    border-radius:9px;
+
+    margin-bottom:10px;
 }
 
 /* DASHBOARD */
 
 .dashboard-grid{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:16px;
-    margin-bottom:20px;
+
+    grid-template-columns:repeat(4,minmax(0,1fr));
+
+    gap:12px;
 }
 
-.dashboard-card{
+.stat{
     background:white;
-    border-radius:15px;
-    padding:20px;
-    box-shadow:0 3px 12px rgba(0,0,0,.08);
-    border-left:5px solid #0f766e;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:14px;
+
+    padding:15px;
+
+    box-shadow:0 2px 8px rgba(15,23,42,.04);
 }
 
-.dashboard-card .label{
-    font-size:16px;
+.stat .label{
+    font-size:12px;
+
+    color:#64748b;
+
     font-weight:700;
-    color:#64748b;
-    margin-bottom:9px;
 }
 
-.dashboard-card .value{
-    font-size:30px;
+.stat .value{
+    font-size:23px;
+
     font-weight:800;
-    color:#111827;
-    line-height:1.15;
+
+    margin-top:5px;
+
+    color:#0f766e;
 }
 
-.dashboard-card .sub{
-    margin-top:8px;
+.info{
+    background:#ecfeff;
+
+    border:1px solid #a5f3fc;
+
+    color:#155e75;
+
+    border-radius:9px;
+
+    padding:10px;
+
+    font-size:13px;
+
+    margin-top:10px;
+}
+
+.empty{
+    text-align:center;
+
     color:#64748b;
-    font-size:14px;
-}
 
-.dashboard-overview{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px;
-}
-
-.overview-table{
-    width:100%;
-    min-width:0;
-}
-
-.overview-table td{
-    font-size:17px;
-    padding:13px;
-}
-
-.overview-table td:last-child{
-    text-align:right;
-    font-weight:750;
-}
-
-.dashboard-section-title{
-    font-size:20px;
-    font-weight:750;
-    margin-bottom:14px;
-}
-
-.collection-current{
-    background:#ecfdf5;
-    border:1px solid #86efac;
-    border-radius:12px;
-    padding:17px;
-    margin-top:15px;
-}
-
-.collection-current .amount{
-    font-size:29px;
-    font-weight:800;
-    color:#166534;
-}
-
-.info-box{
-    background:#eff6ff;
-    border:1px solid #bfdbfe;
-    padding:14px;
-    border-radius:10px;
-    margin-top:12px;
-}
-
-.warning-box{
-    background:#fff7ed;
-    border:1px solid #fed7aa;
-    padding:14px;
-    border-radius:10px;
-    margin-top:12px;
-}
-
-.success-box{
-    background:#ecfdf5;
-    border:1px solid #bbf7d0;
-    padding:14px;
-    border-radius:10px;
-    margin-top:12px;
+    padding:18px;
 }
 
 /* MOBILE */
 
-@media(max-width:1000px){
+@media(max-width:900px){
+
+    .grid,
+    .form-grid,
     .dashboard-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:repeat(2,minmax(0,1fr));
     }
 
-    .form-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
 }
 
-@media(max-width:650px){
-    body{
-        font-size:16px;
+@media(max-width:600px){
+
+    .header{
+        padding-left:14px;
+        padding-right:14px;
     }
 
-    header{
-        padding:15px 10px;
+    .brand{
+        font-size:19px;
     }
 
-    .header-title{
-        font-size:22px;
+    .nav{
+        top:61px;
+        padding:7px;
     }
 
-    nav{
-        top:66px;
+    .nav button{
+        padding:8px 10px;
+        font-size:12px;
     }
 
-    main{
-        padding:12px;
-    }
-
-    .page-title{
-        font-size:24px;
-    }
-
-    .form-grid{
-        grid-template-columns:1fr;
-    }
-
-    .dashboard-grid{
-        grid-template-columns:1fr 1fr;
-        gap:10px;
-    }
-
-    .dashboard-card{
-        padding:15px 13px;
-    }
-
-    .dashboard-card .label{
-        font-size:14px;
-    }
-
-    .dashboard-card .value{
-        font-size:24px;
-    }
-
-    .dashboard-overview{
-        grid-template-columns:1fr;
+    .container{
+        padding:10px;
     }
 
     .card{
-        padding:14px;
+        padding:12px;
+        border-radius:12px;
     }
 
-    .btn{
-        padding:11px 14px;
+    .grid,
+    .form-grid,
+    .dashboard-grid{
+        grid-template-columns:1fr;
+    }
+
+    h2{
+        font-size:19px;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    table{
+        min-width:800px;
     }
 }
 </style>
@@ -429,143 +476,162 @@ tr:nth-child(even){
 
 <body>
 
-<header>
-    <div class="header-title">Electronics Shop</div>
-    <div class="header-subtitle">Offline Shop Management System</div>
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="brand">
+            ⚡ Electronics Shop
+        </div>
+
+        <div class="subtitle">
+            Offline Shop Management System
+        </div>
+
+    </div>
+
 </header>
 
-<nav>
-    <button id="navDashboard" onclick="showPage('dashboard')">Dashboard</button>
-    <button id="navProducts" onclick="showPage('products')">Products</button>
-    <button id="navPurchase" onclick="showPage('purchase')">Purchase</button>
-    <button id="navSales" onclick="showPage('sales')">Sales</button>
-    <button id="navCustomers" onclick="showPage('customers')">Customers</button>
-    <button id="navCollection" onclick="showPage('collection')">Due Collection</button>
-    <button id="navReports" onclick="showPage('reports')">Reports</button>
+
+<nav class="nav">
+
+    <button class="active"
+            onclick="showPage('dashboard')">
+        Dashboard
+    </button>
+
+    <button onclick="showPage('products')">
+        Products
+    </button>
+
+    <button onclick="showPage('purchase')">
+        Purchase
+    </button>
+
+    <button onclick="showPage('sales')">
+        Sales
+    </button>
+
+    <button onclick="showPage('customers')">
+        Customers
+    </button>
+
+    <button onclick="showPage('due')">
+        Due Collection
+    </button>
+
+    <button onclick="showPage('reports')">
+        Reports
+    </button>
+
 </nav>
 
-<main>
+
+<main class="container">
+
 
 <!-- ================= DASHBOARD ================= -->
 
 <section id="dashboard" class="page active">
 
-    <div class="page-title">Dashboard</div>
+    <h2>Dashboard</h2>
 
     <div class="dashboard-grid">
 
-        <div class="dashboard-card">
+        <div class="stat">
             <div class="label">Products</div>
             <div class="value" id="dashProducts">0</div>
-            <div class="sub">Total products</div>
         </div>
 
-        <div class="dashboard-card">
+        <div class="stat">
             <div class="label">Customers</div>
             <div class="value" id="dashCustomers">0</div>
-            <div class="sub">Registered customers</div>
         </div>
 
-        <div class="dashboard-card">
+        <div class="stat">
             <div class="label">Total Purchase</div>
-            <div class="value" id="dashPurchase">0.00</div>
-            <div class="sub">All purchases</div>
+            <div class="value" id="dashPurchase">৳0.00</div>
         </div>
 
-        <div class="dashboard-card">
+        <div class="stat">
             <div class="label">Total Sales</div>
-            <div class="value" id="dashSales">0.00</div>
-            <div class="sub">All sales</div>
+            <div class="value" id="dashSales">৳0.00</div>
         </div>
 
-        <div class="dashboard-card">
+        <div class="stat">
             <div class="label">Stock Value</div>
-            <div class="value" id="dashStock">0.00</div>
-            <div class="sub">Estimated stock value</div>
+            <div class="value" id="dashStock">৳0.00</div>
         </div>
 
-        <div class="dashboard-card">
+        <div class="stat">
             <div class="label">Total Due</div>
-            <div class="value" id="dashDue">0.00</div>
-            <div class="sub">Customer outstanding</div>
+            <div class="value" id="dashDue">৳0.00</div>
         </div>
 
-        <div class="dashboard-card">
+        <div class="stat">
             <div class="label">Estimated Profit</div>
-            <div class="value" id="dashProfit">0.00</div>
-            <div class="sub">Sales minus purchase cost</div>
+            <div class="value" id="dashProfit">৳0.00</div>
         </div>
 
-        <div class="dashboard-card">
+        <div class="stat">
             <div class="label">Due Collection</div>
-            <div class="value" id="dashCollection">0.00</div>
-            <div class="sub">Total collected</div>
+            <div class="value" id="dashCollection">৳0.00</div>
         </div>
 
     </div>
 
-    <div class="dashboard-overview">
 
-        <div class="card">
-            <div class="dashboard-section-title">Business Overview</div>
+    <div class="card">
 
-            <table class="overview-table">
-                <tr>
-                    <td>Total Products</td>
-                    <td id="overviewProducts">0</td>
-                </tr>
-                <tr>
-                    <td>Total Customers</td>
-                    <td id="overviewCustomers">0</td>
-                </tr>
-                <tr>
-                    <td>Total Purchase</td>
-                    <td id="overviewPurchase">0.00</td>
-                </tr>
-                <tr>
-                    <td>Total Sales</td>
-                    <td id="overviewSales">0.00</td>
-                </tr>
-                <tr>
-                    <td>Stock Value</td>
-                    <td id="overviewStock">0.00</td>
-                </tr>
-                <tr>
-                    <td>Total Due</td>
-                    <td id="overviewDue">0.00</td>
-                </tr>
-                <tr>
-                    <td>Estimated Profit</td>
-                    <td id="overviewProfit">0.00</td>
-                </tr>
+        <h3>Business Overview</h3>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <tbody>
+
+                    <tr>
+                        <td>Total Products</td>
+                        <td id="overviewProducts">0</td>
+                    </tr>
+
+                    <tr>
+                        <td>Total Customers</td>
+                        <td id="overviewCustomers">0</td>
+                    </tr>
+
+                    <tr>
+                        <td>Total Purchase</td>
+                        <td id="overviewPurchase">৳0.00</td>
+                    </tr>
+
+                    <tr>
+                        <td>Total Sales</td>
+                        <td id="overviewSales">৳0.00</td>
+                    </tr>
+
+                    <tr>
+                        <td>Total Due</td>
+                        <td id="overviewDue">৳0.00</td>
+                    </tr>
+
+                </tbody>
+
             </table>
+
         </div>
 
-        <div class="card">
-            <div class="dashboard-section-title">Today's Summary</div>
+    </div>
 
-            <table class="overview-table">
-                <tr>
-                    <td>Today's Purchase</td>
-                    <td id="todayPurchase">0.00</td>
-                </tr>
-                <tr>
-                    <td>Today's Sales</td>
-                    <td id="todaySales">0.00</td>
-                </tr>
-                <tr>
-                    <td>Today's Due Collection</td>
-                    <td id="todayCollection">0.00</td>
-                </tr>
-                <tr>
-                    <td>Today's Transactions</td>
-                    <td id="todayTransactions">0</td>
-                </tr>
-            </table>
 
-            <div class="success-box">
-                All information is stored locally on this device.
-            </div>
+    <div class="card">
+
+        <h3>Today's Summary</h3>
+
+        <div id="todaySummary"
+             class="empty">
+            No transactions today.
         </div>
 
     </div>
@@ -573,53 +639,57 @@ tr:nth-child(even){
 </section>
 
 
+
 <!-- ================= PRODUCTS ================= -->
 
 <section id="products" class="page">
 
-    <div class="page-title">Products</div>
+    <h2>Products</h2>
 
     <div class="card">
 
-        <div class="card-title">Add / Edit Product</div>
-
-        <input type="hidden" id="productId">
+        <input type="hidden"
+               id="productId">
 
         <div class="form-grid">
 
-            <div class="form-group">
+            <div class="field">
                 <label>Product Name *</label>
-                <input id="productName" placeholder="Enter product name">
+                <input id="productName">
             </div>
 
-            <div class="form-group">
-                <label>Category *</label>
+            <div class="field">
+                <label>Category</label>
+
                 <input id="productCategory"
-                       list="categoryList"
-                       placeholder="Select or type category">
+                       list="categoryList">
+
+                <datalist id="categoryList"></datalist>
             </div>
 
-            <div class="form-group">
+            <div class="field">
                 <label>Part Number</label>
-                <input id="productPartNumber" placeholder="Enter part number">
+                <input id="productPartNumber">
             </div>
 
-            <div class="form-group">
+            <div class="field">
                 <label>Value</label>
-                <input id="productValue" placeholder="Example: 5W / 10K / 220V">
+                <input id="productValue">
             </div>
 
-            <div class="form-group">
+            <div class="field">
                 <label>Voltage</label>
-                <input id="productVoltage" placeholder="Example: 12V">
+                <input id="productVoltage">
             </div>
 
-            <div class="form-group">
-                <label>Sale Price</label>
-                <input id="productSalePrice" type="number" min="0" step="0.01">
+            <div class="field">
+                <label>Sale Price *</label>
+                <input id="productSalePrice"
+                       type="number"
+                       step="0.01">
             </div>
 
-            <div class="form-group full">
+            <div class="field full">
                 <label>Other Information</label>
                 <textarea id="productOther"></textarea>
             </div>
@@ -627,25 +697,35 @@ tr:nth-child(even){
         </div>
 
         <div class="actions">
-            <button class="btn btn-primary" onclick="saveProduct()">Save Product</button>
-            <button class="btn btn-light" onclick="clearProductForm()">Clear</button>
+
+            <button class="btn primary"
+                    onclick="saveProduct()">
+                Save Product
+            </button>
+
+            <button class="btn secondary"
+                    onclick="clearProductForm()">
+                Clear
+            </button>
+
         </div>
 
     </div>
 
+
     <div class="card">
 
-        <div class="card-title">Product List</div>
-
-        <div class="search-box">
-            <input id="productSearch"
-                   oninput="renderProducts()"
-                   placeholder="Search product, category or part number">
-        </div>
+        <input class="search"
+               id="productSearch"
+               placeholder="Search product..."
+               oninput="renderProducts()">
 
         <div class="table-wrap">
+
             <table>
+
                 <thead>
+
                     <tr>
                         <th>Product</th>
                         <th>Category</th>
@@ -656,9 +736,13 @@ tr:nth-child(even){
                         <th>Stock</th>
                         <th>Action</th>
                     </tr>
+
                 </thead>
+
                 <tbody id="productTable"></tbody>
+
             </table>
+
         </div>
 
     </div>
@@ -666,99 +750,133 @@ tr:nth-child(even){
 </section>
 
 
+
 <!-- ================= PURCHASE ================= -->
 
 <section id="purchase" class="page">
 
-    <div class="page-title">Purchase</div>
+    <h2>Purchase</h2>
 
     <div class="card">
 
-        <div class="card-title">Purchase Entry</div>
-
-        <input type="hidden" id="purchaseId">
+        <input type="hidden"
+               id="purchaseId">
 
         <div class="form-grid">
 
-            <div class="form-group">
+            <div class="field">
                 <label>Date *</label>
-                <input type="date" id="purchaseDate">
+                <input type="date"
+                       id="purchaseDate">
             </div>
 
-            <div class="form-group">
+            <div class="field">
                 <label>Product *</label>
-                <select id="purchaseProduct" onchange="purchaseProductChanged()"></select>
+
+                <select id="purchaseProduct"
+                        onchange="purchaseProductChanged()">
+                </select>
             </div>
 
-            <div class="form-group">
-                <label>Category *</label>
+            <div class="field">
+                <label>Category</label>
                 <select id="purchaseCategory"></select>
             </div>
 
-            <div class="form-group">
+            <div class="field">
                 <label>Part Number</label>
                 <input id="purchasePartNumber">
             </div>
 
-            <div class="form-group">
+            <div class="field">
                 <label>Quantity *</label>
-                <input id="purchaseQuantity" type="number" min="0.01" step="0.01">
-            </div>
 
-            <div class="form-group">
-                <label>Unit Purchase Price *</label>
-                <input id="purchaseUnitPrice" type="number" min="0" step="0.01"
+                <input id="purchaseQty"
+                       type="number"
+                       min="1"
+                       step="1"
                        oninput="calculatePurchaseTotal()">
             </div>
 
-            <div class="form-group">
-                <label>Total Purchase</label>
-                <input id="purchaseTotal" readonly>
+            <div class="field">
+                <label>Unit Purchase Price *</label>
+
+                <input id="purchaseUnitPrice"
+                       type="number"
+                       min="0"
+                       step="0.01"
+                       oninput="calculatePurchaseTotal()">
             </div>
 
-            <div class="form-group">
+            <div class="field">
+                <label>Total Purchase</label>
+                <input id="purchaseTotal"
+                       readonly>
+            </div>
+
+            <div class="field">
                 <label>Supplier</label>
                 <select id="purchaseSupplier"></select>
             </div>
 
-            <div class="form-group">
-                <label>New Supplier (optional)</label>
-                <input id="purchaseNewSupplier"
-                       placeholder="Type new supplier name">
+            <div class="field">
+                <label>New Supplier</label>
+                <input id="newSupplier">
             </div>
 
-            <div class="form-group">
+            <div class="field">
                 <label>Payment Mode</label>
-                <select id="purchasePayment">
+
+                <select id="purchasePaymentMode">
+
                     <option>Cash</option>
                     <option>Bank</option>
                     <option>Bkash</option>
                     <option>Nagad</option>
                     <option>Other</option>
+
                 </select>
+
             </div>
 
-            <div class="form-group full">
+            <div class="field full">
+
                 <label>Other Information</label>
+
                 <textarea id="purchaseOther"></textarea>
+
             </div>
 
         </div>
 
+
         <div class="actions">
-            <button class="btn btn-primary" onclick="savePurchase()">Save Purchase</button>
-            <button class="btn btn-light" onclick="clearPurchaseForm()">Clear</button>
+
+            <button class="btn primary"
+                    onclick="savePurchase()">
+                Save Purchase
+            </button>
+
+            <button class="btn secondary"
+                    onclick="clearPurchaseForm()">
+                Clear
+            </button>
+
         </div>
 
     </div>
 
+
     <div class="card">
 
-        <div class="card-title">Purchase History</div>
+        <h3>Purchase History</h3>
 
         <div class="table-wrap">
+
             <table>
+
                 <thead>
+
                     <tr>
                         <th>Date</th>
                         <th>Product</th>
@@ -771,9 +889,13 @@ tr:nth-child(even){
                         <th>Payment</th>
                         <th>Action</th>
                     </tr>
+
                 </thead>
+
                 <tbody id="purchaseTable"></tbody>
+
             </table>
+
         </div>
 
     </div>
@@ -781,99 +903,151 @@ tr:nth-child(even){
 </section>
 
 
+
 <!-- ================= SALES ================= -->
 
 <section id="sales" class="page">
 
-    <div class="page-title">Sales</div>
+    <h2>Sales</h2>
 
     <div class="card">
 
-        <div class="card-title">Sales Entry</div>
-
-        <input type="hidden" id="saleId">
+        <input type="hidden"
+               id="saleId">
 
         <div class="form-grid">
 
-            <div class="form-group">
+            <div class="field">
                 <label>Date *</label>
-                <input type="date" id="saleDate">
+                <input type="date"
+                       id="saleDate">
             </div>
 
-            <div class="form-group">
+            <div class="field">
+
                 <label>Product *</label>
-                <select id="saleProduct" onchange="saleProductChanged()"></select>
+
+                <select id="saleProduct"
+                        onchange="saleProductChanged()">
+                </select>
+
             </div>
 
-            <div class="form-group">
-                <label>Category *</label>
+            <div class="field">
+                <label>Category</label>
                 <select id="saleCategory"></select>
             </div>
 
-            <div class="form-group">
+            <div class="field">
                 <label>Part Number</label>
                 <input id="salePartNumber">
             </div>
 
-            <div class="form-group">
+            <div class="field">
+
                 <label>Quantity *</label>
-                <input id="saleQuantity" type="number" min="0.01" step="0.01"
+
+                <input id="saleQty"
+                       type="number"
+                       min="1"
+                       step="1"
                        oninput="calculateSaleTotal()">
+
             </div>
 
-            <div class="form-group">
+            <div class="field">
+
                 <label>Unit Sale Price *</label>
-                <input id="saleUnitPrice" type="number" min="0" step="0.01"
+
+                <input id="saleUnitPrice"
+                       type="number"
+                       min="0"
+                       step="0.01"
                        oninput="calculateSaleTotal()">
+
             </div>
 
-            <div class="form-group">
+            <div class="field">
+
                 <label>Total Sale</label>
-                <input id="saleTotal" readonly>
+
+                <input id="saleTotal"
+                       readonly>
+
             </div>
 
-            <div class="form-group">
+            <div class="field">
+
                 <label>Customer</label>
+
                 <select id="saleCustomer"></select>
+
             </div>
 
-            <div class="form-group">
+            <div class="field">
+
                 <label>Payment Type</label>
-                <select id="salePayment">
+
+                <select id="salePaymentType">
+
                     <option>Cash</option>
                     <option>Bank</option>
                     <option>Bkash</option>
                     <option>Nagad</option>
                     <option>Due</option>
                     <option>Other</option>
+
                 </select>
+
             </div>
 
-            <div class="form-group full">
+            <div class="field full">
+
                 <label>Other Information</label>
+
                 <textarea id="saleOther"></textarea>
+
             </div>
 
         </div>
 
-        <div class="info-box">
-            If Payment Type is <b>Due</b>, select a customer. The sale amount will automatically be added to that customer's outstanding due.
+
+        <div class="info">
+
+            If Payment Type is <b>Due</b>,
+            select a customer.
+            The outstanding amount will be added to that customer.
+
         </div>
+
 
         <div class="actions">
-            <button class="btn btn-primary" onclick="saveSale()">Save Sale</button>
-            <button class="btn btn-light" onclick="clearSaleForm()">Clear</button>
+
+            <button class="btn primary"
+                    onclick="saveSale()">
+                Save Sale
+            </button>
+
+            <button class="btn secondary"
+                    onclick="clearSaleForm()">
+                Clear
+            </button>
+
         </div>
 
     </div>
 
+
     <div class="card">
 
-        <div class="card-title">Sales History</div>
+        <h3>Sales History</h3>
 
         <div class="table-wrap">
+
             <table>
+
                 <thead>
+
                     <tr>
                         <th>Date</th>
                         <th>Product</th>
@@ -886,78 +1060,107 @@ tr:nth-child(even){
                         <th>Payment</th>
                         <th>Action</th>
                     </tr>
+
                 </thead>
+
                 <tbody id="salesTable"></tbody>
+
             </table>
+
         </div>
 
     </div>
 
 </section>
+
 
 
 <!-- ================= CUSTOMERS ================= -->
 
 <section id="customers" class="page">
 
-    <div class="page-title">Customers</div>
+    <h2>Customers</h2>
 
     <div class="card">
 
-        <div class="card-title">Add / Edit Customer</div>
-
-        <input type="hidden" id="customerId">
+        <input type="hidden"
+               id="customerId">
 
         <div class="form-grid">
 
-            <div class="form-group">
-                <label>Customer Name *</label>
-                <input id="customerName" placeholder="Enter customer name">
+            <div class="field">
+
+                <label>Name *</label>
+
+                <input id="customerName">
+
             </div>
 
-            <div class="form-group">
+            <div class="field">
+
                 <label>Phone</label>
-                <input id="customerPhone" placeholder="Phone number">
+
+                <input id="customerPhone"
+                       type="tel">
+
             </div>
 
-            <div class="form-group">
+            <div class="field full">
+
                 <label>Address</label>
-                <input id="customerAddress" placeholder="Address">
+
+                <textarea id="customerAddress"></textarea>
+
             </div>
 
         </div>
 
+
         <div class="actions">
-            <button class="btn btn-primary" onclick="saveCustomer()">Save Customer</button>
-            <button class="btn btn-light" onclick="clearCustomerForm()">Clear</button>
+
+            <button class="btn primary"
+                    onclick="saveCustomer()">
+                Save Customer
+            </button>
+
+            <button class="btn secondary"
+                    onclick="clearCustomerForm()">
+                Clear
+            </button>
+
         </div>
 
     </div>
 
+
     <div class="card">
 
-        <div class="card-title">Customer List</div>
-
-        <div class="search-box">
-            <input id="customerSearch"
-                   oninput="renderCustomers()"
-                   placeholder="Search customer or phone">
-        </div>
+        <input class="search"
+               id="customerSearch"
+               placeholder="Search customer..."
+               oninput="renderCustomers()">
 
         <div class="table-wrap">
+
             <table>
+
                 <thead>
+
                     <tr>
-                        <th>Customer Name</th>
+                        <th>Name</th>
                         <th>Phone</th>
                         <th>Address</th>
                         <th>Total Sales</th>
                         <th>Due</th>
                         <th>Action</th>
                     </tr>
+
                 </thead>
+
                 <tbody id="customerTable"></tbody>
+
             </table>
+
         </div>
 
     </div>
@@ -965,81 +1168,110 @@ tr:nth-child(even){
 </section>
 
 
+
 <!-- ================= DUE COLLECTION ================= -->
 
-<section id="collection" class="page">
+<section id="due" class="page">
 
-    <div class="page-title">Due Collection</div>
+    <h2>Due Collection</h2>
 
     <div class="card">
 
-        <div class="card-title">Collect Customer Due</div>
-
         <div class="form-grid">
 
-            <div class="form-group">
+            <div class="field">
+
                 <label>Date *</label>
-                <input type="date" id="collectionDate">
+
+                <input type="date"
+                       id="collectionDate">
+
             </div>
 
-            <div class="form-group">
+            <div class="field">
+
                 <label>Customer *</label>
+
                 <select id="collectionCustomer"
-                        onchange="showCustomerDue()"></select>
+                        onchange="showCustomerDue()">
+                </select>
+
             </div>
 
-            <div class="form-group">
+            <div class="field">
+
                 <label>Collection Amount *</label>
+
                 <input id="collectionAmount"
                        type="number"
                        min="0"
                        step="0.01"
                        oninput="checkCollectionAmount()">
+
             </div>
 
-            <div class="form-group">
+            <div class="field">
+
                 <label>Payment Mode</label>
-                <select id="collectionPayment">
+
+                <select id="collectionPaymentMode">
+
                     <option>Cash</option>
                     <option>Bank</option>
                     <option>Bkash</option>
                     <option>Nagad</option>
                     <option>Other</option>
+
                 </select>
+
             </div>
 
-            <div class="form-group full">
+            <div class="field">
+
+                <label>Current Outstanding Due</label>
+
+                <input id="currentDue"
+                       readonly>
+
+            </div>
+
+            <div class="field">
+
+                <label>Due After Collection</label>
+
+                <input id="afterDue"
+                       readonly>
+
+            </div>
+
+            <div class="field full">
+
                 <label>Note</label>
-                <textarea id="collectionNote"
-                          placeholder="Optional note"></textarea>
+
+                <textarea id="collectionNote"></textarea>
+
             </div>
 
         </div>
 
-        <div class="collection-current">
-            <div>Current Outstanding Due</div>
-            <div class="amount" id="currentCustomerDue">0.00</div>
-            <div id="afterCollectionDue"
-                 style="margin-top:7px;color:#166534;">
-                After collection: 0.00
-            </div>
-        </div>
 
         <div class="actions">
-            <button class="btn btn-success"
+
+            <button class="btn warning"
                     onclick="collectFullDue()">
                 Collect Full Due
             </button>
 
-            <button class="btn btn-primary"
+            <button class="btn primary"
                     onclick="saveDueCollection()">
                 Save Collection
             </button>
 
-            <button class="btn btn-light"
+            <button class="btn secondary"
                     onclick="clearCollectionForm()">
                 Clear
             </button>
+
         </div>
 
     </div>
@@ -1047,11 +1279,14 @@ tr:nth-child(even){
 
     <div class="card">
 
-        <div class="card-title">Collection History</div>
+        <h3>Collection History</h3>
 
         <div class="table-wrap">
+
             <table>
+
                 <thead>
+
                     <tr>
                         <th>Date</th>
                         <th>Customer</th>
@@ -1060,9 +1295,13 @@ tr:nth-child(even){
                         <th>Note</th>
                         <th>Action</th>
                     </tr>
+
                 </thead>
+
                 <tbody id="collectionTable"></tbody>
+
             </table>
+
         </div>
 
     </div>
@@ -1070,75 +1309,125 @@ tr:nth-child(even){
 </section>
 
 
+
 <!-- ================= REPORTS ================= -->
 
 <section id="reports" class="page">
 
-    <div class="page-title">Reports</div>
+    <h2>Reports</h2>
 
     <div class="card">
 
-        <div class="card-title">Sales & Purchase Report</div>
-
         <div class="form-grid">
 
-            <div class="form-group">
-                <label>From Date</label>
-                <input type="date" id="reportFrom">
+            <div class="field">
+
+                <label>From</label>
+
+                <input type="date"
+                       id="reportFrom">
+
             </div>
 
-            <div class="form-group">
-                <label>To Date</label>
-                <input type="date" id="reportTo">
+            <div class="field">
+
+                <label>To</label>
+
+                <input type="date"
+                       id="reportTo">
+
             </div>
 
         </div>
 
+
         <div class="actions">
-            <button class="btn btn-primary"
+
+            <button class="btn primary"
                     onclick="generateReport()">
                 Generate Report
             </button>
 
-            <button class="btn btn-light"
+            <button class="btn secondary"
                     onclick="clearReport()">
                 Clear
             </button>
+
         </div>
 
     </div>
+
 
     <div class="dashboard-grid">
 
-        <div class="dashboard-card">
-            <div class="label">Report Purchase</div>
-            <div class="value" id="reportPurchase">0.00</div>
+        <div class="stat">
+
+            <div class="label">
+                Report Purchase
+            </div>
+
+            <div class="value"
+                 id="reportPurchase">
+                ৳0.00
+            </div>
+
         </div>
 
-        <div class="dashboard-card">
-            <div class="label">Report Sales</div>
-            <div class="value" id="reportSales">0.00</div>
+
+        <div class="stat">
+
+            <div class="label">
+                Report Sales
+            </div>
+
+            <div class="value"
+                 id="reportSales">
+                ৳0.00
+            </div>
+
         </div>
 
-        <div class="dashboard-card">
-            <div class="label">Report Profit</div>
-            <div class="value" id="reportProfit">0.00</div>
+
+        <div class="stat">
+
+            <div class="label">
+                Report Profit
+            </div>
+
+            <div class="value"
+                 id="reportProfit">
+                ৳0.00
+            </div>
+
         </div>
 
-        <div class="dashboard-card">
-            <div class="label">Transactions</div>
-            <div class="value" id="reportTransactions">0</div>
+
+        <div class="stat">
+
+            <div class="label">
+                Transactions
+            </div>
+
+            <div class="value"
+                 id="reportTransactions">
+                0
+            </div>
+
         </div>
 
     </div>
 
+
     <div class="card">
 
-        <div class="card-title">Sales Report Details</div>
+        <h3>Sales Detail</h3>
 
         <div class="table-wrap">
+
             <table>
+
                 <thead>
+
                     <tr>
                         <th>Date</th>
                         <th>Product</th>
@@ -1149,9 +1438,13 @@ tr:nth-child(even){
                         <th>Profit</th>
                         <th>Payment</th>
                     </tr>
+
                 </thead>
+
                 <tbody id="reportTable"></tbody>
+
             </table>
+
         </div>
 
     </div>
@@ -1161,10 +1454,11 @@ tr:nth-child(even){
 </main>
 
 
-<datalist id="categoryList"></datalist>
-
-
 <script>
+
+/* =========================================================
+   DATABASE
+========================================================= */
 
 const DB_KEY = "electronicsShopDataV1";
 
@@ -1202,1075 +1496,1885 @@ let db = {
 };
 
 
-/* ================= BASIC FUNCTIONS ================= */
+/* =========================================================
+   BASIC FUNCTIONS
+========================================================= */
 
 function uid(prefix){
+
     return prefix + "-" +
-        Date.now().toString(36) + "-" +
-        Math.random().toString(36).substring(2,7);
+        Date.now().toString(36) +
+        "-" +
+        Math.random().toString(36).slice(2,7);
+
 }
+
 
 function today(){
-    const d = new Date();
-    const y = d.getFullYear();
-    const m = String(d.getMonth()+1).padStart(2,"0");
-    const day = String(d.getDate()).padStart(2,"0");
-    return `${y}-${m}-${day}`;
+
+    return new Date()
+        .toISOString()
+        .slice(0,10);
+
 }
+
 
 function money(value){
-    return Number(value || 0).toLocaleString("en-US",{
-        minimumFractionDigits:2,
-        maximumFractionDigits:2
-    });
+
+    return "৳" +
+        Number(value || 0)
+        .toLocaleString(
+            "en-BD",
+            {
+                minimumFractionDigits:2,
+                maximumFractionDigits:2
+            }
+        );
+
 }
+
 
 function escapeHTML(value){
+
     return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+        .replace(
+            /[&<>"']/g,
+            function(match){
+
+                return {
+                    "&":"&amp;",
+                    "<":"&lt;",
+                    ">":"&gt;",
+                    '"':"&quot;",
+                    "'":"&#039;"
+                }[match];
+
+            }
+        );
+
 }
 
+
 function saveDB(){
-    localStorage.setItem(DB_KEY, JSON.stringify(db));
+
+    localStorage.setItem(
+        DB_KEY,
+        JSON.stringify(db)
+    );
+
 }
+
 
 function loadDB(){
 
-    const saved = localStorage.getItem(DB_KEY);
+    try{
 
-    if(saved){
+        const saved =
+            JSON.parse(
+                localStorage.getItem(DB_KEY)
+            );
 
-        try{
-            const old = JSON.parse(saved);
+        if(saved && typeof saved === "object"){
 
-            db.products = Array.isArray(old.products) ? old.products : [];
-            db.purchases = Array.isArray(old.purchases) ? old.purchases : [];
-            db.sales = Array.isArray(old.sales) ? old.sales : [];
-            db.customers = Array.isArray(old.customers) ? old.customers : [];
-            db.dueCollections = Array.isArray(old.dueCollections)
-                ? old.dueCollections
-                : [];
-            db.suppliers = Array.isArray(old.suppliers)
-                ? old.suppliers
-                : [];
+            db = {
+                ...db,
+                ...saved
+            };
 
-        }catch(e){
-            console.log("Database read error",e);
         }
+
+    }catch(error){
+
+        console.log(error);
+
     }
 
-    DEFAULT_SUPPLIERS.forEach(name=>{
-        if(!db.suppliers.includes(name)){
-            db.suppliers.push(name);
-        }
-    });
 
-    db.purchases.forEach(p=>{
-        if(p.supplier && !db.suppliers.includes(p.supplier)){
-            db.suppliers.push(p.supplier);
+    db.products =
+        Array.isArray(db.products)
+        ? db.products
+        : [];
+
+    db.purchases =
+        Array.isArray(db.purchases)
+        ? db.purchases
+        : [];
+
+    db.sales =
+        Array.isArray(db.sales)
+        ? db.sales
+        : [];
+
+    db.customers =
+        Array.isArray(db.customers)
+        ? db.customers
+        : [];
+
+    db.dueCollections =
+        Array.isArray(db.dueCollections)
+        ? db.dueCollections
+        : [];
+
+    db.suppliers =
+        Array.isArray(db.suppliers)
+        ? db.suppliers
+        : [];
+
+
+    DEFAULT_SUPPLIERS.forEach(
+        function(supplier){
+
+            if(!db.suppliers.includes(supplier)){
+
+                db.suppliers.push(supplier);
+
+            }
+
         }
-    });
+    );
+
 
     saveDB();
+
 }
 
 
-/* ================= PAGE ================= */
+/* =========================================================
+   PAGE
+========================================================= */
 
 function showPage(page){
 
-    document.querySelectorAll(".page")
-        .forEach(el=>el.classList.remove("active"));
+    document
+        .querySelectorAll(".page")
+        .forEach(
+            function(item){
 
-    const target = document.getElementById(page);
+                item.classList.remove("active");
 
-    if(target){
-        target.classList.add("active");
-    }
-
-    document.querySelectorAll("nav button")
-        .forEach(btn=>btn.classList.remove("active"));
-
-    const nav = document.getElementById(
-        "nav" + page.charAt(0).toUpperCase()+page.slice(1)
-    );
-
-    if(nav){
-        nav.classList.add("active");
-    }
-
-    refreshAll();
-}
+            }
+        );
 
 
-/* ================= CATEGORY ================= */
-
-function getAllCategories(){
-
-    const set = new Set(DEFAULT_CATEGORIES);
-
-    db.products.forEach(p=>{
-        if(p.category) set.add(p.category);
-    });
-
-    db.purchases.forEach(p=>{
-        if(p.category) set.add(p.category);
-    });
-
-    db.sales.forEach(s=>{
-        if(s.category) set.add(s.category);
-    });
-
-    return [...set];
-}
-
-function loadCategoryList(){
-
-    const list = document.getElementById("categoryList");
-
-    if(list){
-
-        list.innerHTML = getAllCategories()
-            .map(c=>`<option value="${escapeHTML(c)}"></option>`)
-            .join("");
-    }
-
-    setCategoryOptions(
-        document.getElementById("purchaseCategory")
-    );
-
-    setCategoryOptions(
-        document.getElementById("saleCategory")
-    );
-}
-
-function setCategoryOptions(select,selected){
-
-    if(!select) return;
-
-    const categories = getAllCategories();
-
-    select.innerHTML =
-        `<option value="">Select Category</option>` +
-        categories.map(c=>
-            `<option value="${escapeHTML(c)}">
-                ${escapeHTML(c)}
-            </option>`
-        ).join("");
+    const selected =
+        document.getElementById(page);
 
     if(selected){
-        select.value = selected;
-    }
-}
 
+        selected.classList.add("active");
 
-/* ================= SUPPLIER ================= */
-
-function loadSupplierList(){
-
-    const select = document.getElementById("purchaseSupplier");
-
-    if(!select) return;
-
-    select.innerHTML =
-        `<option value="">Select Supplier</option>` +
-        db.suppliers
-            .map(s=>
-                `<option value="${escapeHTML(s)}">
-                    ${escapeHTML(s)}
-                </option>`
-            ).join("");
-}
-
-function addSupplier(name){
-
-    name = String(name || "").trim();
-
-    if(!name) return;
-
-    if(!db.suppliers.includes(name)){
-        db.suppliers.push(name);
-    }
-}
-
-
-/* ================= PRODUCT ================= */
-
-function saveProduct(){
-
-    const name =
-        document.getElementById("productName").value.trim();
-
-    const category =
-        document.getElementById("productCategory").value.trim();
-
-    if(!name){
-        alert("Please enter Product Name.");
-        return;
     }
 
-    if(!category){
-        alert("Please enter Category.");
-        return;
+
+    document
+        .querySelectorAll(".nav button")
+        .forEach(
+            function(button){
+
+                button.classList.remove("active");
+
+            }
+        );
+
+
+    const activeButton =
+        [...document.querySelectorAll(".nav button")]
+        .find(
+            function(button){
+
+                return button.getAttribute("onclick")
+                    === `showPage('${page}')`;
+
+            }
+        );
+
+
+    if(activeButton){
+
+        activeButton.classList.add("active");
+
     }
 
-    const id =
-        document.getElementById("productId").value;
 
-    const product = {
-        id:id || uid("PROD"),
-        name:name,
-        category:category,
-        partNumber:
-            document.getElementById("productPartNumber").value.trim(),
-        value:
-            document.getElementById("productValue").value.trim(),
-        voltage:
-            document.getElementById("productVoltage").value.trim(),
-        salePrice:
-            Number(document.getElementById("productSalePrice").value || 0),
-        other:
-            document.getElementById("productOther").value.trim()
-    };
-
-    if(id){
-
-        const index =
-            db.products.findIndex(p=>p.id===id);
-
-        if(index>=0){
-            db.products[index] = product;
-        }
-
-    }else{
-
-        db.products.push(product);
-    }
-
-    saveDB();
-    clearProductForm();
     refreshAll();
 
-    alert("Product saved successfully.");
-}
-
-function editProduct(id){
-
-    const p = db.products.find(x=>x.id===id);
-
-    if(!p) return;
-
-    document.getElementById("productId").value = p.id;
-    document.getElementById("productName").value = p.name || "";
-    document.getElementById("productCategory").value = p.category || "";
-    document.getElementById("productPartNumber").value = p.partNumber || "";
-    document.getElementById("productValue").value = p.value || "";
-    document.getElementById("productVoltage").value = p.voltage || "";
-    document.getElementById("productSalePrice").value = p.salePrice || "";
-    document.getElementById("productOther").value = p.other || "";
-
-    showPage("products");
 
     window.scrollTo({
         top:0,
         behavior:"smooth"
     });
-}
 
-function deleteProduct(id){
-
-    const used =
-        db.purchases.some(p=>p.productId===id) ||
-        db.sales.some(s=>s.productId===id);
-
-    if(used){
-        alert("This product is already used in Purchase or Sales. It cannot be deleted.");
-        return;
-    }
-
-    if(!confirm("Delete this product?")){
-        return;
-    }
-
-    db.products =
-        db.products.filter(p=>p.id!==id);
-
-    saveDB();
-    refreshAll();
-}
-
-function clearProductForm(){
-
-    document.getElementById("productId").value="";
-    document.getElementById("productName").value="";
-    document.getElementById("productCategory").value="";
-    document.getElementById("productPartNumber").value="";
-    document.getElementById("productValue").value="";
-    document.getElementById("productVoltage").value="";
-    document.getElementById("productSalePrice").value="";
-    document.getElementById("productOther").value="";
-}
-
-function getProductStock(productId){
-
-    const purchased =
-        db.purchases
-            .filter(p=>p.productId===productId)
-            .reduce((sum,p)=>sum+Number(p.quantity||0),0);
-
-    const sold =
-        db.sales
-            .filter(s=>s.productId===productId)
-            .reduce((sum,s)=>sum+Number(s.quantity||0),0);
-
-    return purchased-sold;
-}
-
-function getAveragePurchasePrice(productId){
-
-    const rows =
-        db.purchases.filter(p=>p.productId===productId);
-
-    if(!rows.length) return 0;
-
-    const qty =
-        rows.reduce((sum,p)=>sum+Number(p.quantity||0),0);
-
-    if(!qty) return 0;
-
-    const amount =
-        rows.reduce(
-            (sum,p)=>
-                sum + Number(p.quantity||0)*Number(p.unitPrice||0),
-            0
-        );
-
-    return amount/qty;
-}
-
-function renderProducts(){
-
-    const tbody =
-        document.getElementById("productTable");
-
-    const search =
-        (document.getElementById("productSearch").value || "")
-            .toLowerCase();
-
-    const rows =
-        db.products.filter(p=>
-            [
-                p.name,
-                p.category,
-                p.partNumber,
-                p.value,
-                p.voltage
-            ].join(" ").toLowerCase().includes(search)
-        );
-
-    if(!rows.length){
-
-        tbody.innerHTML =
-            `<tr><td colspan="8" class="empty">
-                No products found.
-            </td></tr>`;
-
-        return;
-    }
-
-    tbody.innerHTML =
-        rows.map(p=>{
-
-            const stock =
-                getProductStock(p.id);
-
-            return `
-            <tr>
-                <td>${escapeHTML(p.name)}</td>
-                <td>${escapeHTML(p.category)}</td>
-                <td>${escapeHTML(p.partNumber)}</td>
-                <td>${escapeHTML(p.value)}</td>
-                <td>${escapeHTML(p.voltage)}</td>
-                <td>${money(p.salePrice)}</td>
-                <td>${stock}</td>
-                <td>
-                    <button class="small-btn btn-warning"
-                            onclick="editProduct('${p.id}')">
-                        Edit
-                    </button>
-
-                    <button class="small-btn btn-danger"
-                            onclick="deleteProduct('${p.id}')">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-            `;
-        }).join("");
 }
 
 
-/* ================= PURCHASE ================= */
+/* =========================================================
+   CATEGORY
+========================================================= */
 
-function loadPurchaseProducts(){
+function getAllCategories(){
 
-    const select =
-        document.getElementById("purchaseProduct");
+    const categories =
+        new Set(DEFAULT_CATEGORIES);
 
-    const current = select.value;
 
-    select.innerHTML =
-        `<option value="">Select Product</option>` +
-        db.products.map(p=>`
-            <option value="${p.id}">
-                ${escapeHTML(p.name)}
-                ${p.partNumber ? " - "+escapeHTML(p.partNumber) : ""}
-            </option>
-        `).join("");
+    db.products.forEach(
+        function(product){
 
-    if(current){
-        select.value=current;
-    }
-}
+            if(product.category){
 
-function purchaseProductChanged(){
+                categories.add(product.category);
 
-    const id =
-        document.getElementById("purchaseProduct").value;
+            }
 
-    const p =
-        db.products.find(x=>x.id===id);
-
-    if(!p) return;
-
-    setCategoryOptions(
-        document.getElementById("purchaseCategory"),
-        p.category
+        }
     );
 
-    document.getElementById("purchasePartNumber").value =
-        p.partNumber || "";
+
+    return [...categories];
+
 }
 
-function calculatePurchaseTotal(){
 
-    const qty =
-        Number(document.getElementById("purchaseQuantity").value || 0);
+function loadCategoryList(){
+
+    const list =
+        document.getElementById("categoryList");
+
+
+    list.innerHTML =
+        getAllCategories()
+        .map(
+            function(category){
+
+                return `
+                <option value="${escapeHTML(category)}">
+                `;
+
+            }
+        )
+        .join("");
+
+
+    setCategoryOptions("purchaseCategory");
+    setCategoryOptions("saleCategory");
+
+}
+
+
+function setCategoryOptions(id){
+
+    const element =
+        document.getElementById(id);
+
+    const oldValue =
+        element.value;
+
+
+    element.innerHTML =
+        getAllCategories()
+        .map(
+            function(category){
+
+                return `
+                <option value="${escapeHTML(category)}">
+                    ${escapeHTML(category)}
+                </option>
+                `;
+
+            }
+        )
+        .join("");
+
+
+    if(oldValue){
+
+        element.value = oldValue;
+
+    }
+
+}
+
+
+/* =========================================================
+   SUPPLIERS
+========================================================= */
+
+function loadSupplierList(){
+
+    const element =
+        document.getElementById(
+            "purchaseSupplier"
+        );
+
+    const oldValue =
+        element.value;
+
+
+    element.innerHTML =
+        db.suppliers
+        .map(
+            function(supplier){
+
+                return `
+                <option value="${escapeHTML(supplier)}">
+                    ${escapeHTML(supplier)}
+                </option>
+                `;
+
+            }
+        )
+        .join("");
+
+
+    if(oldValue){
+
+        element.value = oldValue;
+
+    }
+
+}
+
+
+function addSupplier(){
+
+    const name =
+        document
+        .getElementById("newSupplier")
+        .value
+        .trim();
+
+
+    if(
+        name &&
+        !db.suppliers.includes(name)
+    ){
+
+        db.suppliers.push(name);
+
+        saveDB();
+
+    }
+
+
+    return name ||
+        document
+        .getElementById("purchaseSupplier")
+        .value;
+
+}
+
+
+/* =========================================================
+   PRODUCTS
+========================================================= */
+
+function saveProduct(){
+
+    const name =
+        document
+        .getElementById("productName")
+        .value
+        .trim();
+
 
     const price =
-        Number(document.getElementById("purchaseUnitPrice").value || 0);
+        Number(
+            document
+            .getElementById("productSalePrice")
+            .value
+        );
 
-    document.getElementById("purchaseTotal").value =
-        money(qty*price);
-}
 
-function savePurchase(){
+    if(
+        !name ||
+        document.getElementById("productSalePrice").value === ""
+    ){
 
-    const date =
-        document.getElementById("purchaseDate").value;
+        alert(
+            "Product Name and Sale Price are required."
+        );
 
-    const productId =
-        document.getElementById("purchaseProduct").value;
-
-    const category =
-        document.getElementById("purchaseCategory").value;
-
-    const quantity =
-        Number(document.getElementById("purchaseQuantity").value || 0);
-
-    const unitPrice =
-        Number(document.getElementById("purchaseUnitPrice").value || 0);
-
-    if(!date){
-        alert("Please select Date.");
         return;
+
     }
 
-    if(!productId){
-        alert("Please select Product.");
-        return;
-    }
-
-    if(!category){
-        alert("Please select Category.");
-        return;
-    }
-
-    if(quantity<=0){
-        alert("Quantity must be greater than 0.");
-        return;
-    }
-
-    if(unitPrice<0){
-        alert("Invalid purchase price.");
-        return;
-    }
-
-    let supplier =
-        document.getElementById("purchaseSupplier").value;
-
-    const newSupplier =
-        document.getElementById("purchaseNewSupplier").value.trim();
-
-    if(newSupplier){
-        supplier = newSupplier;
-        addSupplier(newSupplier);
-    }
 
     const id =
-        document.getElementById("purchaseId").value;
+        document
+        .getElementById("productId")
+        .value;
 
-    const product =
-        db.products.find(p=>p.id===productId);
 
-    const row = {
+    const product = {
 
-        id:id || uid("PUR"),
+        id:id || uid("PR"),
 
-        date:date,
+        name:name,
 
-        productId:productId,
-
-        productName:
-            product ? product.name : "",
-
-        category:category,
+        category:
+            document
+            .getElementById("productCategory")
+            .value
+            .trim(),
 
         partNumber:
-            document.getElementById("purchasePartNumber").value.trim(),
+            document
+            .getElementById("productPartNumber")
+            .value
+            .trim(),
 
-        quantity:quantity,
+        value:
+            document
+            .getElementById("productValue")
+            .value
+            .trim(),
 
-        unitPrice:unitPrice,
+        voltage:
+            document
+            .getElementById("productVoltage")
+            .value
+            .trim(),
 
-        total:quantity*unitPrice,
-
-        supplier:supplier,
-
-        payment:
-            document.getElementById("purchasePayment").value,
+        salePrice:price,
 
         other:
-            document.getElementById("purchaseOther").value.trim()
+            document
+            .getElementById("productOther")
+            .value
+            .trim()
+
     };
+
 
     if(id){
 
         const index =
-            db.purchases.findIndex(p=>p.id===id);
+            db.products.findIndex(
+                function(item){
 
-        if(index>=0){
-            db.purchases[index]=row;
+                    return item.id === id;
+
+                }
+            );
+
+
+        if(index >= 0){
+
+            db.products[index] =
+                product;
+
         }
 
     }else{
 
-        db.purchases.push(row);
+        db.products.push(product);
+
     }
 
+
     saveDB();
+
+    clearProductForm();
+
+    refreshAll();
+
+    alert("Product saved successfully.");
+
+}
+
+
+function editProduct(id){
+
+    const product =
+        db.products.find(
+            function(item){
+
+                return item.id === id;
+
+            }
+        );
+
+
+    if(!product)return;
+
+
+    document.getElementById("productId").value =
+        product.id;
+
+    document.getElementById("productName").value =
+        product.name || "";
+
+    document.getElementById("productCategory").value =
+        product.category || "";
+
+    document.getElementById("productPartNumber").value =
+        product.partNumber || "";
+
+    document.getElementById("productValue").value =
+        product.value || "";
+
+    document.getElementById("productVoltage").value =
+        product.voltage || "";
+
+    document.getElementById("productSalePrice").value =
+        product.salePrice ?? "";
+
+    document.getElementById("productOther").value =
+        product.other || "";
+
+
+    showPage("products");
+
+}
+
+
+function deleteProduct(id){
+
+    if(!confirm("Delete this product?"))return;
+
+
+    db.products =
+        db.products.filter(
+            function(item){
+
+                return item.id !== id;
+
+            }
+        );
+
+
+    saveDB();
+
+    refreshAll();
+
+}
+
+
+function clearProductForm(){
+
+    [
+        "productId",
+        "productName",
+        "productCategory",
+        "productPartNumber",
+        "productValue",
+        "productVoltage",
+        "productSalePrice",
+        "productOther"
+    ]
+    .forEach(
+        function(id){
+
+            document.getElementById(id).value = "";
+
+        }
+    );
+
+}
+
+
+function getProductStock(
+    id,
+    excludePurchaseId="",
+    excludeSaleId=""
+){
+
+    const purchased =
+        db.purchases
+        .filter(
+            function(item){
+
+                return item.productId === id &&
+                       item.id !== excludePurchaseId;
+
+            }
+        )
+        .reduce(
+            function(total,item){
+
+                return total +
+                    Number(item.qty || 0);
+
+            },
+            0
+        );
+
+
+    const sold =
+        db.sales
+        .filter(
+            function(item){
+
+                return item.productId === id &&
+                       item.id !== excludeSaleId;
+
+            }
+        )
+        .reduce(
+            function(total,item){
+
+                return total +
+                    Number(item.qty || 0);
+
+            },
+            0
+        );
+
+
+    return purchased - sold;
+
+}
+
+
+function getAveragePurchasePrice(id){
+
+    const records =
+        db.purchases.filter(
+            function(item){
+
+                return item.productId === id;
+
+            }
+        );
+
+
+    const quantity =
+        records.reduce(
+            function(total,item){
+
+                return total +
+                    Number(item.qty || 0);
+
+            },
+            0
+        );
+
+
+    const cost =
+        records.reduce(
+            function(total,item){
+
+                return total +
+                    Number(item.qty || 0) *
+                    Number(item.unitPrice || 0);
+
+            },
+            0
+        );
+
+
+    return quantity
+        ? cost / quantity
+        : 0;
+
+}
+
+
+function renderProducts(){
+
+    const search =
+        document
+        .getElementById("productSearch")
+        .value
+        .toLowerCase();
+
+
+    const table =
+        document.getElementById("productTable");
+
+
+    const rows =
+        db.products.filter(
+            function(product){
+
+                return Object
+                    .values(product)
+                    .join(" ")
+                    .toLowerCase()
+                    .includes(search);
+
+            }
+        );
+
+
+    table.innerHTML =
+        rows.length
+        ?
+
+        rows.map(
+            function(product){
+
+                return `
+                <tr>
+
+                    <td>${escapeHTML(product.name)}</td>
+
+                    <td>${escapeHTML(product.category)}</td>
+
+                    <td>${escapeHTML(product.partNumber)}</td>
+
+                    <td>${escapeHTML(product.value)}</td>
+
+                    <td>${escapeHTML(product.voltage)}</td>
+
+                    <td>${money(product.salePrice)}</td>
+
+                    <td>${getProductStock(product.id)}</td>
+
+                    <td>
+
+                        <button
+                            class="small-btn edit"
+                            onclick="editProduct('${product.id}')">
+                            Edit
+                        </button>
+
+                        <button
+                            class="small-btn del"
+                            onclick="deleteProduct('${product.id}')">
+                            Delete
+                        </button>
+
+                    </td>
+
+                </tr>
+                `;
+
+            }
+        ).join("")
+
+        :
+
+        `
+        <tr>
+            <td colspan="8"
+                class="empty">
+                No products found.
+            </td>
+        </tr>
+        `;
+
+}
+
+
+/* =========================================================
+   PURCHASE
+========================================================= */
+
+function loadPurchaseProducts(){
+
+    const element =
+        document.getElementById(
+            "purchaseProduct"
+        );
+
+    const oldValue =
+        element.value;
+
+
+    element.innerHTML =
+        `
+        <option value="">
+            Select Product
+        </option>
+        ` +
+
+        db.products
+        .map(
+            function(product){
+
+                return `
+                <option value="${product.id}">
+                    ${escapeHTML(product.name)}
+                </option>
+                `;
+
+            }
+        )
+        .join("");
+
+
+    if(oldValue){
+
+        element.value = oldValue;
+
+    }
+
+}
+
+
+function purchaseProductChanged(){
+
+    const product =
+        db.products.find(
+            function(item){
+
+                return item.id ===
+                    document
+                    .getElementById("purchaseProduct")
+                    .value;
+
+            }
+        );
+
+
+    if(!product)return;
+
+
+    document.getElementById(
+        "purchaseCategory"
+    ).value =
+        product.category || "";
+
+
+    document.getElementById(
+        "purchasePartNumber"
+    ).value =
+        product.partNumber || "";
+
+}
+
+
+function calculatePurchaseTotal(){
+
+    const qty =
+        Number(
+            document
+            .getElementById("purchaseQty")
+            .value || 0
+        );
+
+
+    const price =
+        Number(
+            document
+            .getElementById("purchaseUnitPrice")
+            .value || 0
+        );
+
+
+    document.getElementById(
+        "purchaseTotal"
+    ).value =
+        qty * price;
+
+}
+
+
+function savePurchase(){
+
+    const productId =
+        document
+        .getElementById("purchaseProduct")
+        .value;
+
+
+    const quantity =
+        Number(
+            document
+            .getElementById("purchaseQty")
+            .value
+        );
+
+
+    const unitPrice =
+        Number(
+            document
+            .getElementById("purchaseUnitPrice")
+            .value
+        );
+
+
+    if(
+        !document.getElementById("purchaseDate").value ||
+        !productId ||
+        quantity <= 0 ||
+        unitPrice < 0
+    ){
+
+        alert(
+            "Date, Product, Quantity and Unit Purchase Price are required."
+        );
+
+        return;
+
+    }
+
+
+    const supplier =
+        addSupplier();
+
+
+    const id =
+        document
+        .getElementById("purchaseId")
+        .value;
+
+
+    const purchase = {
+
+        id:id || uid("PUR"),
+
+        date:
+            document
+            .getElementById("purchaseDate")
+            .value,
+
+        productId:productId,
+
+        category:
+            document
+            .getElementById("purchaseCategory")
+            .value,
+
+        partNumber:
+            document
+            .getElementById("purchasePartNumber")
+            .value
+            .trim(),
+
+        qty:quantity,
+
+        unitPrice:unitPrice,
+
+        total:quantity * unitPrice,
+
+        supplier:supplier,
+
+        paymentMode:
+            document
+            .getElementById("purchasePaymentMode")
+            .value,
+
+        other:
+            document
+            .getElementById("purchaseOther")
+            .value
+            .trim()
+
+    };
+
+
+    if(id){
+
+        const index =
+            db.purchases.findIndex(
+                function(item){
+
+                    return item.id === id;
+
+                }
+            );
+
+
+        if(index >= 0){
+
+            db.purchases[index] =
+                purchase;
+
+        }
+
+    }else{
+
+        db.purchases.push(purchase);
+
+    }
+
+
+    saveDB();
+
     clearPurchaseForm();
+
     refreshAll();
 
     alert("Purchase saved successfully.");
+
 }
+
 
 function editPurchase(id){
 
-    const p =
-        db.purchases.find(x=>x.id===id);
+    const purchase =
+        db.purchases.find(
+            function(item){
 
-    if(!p) return;
+                return item.id === id;
 
-    document.getElementById("purchaseId").value=p.id;
-    document.getElementById("purchaseDate").value=p.date;
+            }
+        );
 
-    loadPurchaseProducts();
 
-    document.getElementById("purchaseProduct").value=p.productId;
+    if(!purchase)return;
 
-    setCategoryOptions(
-        document.getElementById("purchaseCategory"),
-        p.category
-    );
 
-    document.getElementById("purchasePartNumber").value=
-        p.partNumber || "";
+    document.getElementById("purchaseId").value =
+        purchase.id;
 
-    document.getElementById("purchaseQuantity").value=
-        p.quantity;
+    document.getElementById("purchaseDate").value =
+        purchase.date;
 
-    document.getElementById("purchaseUnitPrice").value=
-        p.unitPrice;
+    document.getElementById("purchaseProduct").value =
+        purchase.productId;
 
-    document.getElementById("purchaseSupplier").value=
-        p.supplier || "";
 
-    document.getElementById("purchaseNewSupplier").value="";
+    purchaseProductChanged();
 
-    document.getElementById("purchasePayment").value=
-        p.payment || "Cash";
 
-    document.getElementById("purchaseOther").value=
-        p.other || "";
+    document.getElementById("purchaseCategory").value =
+        purchase.category || "";
+
+    document.getElementById("purchasePartNumber").value =
+        purchase.partNumber || "";
+
+    document.getElementById("purchaseQty").value =
+        purchase.qty;
+
+    document.getElementById("purchaseUnitPrice").value =
+        purchase.unitPrice;
+
+    document.getElementById("purchasePaymentMode").value =
+        purchase.paymentMode || "Cash";
+
+    document.getElementById("purchaseOther").value =
+        purchase.other || "";
+
 
     calculatePurchaseTotal();
 
     showPage("purchase");
 
-    window.scrollTo({top:0,behavior:"smooth"});
 }
+
 
 function deletePurchase(id){
 
-    if(!confirm("Delete this purchase entry?")){
-        return;
-    }
+    if(!confirm("Delete this purchase?"))return;
+
 
     db.purchases =
-        db.purchases.filter(p=>p.id!==id);
+        db.purchases.filter(
+            function(item){
+
+                return item.id !== id;
+
+            }
+        );
+
 
     saveDB();
+
     refreshAll();
+
 }
+
 
 function clearPurchaseForm(){
 
-    document.getElementById("purchaseId").value="";
-    document.getElementById("purchaseDate").value=today();
-    document.getElementById("purchaseProduct").value="";
-    document.getElementById("purchaseCategory").value="";
-    document.getElementById("purchasePartNumber").value="";
-    document.getElementById("purchaseQuantity").value="";
-    document.getElementById("purchaseUnitPrice").value="";
-    document.getElementById("purchaseTotal").value="";
-    document.getElementById("purchaseSupplier").value="";
-    document.getElementById("purchaseNewSupplier").value="";
-    document.getElementById("purchasePayment").value="Cash";
-    document.getElementById("purchaseOther").value="";
+    document.getElementById("purchaseId").value = "";
+
+    document.getElementById("purchaseDate").value =
+        today();
+
+    document.getElementById("purchaseProduct").value = "";
+
+    document.getElementById("purchaseCategory").value = "";
+
+    document.getElementById("purchasePartNumber").value = "";
+
+    document.getElementById("purchaseQty").value = "";
+
+    document.getElementById("purchaseUnitPrice").value = "";
+
+    document.getElementById("purchaseTotal").value = "";
+
+    document.getElementById("newSupplier").value = "";
+
+    document.getElementById("purchaseOther").value = "";
+
 }
+
 
 function renderPurchases(){
 
-    const tbody =
-        document.getElementById("purchaseTable");
+    const productNames =
+        Object.fromEntries(
+            db.products.map(
+                function(product){
 
-    if(!db.purchases.length){
+                    return [
+                        product.id,
+                        product.name
+                    ];
 
-        tbody.innerHTML =
-            `<tr><td colspan="10" class="empty">
-                No purchase records.
-            </td></tr>`;
-
-        return;
-    }
-
-    const rows =
-        [...db.purchases].sort(
-            (a,b)=>b.date.localeCompare(a.date)
+                }
+            )
         );
 
-    tbody.innerHTML =
-        rows.map(p=>`
-        <tr>
-            <td>${escapeHTML(p.date)}</td>
-            <td>${escapeHTML(p.productName)}</td>
-            <td>${escapeHTML(p.category)}</td>
-            <td>${escapeHTML(p.partNumber)}</td>
-            <td>${p.quantity}</td>
-            <td>${money(p.unitPrice)}</td>
-            <td>${money(p.total)}</td>
-            <td>${escapeHTML(p.supplier)}</td>
-            <td>${escapeHTML(p.payment)}</td>
-            <td>
-                <button class="small-btn btn-warning"
-                        onclick="editPurchase('${p.id}')">
-                    Edit
-                </button>
 
-                <button class="small-btn btn-danger"
-                        onclick="deletePurchase('${p.id}')">
-                    Delete
-                </button>
+    const table =
+        document.getElementById(
+            "purchaseTable"
+        );
+
+
+    table.innerHTML =
+        db.purchases
+        .slice()
+        .sort(
+            function(a,b){
+
+                return b.date.localeCompare(a.date);
+
+            }
+        )
+        .map(
+            function(item){
+
+                return `
+                <tr>
+
+                    <td>${item.date}</td>
+
+                    <td>
+                        ${escapeHTML(
+                            productNames[item.productId]
+                            || "Deleted Product"
+                        )}
+                    </td>
+
+                    <td>${escapeHTML(item.category)}</td>
+
+                    <td>${escapeHTML(item.partNumber)}</td>
+
+                    <td>${item.qty}</td>
+
+                    <td>${money(item.unitPrice)}</td>
+
+                    <td>${money(item.total)}</td>
+
+                    <td>${escapeHTML(item.supplier)}</td>
+
+                    <td>${escapeHTML(item.paymentMode)}</td>
+
+                    <td>
+
+                        <button
+                            class="small-btn edit"
+                            onclick="editPurchase('${item.id}')">
+                            Edit
+                        </button>
+
+                        <button
+                            class="small-btn del"
+                            onclick="deletePurchase('${item.id}')">
+                            Delete
+                        </button>
+
+                    </td>
+
+                </tr>
+                `;
+
+            }
+        )
+        .join("")
+
+        ||
+
+        `
+        <tr>
+            <td colspan="10"
+                class="empty">
+                No purchase records.
             </td>
         </tr>
-        `).join("");
+        `;
+
 }
 
 
-/* ================= SALES ================= */
+/* =========================================================
+   SALES
+========================================================= */
 
 function loadSaleProducts(){
 
-    const select =
-        document.getElementById("saleProduct");
+    const element =
+        document.getElementById(
+            "saleProduct"
+        );
 
-    const current = select.value;
+    const oldValue =
+        element.value;
 
-    select.innerHTML =
-        `<option value="">Select Product</option>` +
-        db.products.map(p=>{
 
-            const stock =
-                getProductStock(p.id);
+    element.innerHTML =
+        `
+        <option value="">
+            Select Product
+        </option>
+        ` +
 
-            return `
-            <option value="${p.id}">
-                ${escapeHTML(p.name)}
-                ${p.partNumber ? " - "+escapeHTML(p.partNumber) : ""}
-                (Stock: ${stock})
-            </option>
-            `;
-        }).join("");
+        db.products
+        .map(
+            function(product){
 
-    if(current){
-        select.value=current;
+                return `
+                <option value="${product.id}">
+                    ${escapeHTML(product.name)}
+                </option>
+                `;
+
+            }
+        )
+        .join("");
+
+
+    if(oldValue){
+
+        element.value = oldValue;
+
     }
+
 }
+
 
 function loadSaleCustomers(){
 
-    const select =
-        document.getElementById("saleCustomer");
+    const saleCustomer =
+        document.getElementById(
+            "saleCustomer"
+        );
 
-    const current =
-        select.value;
 
-    select.innerHTML =
-        `<option value="">Walk-in / No Customer</option>` +
-        db.customers.map(c=>`
-            <option value="${c.id}">
-                ${escapeHTML(c.name)}
-                ${c.phone ? " - "+escapeHTML(c.phone) : ""}
-            </option>
-        `).join("");
+    const collectionCustomer =
+        document.getElementById(
+            "collectionCustomer"
+        );
 
-    if(current){
-        select.value=current;
+
+    const oldSale =
+        saleCustomer.value;
+
+
+    const oldCollection =
+        collectionCustomer.value;
+
+
+    const options =
+        `
+        <option value="">
+            Select Customer
+        </option>
+        ` +
+
+        db.customers
+        .map(
+            function(customer){
+
+                return `
+                <option value="${customer.id}">
+                    ${escapeHTML(customer.name)}
+                </option>
+                `;
+
+            }
+        )
+        .join("");
+
+
+    saleCustomer.innerHTML = options;
+
+    collectionCustomer.innerHTML = options;
+
+
+    if(oldSale){
+
+        saleCustomer.value = oldSale;
+
     }
+
+
+    if(oldCollection){
+
+        collectionCustomer.value =
+            oldCollection;
+
+    }
+
 }
+
 
 function saleProductChanged(){
 
-    const id =
-        document.getElementById("saleProduct").value;
+    const product =
+        db.products.find(
+            function(item){
 
-    const p =
-        db.products.find(x=>x.id===id);
+                return item.id ===
+                    document
+                    .getElementById("saleProduct")
+                    .value;
 
-    if(!p) return;
+            }
+        );
 
-    setCategoryOptions(
-        document.getElementById("saleCategory"),
-        p.category
-    );
 
-    document.getElementById("salePartNumber").value=
-        p.partNumber || "";
+    if(!product)return;
 
-    document.getElementById("saleUnitPrice").value=
-        p.salePrice || "";
+
+    document.getElementById(
+        "saleCategory"
+    ).value =
+        product.category || "";
+
+
+    document.getElementById(
+        "salePartNumber"
+    ).value =
+        product.partNumber || "";
+
+
+    document.getElementById(
+        "saleUnitPrice"
+    ).value =
+        product.salePrice ?? "";
+
 
     calculateSaleTotal();
+
 }
+
 
 function calculateSaleTotal(){
 
     const qty =
-        Number(document.getElementById("saleQuantity").value || 0);
+        Number(
+            document
+            .getElementById("saleQty")
+            .value || 0
+        );
+
 
     const price =
-        Number(document.getElementById("saleUnitPrice").value || 0);
+        Number(
+            document
+            .getElementById("saleUnitPrice")
+            .value || 0
+        );
 
-    document.getElementById("saleTotal").value =
-        money(qty*price);
+
+    document.getElementById(
+        "saleTotal"
+    ).value =
+        qty * price;
+
 }
+
 
 function saveSale(){
 
-    const date =
-        document.getElementById("saleDate").value;
-
     const productId =
-        document.getElementById("saleProduct").value;
+        document
+        .getElementById("saleProduct")
+        .value;
 
-    const category =
-        document.getElementById("saleCategory").value;
 
     const quantity =
-        Number(document.getElementById("saleQuantity").value || 0);
+        Number(
+            document
+            .getElementById("saleQty")
+            .value
+        );
+
 
     const unitPrice =
-        Number(document.getElementById("saleUnitPrice").value || 0);
+        Number(
+            document
+            .getElementById("saleUnitPrice")
+            .value
+        );
 
-    const customerId =
-        document.getElementById("saleCustomer").value;
 
-    const payment =
-        document.getElementById("salePayment").value;
+    const paymentType =
+        document
+        .getElementById("salePaymentType")
+        .value;
 
-    if(!date){
-        alert("Please select Date.");
-        return;
-    }
 
-    if(!productId){
-        alert("Please select Product.");
-        return;
-    }
-
-    if(!category){
-        alert("Please select Category.");
-        return;
-    }
-
-    if(quantity<=0){
-        alert("Quantity must be greater than 0.");
-        return;
-    }
-
-    const stock =
-        getProductStock(productId);
-
-    const id =
-        document.getElementById("saleId").value;
-
-    let oldQuantity = 0;
-
-    if(id){
-
-        const old =
-            db.sales.find(s=>s.id===id);
-
-        if(old){
-            oldQuantity=Number(old.quantity||0);
-        }
-    }
-
-    const availableStock =
-        stock + oldQuantity;
-
-    if(quantity>availableStock){
+    if(
+        !document.getElementById("saleDate").value ||
+        !productId ||
+        quantity <= 0 ||
+        unitPrice < 0
+    ){
 
         alert(
-            "Not enough stock.\nAvailable stock: " +
-            availableStock
+            "Date, Product, Quantity and Unit Sale Price are required."
         );
 
         return;
+
     }
 
-    if(payment==="Due" && !customerId){
+
+    const id =
+        document
+        .getElementById("saleId")
+        .value;
+
+
+    const availableStock =
+        getProductStock(
+            productId,
+            "",
+            id
+        );
+
+
+    if(
+        !id &&
+        quantity > availableStock
+    ){
+
+        if(
+            !confirm(
+                `Available stock is ${availableStock}. Continue with this sale?`
+            )
+        ){
+
+            return;
+
+        }
+
+    }
+
+
+    if(
+        paymentType === "Due" &&
+        !document
+        .getElementById("saleCustomer")
+        .value
+    ){
 
         alert(
             "Please select a customer for a Due sale."
         );
 
         return;
+
     }
 
-    const product =
-        db.products.find(p=>p.id===productId);
 
-    const customer =
-        db.customers.find(c=>c.id===customerId);
-
-    const row = {
+    const sale = {
 
         id:id || uid("SAL"),
 
-        date:date,
+        date:
+            document
+            .getElementById("saleDate")
+            .value,
 
         productId:productId,
 
-        productName:
-            product ? product.name : "",
-
-        category:category,
+        category:
+            document
+            .getElementById("saleCategory")
+            .value,
 
         partNumber:
-            document.getElementById("salePartNumber").value.trim(),
+            document
+            .getElementById("salePartNumber")
+            .value
+            .trim(),
 
-        quantity:quantity,
+        qty:quantity,
 
         unitPrice:unitPrice,
 
-        total:quantity*unitPrice,
+        total:quantity * unitPrice,
 
-        customerId:customerId,
+        customerId:
+            document
+            .getElementById("saleCustomer")
+            .value,
 
-        customerName:
-            customer ? customer.name : "",
-
-        payment:payment,
+        paymentType:paymentType,
 
         other:
-            document.getElementById("saleOther").value.trim()
+            document
+            .getElementById("saleOther")
+            .value
+            .trim()
+
     };
+
 
     if(id){
 
         const index =
-            db.sales.findIndex(s=>s.id===id);
+            db.sales.findIndex(
+                function(item){
 
-        if(index>=0){
-            db.sales[index]=row;
+                    return item.id === id;
+
+                }
+            );
+
+
+        if(index >= 0){
+
+            db.sales[index] =
+                sale;
+
         }
 
     }else{
 
-        db.sales.push(row);
+        db.sales.push(sale);
+
     }
 
+
     saveDB();
+
     clearSaleForm();
+
     refreshAll();
 
     alert("Sale saved successfully.");
+
 }
+
 
 function editSale(id){
 
-    const s =
-        db.sales.find(x=>x.id===id);
+    const sale =
+        db.sales.find(
+            function(item){
 
-    if(!s) return;
+                return item.id === id;
 
-    document.getElementById("saleId").value=s.id;
-    document.getElementById("saleDate").value=s.date;
+            }
+        );
 
-    loadSaleProducts();
-    loadSaleCustomers();
 
-    document.getElementById("saleProduct").value=s.productId;
+    if(!sale)return;
 
-    setCategoryOptions(
-        document.getElementById("saleCategory"),
-        s.category
-    );
 
-    document.getElementById("salePartNumber").value=
-        s.partNumber || "";
+    document.getElementById("saleId").value =
+        sale.id;
 
-    document.getElementById("saleQuantity").value=
-        s.quantity;
+    document.getElementById("saleDate").value =
+        sale.date;
 
-    document.getElementById("saleUnitPrice").value=
-        s.unitPrice;
+    document.getElementById("saleProduct").value =
+        sale.productId;
 
-    document.getElementById("saleCustomer").value=
-        s.customerId || "";
 
-    document.getElementById("salePayment").value=
-        s.payment || "Cash";
+    saleProductChanged();
 
-    document.getElementById("saleOther").value=
-        s.other || "";
+
+    document.getElementById("saleCategory").value =
+        sale.category || "";
+
+    document.getElementById("salePartNumber").value =
+        sale.partNumber || "";
+
+    document.getElementById("saleQty").value =
+        sale.qty;
+
+    document.getElementById("saleUnitPrice").value =
+        sale.unitPrice;
+
+    document.getElementById("saleCustomer").value =
+        sale.customerId || "";
+
+    document.getElementById("salePaymentType").value =
+        sale.paymentType || "Cash";
+
+    document.getElementById("saleOther").value =
+        sale.other || "";
+
 
     calculateSaleTotal();
 
     showPage("sales");
 
-    window.scrollTo({top:0,behavior:"smooth"});
 }
+
 
 function deleteSale(id){
 
-    if(!confirm(
-        "Delete this sale entry?\nCustomer due will automatically be recalculated."
-    )){
-        return;
-    }
+    if(!confirm("Delete this sale?"))return;
+
 
     db.sales =
-        db.sales.filter(s=>s.id!==id);
+        db.sales.filter(
+            function(item){
+
+                return item.id !== id;
+
+            }
+        );
+
 
     saveDB();
+
     refreshAll();
+
 }
+
 
 function clearSaleForm(){
 
-    document.getElementById("saleId").value="";
-    document.getElementById("saleDate").value=today();
-    document.getElementById("saleProduct").value="";
-    document.getElementById("saleCategory").value="";
-    document.getElementById("salePartNumber").value="";
-    document.getElementById("saleQuantity").value="";
-    document.getElementById("saleUnitPrice").value="";
-    document.getElementById("saleTotal").value="";
-    document.getElementById("saleCustomer").value="";
-    document.getElementById("salePayment").value="Cash";
-    document.getElementById("saleOther").value="";
+    document.getElementById("saleId").value = "";
+
+    document.getElementById("saleDate").value =
+        today();
+
+    document.getElementById("saleProduct").value = "";
+
+    document.getElementById("saleCategory").value = "";
+
+    document.getElementById("salePartNumber").value = "";
+
+    document.getElementById("saleQty").value = "";
+
+    document.getElementById("saleUnitPrice").value = "";
+
+    document.getElementById("saleTotal").value = "";
+
+    document.getElementById("saleCustomer").value = "";
+
+    document.getElementById("salePaymentType").value =
+        "Cash";
+
+    document.getElementById("saleOther").value = "";
+
 }
+
 
 function renderSales(){
 
-    const tbody =
-        document.getElementById("salesTable");
+    const productNames =
+        Object.fromEntries(
+            db.products.map(
+                function(product){
 
-    if(!db.sales.length){
+                    return [
+                        product.id,
+                        product.name
+                    ];
 
-        tbody.innerHTML =
-            `<tr><td colspan="10" class="empty">
-                No sales records.
-            </td></tr>`;
-
-        return;
-    }
-
-    const rows =
-        [...db.sales].sort(
-            (a,b)=>b.date.localeCompare(a.date)
+                }
+            )
         );
 
-    tbody.innerHTML =
-        rows.map(s=>`
-        <tr>
-            <td>${escapeHTML(s.date)}</td>
-            <td>${escapeHTML(s.productName)}</td>
-            <td>${escapeHTML(s.category)}</td>
-            <td>${escapeHTML(s.partNumber)}</td>
-            <td>${s.quantity}</td>
-            <td>${money(s.unitPrice)}</td>
-            <td>${money(s.total)}</td>
-            <td>${escapeHTML(s.customerName)}</td>
-            <td>${escapeHTML(s.payment)}</td>
-            <td>
-                <button class="small-btn btn-warning"
-                        onclick="editSale('${s.id}')">
-                    Edit
-                </button>
 
-                <button class="small-btn btn-danger"
-                        onclick="deleteSale('${s.id}')">
-                    Delete
-                </button>
+    const customerNames =
+        Object.fromEntries(
+            db.customers.map(
+                function(customer){
+
+                    return [
+                        customer.id,
+                        customer.name
+                    ];
+
+                }
+            )
+        );
+
+
+    const table =
+        document.getElementById(
+            "salesTable"
+        );
+
+
+    table.innerHTML =
+        db.sales
+        .slice()
+        .sort(
+            function(a,b){
+
+                return b.date.localeCompare(a.date);
+
+            }
+        )
+        .map(
+            function(item){
+
+                return `
+                <tr>
+
+                    <td>${item.date}</td>
+
+                    <td>
+                        ${escapeHTML(
+                            productNames[item.productId]
+                            || "Deleted Product"
+                        )}
+                    </td>
+
+                    <td>${escapeHTML(item.category)}</td>
+
+                    <td>${escapeHTML(item.partNumber)}</td>
+
+                    <td>${item.qty}</td>
+
+                    <td>${money(item.unitPrice)}</td>
+
+                    <td>${money(item.total)}</td>
+
+                    <td>
+                        ${escapeHTML(
+                            customerNames[item.customerId]
+                            || ""
+                        )}
+                    </td>
+
+                    <td>${escapeHTML(item.paymentType)}</td>
+
+                    <td>
+
+                        <button
+                            class="small-btn edit"
+                            onclick="editSale('${item.id}')">
+                            Edit
+                        </button>
+
+                        <button
+                            class="small-btn del"
+                            onclick="deleteSale('${item.id}')">
+                            Delete
+                        </button>
+
+                    </td>
+
+                </tr>
+                `;
+
+            }
+        )
+        .join("")
+
+        ||
+
+        `
+        <tr>
+            <td colspan="10"
+                class="empty">
+                No sales records.
             </td>
         </tr>
-        `).join("");
+        `;
+
 }
 
 
-/* ================= CUSTOMERS ================= */
+/* =========================================================
+   CUSTOMERS
+========================================================= */
+
+function getCustomerTotalSales(id){
+
+    return db.sales
+        .filter(
+            function(item){
+
+                return item.customerId === id;
+
+            }
+        )
+        .reduce(
+            function(total,item){
+
+                return total +
+                    Number(item.total || 0);
+
+            },
+            0
+        );
+
+}
+
+
+function getCustomerDue(id){
+
+    const dueSales =
+        db.sales
+        .filter(
+            function(item){
+
+                return item.customerId === id &&
+                       item.paymentType === "Due";
+
+            }
+        )
+        .reduce(
+            function(total,item){
+
+                return total +
+                    Number(item.total || 0);
+
+            },
+            0
+        );
+
+
+    const collected =
+        db.dueCollections
+        .filter(
+            function(item){
+
+                return item.customerId === id;
+
+            }
+        )
+        .reduce(
+            function(total,item){
+
+                return total +
+                    Number(item.amount || 0);
+
+            },
+            0
+        );
+
+
+    return Math.max(
+        0,
+        dueSales - collected
+    );
+
+}
+
 
 function saveCustomer(){
 
     const name =
-        document.getElementById("customerName").value.trim();
+        document
+        .getElementById("customerName")
+        .value
+        .trim();
+
 
     if(!name){
 
-        alert("Please enter Customer Name.");
+        alert("Customer Name is required.");
+
         return;
+
     }
 
+
     const id =
-        document.getElementById("customerId").value;
+        document
+        .getElementById("customerId")
+        .value;
+
 
     const customer = {
 
@@ -2279,796 +3383,1252 @@ function saveCustomer(){
         name:name,
 
         phone:
-            document.getElementById("customerPhone").value.trim(),
+            document
+            .getElementById("customerPhone")
+            .value
+            .trim(),
 
         address:
-            document.getElementById("customerAddress").value.trim()
+            document
+            .getElementById("customerAddress")
+            .value
+            .trim()
+
     };
+
 
     if(id){
 
         const index =
-            db.customers.findIndex(c=>c.id===id);
+            db.customers.findIndex(
+                function(item){
 
-        if(index>=0){
-            db.customers[index]=customer;
+                    return item.id === id;
+
+                }
+            );
+
+
+        if(index >= 0){
+
+            db.customers[index] =
+                customer;
+
         }
 
     }else{
 
         db.customers.push(customer);
+
     }
 
+
     saveDB();
+
     clearCustomerForm();
+
     refreshAll();
 
     alert("Customer saved successfully.");
+
 }
+
 
 function editCustomer(id){
 
-    const c =
-        db.customers.find(x=>x.id===id);
+    const customer =
+        db.customers.find(
+            function(item){
 
-    if(!c) return;
+                return item.id === id;
 
-    document.getElementById("customerId").value=c.id;
-    document.getElementById("customerName").value=c.name || "";
-    document.getElementById("customerPhone").value=c.phone || "";
-    document.getElementById("customerAddress").value=c.address || "";
+            }
+        );
+
+
+    if(!customer)return;
+
+
+    document.getElementById("customerId").value =
+        customer.id;
+
+    document.getElementById("customerName").value =
+        customer.name;
+
+    document.getElementById("customerPhone").value =
+        customer.phone || "";
+
+    document.getElementById("customerAddress").value =
+        customer.address || "";
+
 
     showPage("customers");
 
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
 }
+
 
 function deleteCustomer(id){
 
-    const used =
-        db.sales.some(s=>s.customerId===id) ||
-        db.dueCollections.some(d=>d.customerId===id);
+    if(!confirm("Delete this customer?"))return;
 
-    if(used){
-
-        alert(
-            "This customer already has Sales or Collection records. " +
-            "Delete those records first if you really need to remove the customer."
-        );
-
-        return;
-    }
-
-    if(!confirm("Delete this customer?")){
-        return;
-    }
 
     db.customers =
-        db.customers.filter(c=>c.id!==id);
+        db.customers.filter(
+            function(item){
+
+                return item.id !== id;
+
+            }
+        );
+
 
     saveDB();
+
     refreshAll();
+
 }
+
 
 function clearCustomerForm(){
 
-    document.getElementById("customerId").value="";
-    document.getElementById("customerName").value="";
-    document.getElementById("customerPhone").value="";
-    document.getElementById("customerAddress").value="";
-}
+    [
+        "customerId",
+        "customerName",
+        "customerPhone",
+        "customerAddress"
+    ]
+    .forEach(
+        function(id){
 
-function getCustomerTotalSales(customerId){
+            document.getElementById(id).value = "";
 
-    return db.sales
-        .filter(s=>s.customerId===customerId)
-        .reduce(
-            (sum,s)=>sum+Number(s.total||0),
-            0
-        );
-}
-
-function getCustomerDue(customerId){
-
-    const dueSales =
-        db.sales
-            .filter(s=>
-                s.customerId===customerId &&
-                s.payment==="Due"
-            )
-            .reduce(
-                (sum,s)=>sum+Number(s.total||0),
-                0
-            );
-
-    const collections =
-        db.dueCollections
-            .filter(d=>d.customerId===customerId)
-            .reduce(
-                (sum,d)=>sum+Number(d.amount||0),
-                0
-            );
-
-    return Math.max(
-        0,
-        dueSales-collections
+        }
     );
+
 }
+
 
 function renderCustomers(){
 
-    const tbody =
-        document.getElementById("customerTable");
-
     const search =
-        (
-            document.getElementById("customerSearch").value || ""
-        ).toLowerCase();
+        document
+        .getElementById("customerSearch")
+        .value
+        .toLowerCase();
 
-    const rows =
-        db.customers.filter(c=>
-            `${c.name} ${c.phone} ${c.address}`
-                .toLowerCase()
-                .includes(search)
+
+    const table =
+        document.getElementById(
+            "customerTable"
         );
 
-    if(!rows.length){
 
-        tbody.innerHTML =
-            `<tr><td colspan="6" class="empty">
+    const rows =
+        db.customers.filter(
+            function(customer){
+
+                return `
+                    ${customer.name}
+                    ${customer.phone}
+                    ${customer.address}
+                `
+                .toLowerCase()
+                .includes(search);
+
+            }
+        );
+
+
+    table.innerHTML =
+        rows
+        .map(
+            function(customer){
+
+                return `
+                <tr>
+
+                    <td>
+                        ${escapeHTML(customer.name)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(customer.phone)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(customer.address)}
+                    </td>
+
+                    <td>
+                        ${money(
+                            getCustomerTotalSales(
+                                customer.id
+                            )
+                        )}
+                    </td>
+
+                    <td>
+                        ${money(
+                            getCustomerDue(
+                                customer.id
+                            )
+                        )}
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="small-btn edit"
+                            onclick="editCustomer('${customer.id}')">
+                            Edit
+                        </button>
+
+                        <button
+                            class="small-btn del"
+                            onclick="deleteCustomer('${customer.id}')">
+                            Delete
+                        </button>
+
+                    </td>
+
+                </tr>
+                `;
+
+            }
+        )
+        .join("")
+
+        ||
+
+        `
+        <tr>
+            <td colspan="6"
+                class="empty">
                 No customers found.
-            </td></tr>`;
+            </td>
+        </tr>
+        `;
 
-        return;
-    }
-
-    tbody.innerHTML =
-        rows.map(c=>{
-
-            const totalSales =
-                getCustomerTotalSales(c.id);
-
-            const due =
-                getCustomerDue(c.id);
-
-            return `
-            <tr>
-                <td><b>${escapeHTML(c.name)}</b></td>
-                <td>${escapeHTML(c.phone)}</td>
-                <td>${escapeHTML(c.address)}</td>
-                <td>${money(totalSales)}</td>
-                <td>
-                    <b style="color:${due>0 ? "#b91c1c" : "#15803d"}">
-                        ${money(due)}
-                    </b>
-                </td>
-                <td>
-
-                    <button class="small-btn btn-warning"
-                            onclick="editCustomer('${c.id}')">
-                        Edit
-                    </button>
-
-                    <button class="small-btn btn-danger"
-                            onclick="deleteCustomer('${c.id}')">
-                        Delete
-                    </button>
-
-                </td>
-            </tr>
-            `;
-        }).join("");
 }
 
 
-/* ================= DUE COLLECTION ================= */
+/* =========================================================
+   DUE COLLECTION
+========================================================= */
 
 function loadDueCustomers(){
 
-    const select =
-        document.getElementById("collectionCustomer");
+    loadSaleCustomers();
 
-    const current =
-        select.value;
-
-    select.innerHTML =
-        `<option value="">Select Customer</option>` +
-
-        db.customers.map(c=>{
-
-            const due =
-                getCustomerDue(c.id);
-
-            return `
-            <option value="${c.id}">
-                ${escapeHTML(c.name)}
-                — Due: ${money(due)}
-            </option>
-            `;
-
-        }).join("");
-
-    if(current){
-        select.value=current;
-    }
-
-    showCustomerDue();
 }
+
 
 function showCustomerDue(){
 
-    const id =
-        document.getElementById("collectionCustomer").value;
+    const customerId =
+        document
+        .getElementById(
+            "collectionCustomer"
+        )
+        .value;
+
 
     const due =
-        id ? getCustomerDue(id) : 0;
+        getCustomerDue(customerId);
 
-    document.getElementById("currentCustomerDue").textContent =
-        money(due);
+
+    document.getElementById(
+        "currentDue"
+    ).value =
+        due.toFixed(2);
+
 
     checkCollectionAmount();
+
 }
+
 
 function checkCollectionAmount(){
 
-    const customerId =
-        document.getElementById("collectionCustomer").value;
-
     const due =
-        customerId ? getCustomerDue(customerId) : 0;
+        Number(
+            document
+            .getElementById("currentDue")
+            .value || 0
+        );
+
 
     const amount =
         Number(
-            document.getElementById("collectionAmount").value || 0
+            document
+            .getElementById("collectionAmount")
+            .value || 0
         );
 
-    const after =
-        Math.max(0,due-amount);
 
-    document.getElementById("afterCollectionDue").textContent =
-        "After collection: " + money(after);
+    document.getElementById(
+        "afterDue"
+    ).value =
+        Math.max(
+            0,
+            due - amount
+        ).toFixed(2);
 
-    if(amount>due && due>=0){
-
-        document.getElementById("afterCollectionDue").style.color =
-            "#b91c1c";
-
-        document.getElementById("afterCollectionDue").textContent =
-            "Collection amount cannot exceed current due: " +
-            money(due);
-
-    }else{
-
-        document.getElementById("afterCollectionDue").style.color =
-            "#166534";
-    }
 }
+
 
 function collectFullDue(){
 
-    const id =
-        document.getElementById("collectionCustomer").value;
-
-    if(!id){
-
-        alert("Please select a customer first.");
-        return;
-    }
-
     const due =
-        getCustomerDue(id);
+        Number(
+            document
+            .getElementById("currentDue")
+            .value || 0
+        );
 
-    if(due<=0){
 
-        alert("This customer has no outstanding due.");
+    if(due <= 0){
+
+        alert("No outstanding due.");
+
         return;
+
     }
 
-    document.getElementById("collectionAmount").value =
-        due.toFixed(2);
+
+    document.getElementById(
+        "collectionAmount"
+    ).value =
+        due;
+
 
     checkCollectionAmount();
+
 }
+
 
 function saveDueCollection(){
 
-    const date =
-        document.getElementById("collectionDate").value;
-
     const customerId =
-        document.getElementById("collectionCustomer").value;
+        document
+        .getElementById(
+            "collectionCustomer"
+        )
+        .value;
+
 
     const amount =
         Number(
-            document.getElementById("collectionAmount").value || 0
+            document
+            .getElementById(
+                "collectionAmount"
+            )
+            .value
         );
 
-    if(!date){
 
-        alert("Please select Date.");
-        return;
-    }
-
-    if(!customerId){
-
-        alert("Please select Customer.");
-        return;
-    }
-
-    const currentDue =
-        getCustomerDue(customerId);
-
-    if(currentDue<=0){
-
-        alert("This customer has no outstanding due.");
-        return;
-    }
-
-    if(amount<=0){
-
-        alert("Collection amount must be greater than 0.");
-        return;
-    }
-
-    if(amount>currentDue){
+    if(
+        !document.getElementById("collectionDate").value ||
+        !customerId ||
+        amount <= 0
+    ){
 
         alert(
-            "Collection amount cannot exceed current due.\n\n" +
-            "Current Due: " + money(currentDue)
+            "Date, Customer and Collection Amount are required."
         );
 
         return;
+
     }
 
-    const customer =
-        db.customers.find(c=>c.id===customerId);
 
-    const collection = {
+    const due =
+        getCustomerDue(customerId);
 
-        id:uid("DUE"),
 
-        date:date,
+    if(amount > due){
+
+        alert(
+            "Collection amount cannot be greater than outstanding due."
+        );
+
+        return;
+
+    }
+
+
+    db.dueCollections.push({
+
+        id:uid("COL"),
+
+        date:
+            document
+            .getElementById(
+                "collectionDate"
+            )
+            .value,
 
         customerId:customerId,
 
-        customerName:
-            customer ? customer.name : "",
-
         amount:amount,
 
-        payment:
-            document.getElementById("collectionPayment").value,
+        paymentMode:
+            document
+            .getElementById(
+                "collectionPaymentMode"
+            )
+            .value,
 
         note:
-            document.getElementById("collectionNote").value.trim()
-    };
+            document
+            .getElementById(
+                "collectionNote"
+            )
+            .value
+            .trim()
 
-    db.dueCollections.push(collection);
+    });
+
 
     saveDB();
+
     clearCollectionForm();
+
     refreshAll();
 
     alert(
-        "Due collection saved successfully.\n\n" +
-        "Collected: " + money(amount) + "\n" +
-        "Remaining Due: " +
-        money(getCustomerDue(customerId))
+        "Due collection saved successfully."
     );
+
 }
+
 
 function deleteDueCollection(id){
 
-    if(!confirm(
-        "Delete this collection?\nCustomer due will increase automatically."
-    )){
-        return;
-    }
+    if(!confirm("Delete this collection?"))return;
+
 
     db.dueCollections =
-        db.dueCollections.filter(d=>d.id!==id);
+        db.dueCollections.filter(
+            function(item){
+
+                return item.id !== id;
+
+            }
+        );
+
 
     saveDB();
+
     refreshAll();
+
 }
+
 
 function clearCollectionForm(){
 
-    document.getElementById("collectionDate").value=today();
-    document.getElementById("collectionCustomer").value="";
-    document.getElementById("collectionAmount").value="";
-    document.getElementById("collectionPayment").value="Cash";
-    document.getElementById("collectionNote").value="";
+    document.getElementById(
+        "collectionDate"
+    ).value =
+        today();
 
-    showCustomerDue();
+
+    document.getElementById(
+        "collectionCustomer"
+    ).value = "";
+
+
+    document.getElementById(
+        "collectionAmount"
+    ).value = "";
+
+
+    document.getElementById(
+        "currentDue"
+    ).value =
+        "0.00";
+
+
+    document.getElementById(
+        "afterDue"
+    ).value =
+        "0.00";
+
+
+    document.getElementById(
+        "collectionNote"
+    ).value = "";
+
 }
+
 
 function renderCollections(){
 
-    const tbody =
-        document.getElementById("collectionTable");
+    const customerNames =
+        Object.fromEntries(
+            db.customers.map(
+                function(customer){
 
-    if(!db.dueCollections.length){
+                    return [
+                        customer.id,
+                        customer.name
+                    ];
 
-        tbody.innerHTML =
-            `<tr><td colspan="6" class="empty">
-                No collection records.
-            </td></tr>`;
-
-        return;
-    }
-
-    const rows =
-        [...db.dueCollections].sort(
-            (a,b)=>b.date.localeCompare(a.date)
+                }
+            )
         );
 
-    tbody.innerHTML =
-        rows.map(d=>`
+
+    const table =
+        document.getElementById(
+            "collectionTable"
+        );
+
+
+    table.innerHTML =
+        db.dueCollections
+        .slice()
+        .sort(
+            function(a,b){
+
+                return b.date.localeCompare(a.date);
+
+            }
+        )
+        .map(
+            function(item){
+
+                return `
+                <tr>
+
+                    <td>${item.date}</td>
+
+                    <td>
+                        ${escapeHTML(
+                            customerNames[item.customerId]
+                            || "Deleted Customer"
+                        )}
+                    </td>
+
+                    <td>
+                        ${money(item.amount)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(item.paymentMode)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(item.note)}
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="small-btn del"
+                            onclick="deleteDueCollection('${item.id}')">
+                            Delete
+                        </button>
+
+                    </td>
+
+                </tr>
+                `;
+
+            }
+        )
+        .join("")
+
+        ||
+
+        `
         <tr>
-            <td>${escapeHTML(d.date)}</td>
-            <td><b>${escapeHTML(d.customerName)}</b></td>
-            <td>${money(d.amount)}</td>
-            <td>${escapeHTML(d.payment)}</td>
-            <td>${escapeHTML(d.note)}</td>
-            <td>
-                <button class="small-btn btn-danger"
-                        onclick="deleteDueCollection('${d.id}')">
-                    Delete
-                </button>
+            <td colspan="6"
+                class="empty">
+                No collection records.
             </td>
         </tr>
-        `).join("");
+        `;
+
 }
 
 
-/* ================= DASHBOARD ================= */
+/* =========================================================
+   DASHBOARD
+========================================================= */
 
 function getTotalPurchase(){
 
     return db.purchases.reduce(
-        (sum,p)=>sum+Number(p.total||0),
-        0
-    );
-}
+        function(total,item){
 
-function getTotalSales(){
-
-    return db.sales.reduce(
-        (sum,s)=>sum+Number(s.total||0),
-        0
-    );
-}
-
-function getTotalCollection(){
-
-    return db.dueCollections.reduce(
-        (sum,d)=>sum+Number(d.amount||0),
-        0
-    );
-}
-
-function getTotalDue(){
-
-    return db.customers.reduce(
-        (sum,c)=>sum+getCustomerDue(c.id),
-        0
-    );
-}
-
-function getStockValue(){
-
-    return db.products.reduce(
-        (sum,p)=>{
-
-            const stock =
-                getProductStock(p.id);
-
-            const cost =
-                getAveragePurchasePrice(p.id);
-
-            return sum + Math.max(0,stock)*cost;
+            return total +
+                Number(item.total || 0);
 
         },
         0
     );
+
 }
+
+
+function getTotalSales(){
+
+    return db.sales.reduce(
+        function(total,item){
+
+            return total +
+                Number(item.total || 0);
+
+        },
+        0
+    );
+
+}
+
+
+function getTotalCollection(){
+
+    return db.dueCollections.reduce(
+        function(total,item){
+
+            return total +
+                Number(item.amount || 0);
+
+        },
+        0
+    );
+
+}
+
+
+function getTotalDue(){
+
+    return db.customers.reduce(
+        function(total,customer){
+
+            return total +
+                getCustomerDue(customer.id);
+
+        },
+        0
+    );
+
+}
+
+
+function getStockValue(){
+
+    return db.products.reduce(
+        function(total,product){
+
+            return total +
+                Math.max(
+                    0,
+                    getProductStock(product.id)
+                ) *
+                getAveragePurchasePrice(product.id);
+
+        },
+        0
+    );
+
+}
+
 
 function getEstimatedProfit(){
 
     return db.sales.reduce(
-        (sum,s)=>{
+        function(total,sale){
 
-            const cost =
-                getAveragePurchasePrice(s.productId);
-
-            return sum +
-                (
-                    Number(s.total||0) -
-                    Number(s.quantity||0)*cost
+            return total +
+                Number(sale.total || 0) -
+                Number(sale.qty || 0) *
+                getAveragePurchasePrice(
+                    sale.productId
                 );
 
         },
         0
     );
+
 }
+
 
 function updateDashboard(){
 
-    const purchase =
+    const totalPurchase =
         getTotalPurchase();
 
-    const sales =
+
+    const totalSales =
         getTotalSales();
 
-    const collection =
+
+    const totalCollection =
         getTotalCollection();
 
-    const due =
+
+    const totalDue =
         getTotalDue();
 
-    const stock =
+
+    const stockValue =
         getStockValue();
+
 
     const profit =
         getEstimatedProfit();
 
-    document.getElementById("dashProducts").textContent =
+
+    document.getElementById(
+        "dashProducts"
+    ).textContent =
         db.products.length;
 
-    document.getElementById("dashCustomers").textContent =
+
+    document.getElementById(
+        "dashCustomers"
+    ).textContent =
         db.customers.length;
 
-    document.getElementById("dashPurchase").textContent =
-        money(purchase);
 
-    document.getElementById("dashSales").textContent =
-        money(sales);
-
-    document.getElementById("dashStock").textContent =
-        money(stock);
-
-    document.getElementById("dashDue").textContent =
-        money(due);
-
-    document.getElementById("dashProfit").textContent =
-        money(profit);
-
-    document.getElementById("dashCollection").textContent =
-        money(collection);
+    document.getElementById(
+        "dashPurchase"
+    ).textContent =
+        money(totalPurchase);
 
 
-    document.getElementById("overviewProducts").textContent =
-        db.products.length;
+    document.getElementById(
+        "dashSales"
+    ).textContent =
+        money(totalSales);
 
-    document.getElementById("overviewCustomers").textContent =
-        db.customers.length;
 
-    document.getElementById("overviewPurchase").textContent =
-        money(purchase);
+    document.getElementById(
+        "dashStock"
+    ).textContent =
+        money(stockValue);
 
-    document.getElementById("overviewSales").textContent =
-        money(sales);
 
-    document.getElementById("overviewStock").textContent =
-        money(stock);
+    document.getElementById(
+        "dashDue"
+    ).textContent =
+        money(totalDue);
 
-    document.getElementById("overviewDue").textContent =
-        money(due);
 
-    document.getElementById("overviewProfit").textContent =
+    document.getElementById(
+        "dashProfit"
+    ).textContent =
         money(profit);
 
 
-    const t =
+    document.getElementById(
+        "dashCollection"
+    ).textContent =
+        money(totalCollection);
+
+
+    document.getElementById(
+        "overviewProducts"
+    ).textContent =
+        db.products.length;
+
+
+    document.getElementById(
+        "overviewCustomers"
+    ).textContent =
+        db.customers.length;
+
+
+    document.getElementById(
+        "overviewPurchase"
+    ).textContent =
+        money(totalPurchase);
+
+
+    document.getElementById(
+        "overviewSales"
+    ).textContent =
+        money(totalSales);
+
+
+    document.getElementById(
+        "overviewDue"
+    ).textContent =
+        money(totalDue);
+
+
+    const date =
         today();
+
 
     const todayPurchase =
         db.purchases
-            .filter(p=>p.date===t)
-            .reduce(
-                (sum,p)=>sum+Number(p.total||0),
-                0
-            );
+        .filter(
+            function(item){
+
+                return item.date === date;
+
+            }
+        )
+        .reduce(
+            function(total,item){
+
+                return total +
+                    Number(item.total || 0);
+
+            },
+            0
+        );
+
 
     const todaySales =
         db.sales
-            .filter(s=>s.date===t)
-            .reduce(
-                (sum,s)=>sum+Number(s.total||0),
-                0
-            );
+        .filter(
+            function(item){
+
+                return item.date === date;
+
+            }
+        )
+        .reduce(
+            function(total,item){
+
+                return total +
+                    Number(item.total || 0);
+
+            },
+            0
+        );
+
 
     const todayCollection =
         db.dueCollections
-            .filter(d=>d.date===t)
-            .reduce(
-                (sum,d)=>sum+Number(d.amount||0),
-                0
-            );
+        .filter(
+            function(item){
+
+                return item.date === date;
+
+            }
+        )
+        .reduce(
+            function(total,item){
+
+                return total +
+                    Number(item.amount || 0);
+
+            },
+            0
+        );
+
 
     const transactionCount =
-        db.purchases.filter(p=>p.date===t).length +
-        db.sales.filter(s=>s.date===t).length +
-        db.dueCollections.filter(d=>d.date===t).length;
+        db.purchases.filter(
+            item => item.date === date
+        ).length
 
-    document.getElementById("todayPurchase").textContent =
-        money(todayPurchase);
+        +
 
-    document.getElementById("todaySales").textContent =
-        money(todaySales);
+        db.sales.filter(
+            item => item.date === date
+        ).length
 
-    document.getElementById("todayCollection").textContent =
-        money(todayCollection);
+        +
 
-    document.getElementById("todayTransactions").textContent =
-        transactionCount;
+        db.dueCollections.filter(
+            item => item.date === date
+        ).length;
+
+
+    document.getElementById(
+        "todaySummary"
+    ).innerHTML = `
+
+        <div class="grid">
+
+            <div>
+                <b>Purchase</b>
+                <br>
+                ${money(todayPurchase)}
+            </div>
+
+            <div>
+                <b>Sales</b>
+                <br>
+                ${money(todaySales)}
+            </div>
+
+            <div>
+                <b>Due Collection</b>
+                <br>
+                ${money(todayCollection)}
+            </div>
+
+            <div>
+                <b>Transactions</b>
+                <br>
+                ${transactionCount}
+            </div>
+
+        </div>
+
+    `;
+
 }
 
 
-/* ================= REPORT ================= */
+/* =========================================================
+   REPORT
+========================================================= */
 
 function generateReport(){
 
     const from =
-        document.getElementById("reportFrom").value;
+        document
+        .getElementById("reportFrom")
+        .value;
+
 
     const to =
-        document.getElementById("reportTo").value;
+        document
+        .getElementById("reportTo")
+        .value;
 
-    let purchases =
-        db.purchases;
 
-    let sales =
-        db.sales;
+    function inRange(item){
 
-    if(from){
-        purchases =
-            purchases.filter(p=>p.date>=from);
-
-        sales =
-            sales.filter(s=>s.date>=from);
-    }
-
-    if(to){
-        purchases =
-            purchases.filter(p=>p.date<=to);
-
-        sales =
-            sales.filter(s=>s.date<=to);
-    }
-
-    const purchaseTotal =
-        purchases.reduce(
-            (sum,p)=>sum+Number(p.total||0),
-            0
+        return (
+            (!from || item.date >= from) &&
+            (!to || item.date <= to)
         );
 
-    const salesTotal =
-        sales.reduce(
-            (sum,s)=>sum+Number(s.total||0),
-            0
-        );
-
-    let profit=0;
-
-    sales.forEach(s=>{
-
-        const cost =
-            getAveragePurchasePrice(s.productId);
-
-        profit +=
-            Number(s.total||0) -
-            Number(s.quantity||0)*cost;
-    });
-
-    document.getElementById("reportPurchase").textContent =
-        money(purchaseTotal);
-
-    document.getElementById("reportSales").textContent =
-        money(salesTotal);
-
-    document.getElementById("reportProfit").textContent =
-        money(profit);
-
-    document.getElementById("reportTransactions").textContent =
-        purchases.length + sales.length;
-
-
-    const tbody =
-        document.getElementById("reportTable");
-
-    if(!sales.length){
-
-        tbody.innerHTML =
-            `<tr><td colspan="8" class="empty">
-                No sales records for selected dates.
-            </td></tr>`;
-
-        return;
     }
 
-    tbody.innerHTML =
-        sales.map(s=>{
 
-            const cost =
-                getAveragePurchasePrice(s.productId);
+    const purchases =
+        db.purchases.filter(inRange);
 
-            const purchaseCost =
-                Number(s.quantity||0)*cost;
 
-            const rowProfit =
-                Number(s.total||0)-purchaseCost;
+    const sales =
+        db.sales.filter(inRange);
 
-            return `
-            <tr>
-                <td>${escapeHTML(s.date)}</td>
-                <td>${escapeHTML(s.productName)}</td>
-                <td>${escapeHTML(s.customerName)}</td>
-                <td>${s.quantity}</td>
-                <td>${money(s.total)}</td>
-                <td>${money(purchaseCost)}</td>
-                <td>${money(rowProfit)}</td>
-                <td>${escapeHTML(s.payment)}</td>
-            </tr>
-            `;
 
-        }).join("");
+    const collections =
+        db.dueCollections.filter(inRange);
+
+
+    document.getElementById(
+        "reportPurchase"
+    ).textContent =
+        money(
+            purchases.reduce(
+                (total,item) =>
+                    total +
+                    Number(item.total || 0),
+                0
+            )
+        );
+
+
+    document.getElementById(
+        "reportSales"
+    ).textContent =
+        money(
+            sales.reduce(
+                (total,item) =>
+                    total +
+                    Number(item.total || 0),
+                0
+            )
+        );
+
+
+    document.getElementById(
+        "reportProfit"
+    ).textContent =
+        money(
+            sales.reduce(
+                (total,item) =>
+                    total +
+                    Number(item.total || 0) -
+                    Number(item.qty || 0) *
+                    getAveragePurchasePrice(
+                        item.productId
+                    ),
+                0
+            )
+        );
+
+
+    document.getElementById(
+        "reportTransactions"
+    ).textContent =
+        purchases.length +
+        sales.length +
+        collections.length;
+
+
+    const productNames =
+        Object.fromEntries(
+            db.products.map(
+                function(product){
+
+                    return [
+                        product.id,
+                        product.name
+                    ];
+
+                }
+            )
+        );
+
+
+    const customerNames =
+        Object.fromEntries(
+            db.customers.map(
+                function(customer){
+
+                    return [
+                        customer.id,
+                        customer.name
+                    ];
+
+                }
+            )
+        );
+
+
+    document.getElementById(
+        "reportTable"
+    ).innerHTML =
+
+        sales.map(
+            function(sale){
+
+                const purchaseCost =
+                    Number(sale.qty || 0) *
+                    getAveragePurchasePrice(
+                        sale.productId
+                    );
+
+
+                const profit =
+                    Number(sale.total || 0) -
+                    purchaseCost;
+
+
+                return `
+
+                <tr>
+
+                    <td>${sale.date}</td>
+
+                    <td>
+                        ${escapeHTML(
+                            productNames[sale.productId]
+                            || "Deleted Product"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            customerNames[sale.customerId]
+                            || ""
+                        )}
+                    </td>
+
+                    <td>${sale.qty}</td>
+
+                    <td>${money(sale.total)}</td>
+
+                    <td>${money(purchaseCost)}</td>
+
+                    <td>${money(profit)}</td>
+
+                    <td>
+                        ${escapeHTML(
+                            sale.paymentType
+                        )}
+                    </td>
+
+                </tr>
+
+                `;
+
+            }
+        )
+        .join("")
+
+        ||
+
+        `
+        <tr>
+            <td colspan="8"
+                class="empty">
+                No sales in selected period.
+            </td>
+        </tr>
+        `;
+
 }
+
 
 function clearReport(){
 
-    document.getElementById("reportFrom").value="";
-    document.getElementById("reportTo").value="";
+    document.getElementById(
+        "reportFrom"
+    ).value = "";
 
-    document.getElementById("reportPurchase").textContent="0.00";
-    document.getElementById("reportSales").textContent="0.00";
-    document.getElementById("reportProfit").textContent="0.00";
-    document.getElementById("reportTransactions").textContent="0";
 
-    document.getElementById("reportTable").innerHTML="";
+    document.getElementById(
+        "reportTo"
+    ).value = "";
+
+
+    document.getElementById(
+        "reportPurchase"
+    ).textContent =
+        "৳0.00";
+
+
+    document.getElementById(
+        "reportSales"
+    ).textContent =
+        "৳0.00";
+
+
+    document.getElementById(
+        "reportProfit"
+    ).textContent =
+        "৳0.00";
+
+
+    document.getElementById(
+        "reportTransactions"
+    ).textContent =
+        "0";
+
+
+    document.getElementById(
+        "reportTable"
+    ).innerHTML = "";
+
 }
 
 
-/* ================= REFRESH ================= */
+/* =========================================================
+   REFRESH
+========================================================= */
 
 function refreshAll(){
 
     loadCategoryList();
+
     loadSupplierList();
 
     loadPurchaseProducts();
+
     loadSaleProducts();
+
     loadSaleCustomers();
+
     loadDueCustomers();
 
     renderProducts();
+
     renderPurchases();
+
     renderSales();
+
     renderCustomers();
+
     renderCollections();
 
     updateDashboard();
+
 }
 
 
-/* ================= START ================= */
+/* =========================================================
+   INITIALIZE
+========================================================= */
 
 function initialize(){
 
     loadDB();
 
-    document.getElementById("purchaseDate").value=today();
-    document.getElementById("saleDate").value=today();
-    document.getElementById("collectionDate").value=today();
 
-    showPage("dashboard");
+    const date =
+        today();
+
+
+    document.getElementById(
+        "purchaseDate"
+    ).value =
+        date;
+
+
+    document.getElementById(
+        "saleDate"
+    ).value =
+        date;
+
+
+    document.getElementById(
+        "collectionDate"
+    ).value =
+        date;
+
+
+    document.getElementById(
+        "reportFrom"
+    ).value =
+        date.slice(0,8) + "01";
+
+
+    document.getElementById(
+        "reportTo"
+    ).value =
+        date;
+
+
+    refreshAll();
+
 }
 
+
 initialize();
+
+
+/* =========================================================
+   SERVICE WORKER
+   Makes the website installable / offline capable
+========================================================= */
+
+if("serviceWorker" in navigator){
+
+    window.addEventListener(
+        "load",
+        function(){
+
+            navigator.serviceWorker
+                .register("./service-worker.js")
+                .catch(
+                    function(error){
+
+                        console.log(
+                            "Service Worker error:",
+                            error
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+}
 
 </script>
 
