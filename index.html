@@ -7,6 +7,7 @@
 <title>Electronics Shop</title>
 
 <style>
+
 *{
     box-sizing:border-box;
 }
@@ -51,9 +52,8 @@ nav button{
     font-size:14px;
 }
 
-nav button:hover,
 nav button.active{
-    background:#ffffff;
+    background:white;
     color:#1d4ed8;
 }
 
@@ -194,7 +194,7 @@ button{
 table{
     width:100%;
     border-collapse:collapse;
-    min-width:800px;
+    min-width:850px;
 }
 
 th,
@@ -210,12 +210,8 @@ th{
     color:#1e3a8a;
 }
 
-.right{
-    text-align:right;
-}
-
-.center{
-    text-align:center;
+.search-box{
+    margin-bottom:12px;
 }
 
 .muted{
@@ -231,14 +227,6 @@ th{
     margin-top:10px;
 }
 
-.search-box{
-    margin-bottom:12px;
-}
-
-.small{
-    font-size:12px;
-}
-
 .due-positive{
     color:#dc2626;
     font-weight:bold;
@@ -249,7 +237,12 @@ th{
     font-weight:bold;
 }
 
+.small{
+    font-size:12px;
+}
+
 @media(max-width:800px){
+
     .grid,
     .grid-3{
         grid-template-columns:1fr;
@@ -265,6 +258,7 @@ th{
 }
 
 @media(max-width:450px){
+
     .summary{
         grid-template-columns:1fr;
     }
@@ -277,657 +271,1111 @@ th{
         padding:12px;
     }
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
-    <h1>Electronics Shop</h1>
 
-    <nav>
-        <button class="nav-btn active" onclick="showPage('dashboard',this)">Dashboard</button>
-        <button class="nav-btn" onclick="showPage('products',this)">Products</button>
-        <button class="nav-btn" onclick="showPage('purchase',this)">Purchase</button>
-        <button class="nav-btn" onclick="showPage('sales',this)">Sales</button>
-        <button class="nav-btn" onclick="showPage('customers',this)">Customers</button>
-        <button class="nav-btn" onclick="showPage('due',this)">Due Collection</button>
-        <button class="nav-btn" onclick="showPage('reports',this)">Reports</button>
-    </nav>
+<h1>Electronics Shop</h1>
+
+<nav>
+
+<button class="nav-btn active"
+onclick="showPage('dashboard',this)">
+Dashboard
+</button>
+
+<button class="nav-btn"
+onclick="showPage('products',this)">
+Products
+</button>
+
+<button class="nav-btn"
+onclick="showPage('purchase',this)">
+Purchase
+</button>
+
+<button class="nav-btn"
+onclick="showPage('sales',this)">
+Sales
+</button>
+
+<button class="nav-btn"
+onclick="showPage('customers',this)">
+Customers
+</button>
+
+<button class="nav-btn"
+onclick="showPage('due',this)">
+Due Collection
+</button>
+
+<button class="nav-btn"
+onclick="showPage('reports',this)">
+Reports
+</button>
+
+</nav>
+
 </header>
+
 
 <main>
 
-<!-- ================= DASHBOARD ================= -->
+
+<!-- =====================================================
+DASHBOARD
+===================================================== -->
 
 <section id="dashboard" class="page active">
 
-    <div class="card">
-        <h2>Dashboard</h2>
-        <p class="muted">Electronics Shop Overview</p>
-    </div>
+<div class="card">
 
-    <div class="summary">
+<h2>Dashboard</h2>
 
-        <div class="summary-box">
-            <div class="title">Products</div>
-            <div class="value" id="dashProducts">0</div>
-        </div>
+<p class="muted">
+Electronics Shop Overview
+</p>
 
-        <div class="summary-box">
-            <div class="title">Customers</div>
-            <div class="value" id="dashCustomers">0</div>
-        </div>
+</div>
 
-        <div class="summary-box">
-            <div class="title">Total Purchase</div>
-            <div class="value" id="dashPurchase">0.00</div>
-        </div>
 
-        <div class="summary-box">
-            <div class="title">Total Sales</div>
-            <div class="value" id="dashSales">0.00</div>
-        </div>
+<div class="summary">
 
-        <div class="summary-box">
-            <div class="title">Stock Value</div>
-            <div class="value" id="dashStock">0.00</div>
-        </div>
+<div class="summary-box">
+<div class="title">Products</div>
+<div class="value" id="dashProducts">0</div>
+</div>
 
-        <div class="summary-box">
-            <div class="title">Total Due</div>
-            <div class="value due-positive" id="dashDue">0.00</div>
-        </div>
+<div class="summary-box">
+<div class="title">Customers</div>
+<div class="value" id="dashCustomers">0</div>
+</div>
 
-        <div class="summary-box">
-            <div class="title">Estimated Profit</div>
-            <div class="value profit-positive" id="dashProfit">0.00</div>
-        </div>
+<div class="summary-box">
+<div class="title">Total Purchase</div>
+<div class="value" id="dashPurchase">0.00</div>
+</div>
 
-    </div>
+<div class="summary-box">
+<div class="title">Total Sales</div>
+<div class="value" id="dashSales">0.00</div>
+</div>
+
+<div class="summary-box">
+<div class="title">Stock Value</div>
+<div class="value" id="dashStock">0.00</div>
+</div>
+
+<div class="summary-box">
+<div class="title">Total Due</div>
+<div class="value due-positive" id="dashDue">0.00</div>
+</div>
+
+<div class="summary-box">
+<div class="title">Estimated Profit</div>
+<div class="value profit-positive" id="dashProfit">0.00</div>
+</div>
+
+</div>
 
 </section>
 
 
-<!-- ================= PRODUCTS ================= -->
+
+<!-- =====================================================
+PRODUCTS
+===================================================== -->
 
 <section id="products" class="page">
 
-    <div class="card">
+<div class="card">
 
-        <h2>Products</h2>
+<h2>Products</h2>
 
-        <div class="grid">
+<div class="grid">
 
-            <div>
-                <label>Product Name *</label>
-                <input id="productName" type="text">
-            </div>
+<div>
 
-            <div>
-                <label>Category *</label>
-                <input
-                    id="productCategory"
-                    type="text"
-                    list="categoryList"
-                    placeholder="Select or type category">
-            </div>
+<label>Product Name *</label>
 
-            <div>
-                <label>Part Number</label>
-                <input id="productPartNumber" type="text">
-            </div>
+<input
+id="productName"
+type="text"
+placeholder="Enter product name">
 
-            <div>
-                <label>Value</label>
-                <input id="productValue" type="text">
-            </div>
+</div>
 
-            <div>
-                <label>Voltage</label>
-                <input id="productVoltage" type="text">
-            </div>
 
-            <div>
-                <label>Sale Price *</label>
-                <input id="productSalePrice" type="number" step="0.01" min="0">
-            </div>
+<div>
 
-            <div>
-                <label>Other Information</label>
-                <textarea id="productOther"></textarea>
-            </div>
+<label>Category *</label>
 
-        </div>
+<input
+id="productCategory"
+type="text"
+list="categoryList"
+placeholder="Select or type category">
 
-        <datalist id="categoryList"></datalist>
+</div>
 
-        <div style="margin-top:12px;">
-            <button class="btn btn-primary" onclick="saveProduct()">Save Product</button>
-            <button class="btn btn-secondary" onclick="clearProductForm()">Clear</button>
-        </div>
 
-        <input
-            id="productSearch"
-            class="search-box"
-            type="text"
-            placeholder="Search product..."
-            oninput="renderProducts()"
-        >
+<div>
 
-    </div>
+<label>Part Number</label>
 
-    <div class="card">
+<input
+id="productPartNumber"
+type="text"
+placeholder="Enter part number">
 
-        <h3>Product List</h3>
+</div>
 
-        <div class="table-wrap">
 
-            <table>
+<div>
 
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Category</th>
-                        <th>Part Number</th>
-                        <th>Value</th>
-                        <th>Voltage</th>
-                        <th>Sale Price</th>
-                        <th>Stock</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
+<label>Value</label>
 
-                <tbody id="productTableBody"></tbody>
+<input
+id="productValue"
+type="text"
+placeholder="Example: 10W">
 
-            </table>
+</div>
 
-        </div>
 
-    </div>
+<div>
+
+<label>Voltage</label>
+
+<input
+id="productVoltage"
+type="text"
+placeholder="Example: 220V">
+
+</div>
+
+
+<div>
+
+<label>Sale Price *</label>
+
+<input
+id="productSalePrice"
+type="number"
+min="0"
+step="0.01"
+placeholder="Enter sale price">
+
+</div>
+
+
+<div>
+
+<label>Other Information</label>
+
+<textarea
+id="productOther"
+placeholder="Other information"></textarea>
+
+</div>
+
+</div>
+
+
+<datalist id="categoryList"></datalist>
+
+
+<div style="margin-top:12px;">
+
+<button
+class="btn btn-primary"
+onclick="saveProduct()">
+Save Product
+</button>
+
+<button
+class="btn btn-secondary"
+onclick="clearProductForm()">
+Clear
+</button>
+
+</div>
+
+
+<input
+id="productSearch"
+class="search-box"
+type="text"
+placeholder="Search product..."
+oninput="renderProducts()">
+
+</div>
+
+
+<div class="card">
+
+<h3>Product List</h3>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Product</th>
+<th>Category</th>
+<th>Part Number</th>
+<th>Value</th>
+<th>Voltage</th>
+<th>Sale Price</th>
+<th>Stock</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="productTableBody"></tbody>
+
+</table>
+
+</div>
+
+</div>
 
 </section>
 
 
-<!-- ================= PURCHASE ================= -->
+
+<!-- =====================================================
+PURCHASE
+===================================================== -->
 
 <section id="purchase" class="page">
 
-    <div class="card">
+<div class="card">
 
-        <h2>Purchase</h2>
+<h2>Purchase</h2>
 
-        <div class="grid">
+<div class="grid">
 
-            <div>
-                <label>Date *</label>
-                <input id="purchaseDate" type="date">
-            </div>
 
-            <div>
-                <label>Product *</label>
-                <select id="purchaseProduct" onchange="purchaseProductChanged()">
-                    <option value="">Select Product</option>
-                </select>
-            </div>
+<div>
 
-            <div>
-                <label>Category *</label>
-                <select id="purchaseCategory">
-                    <option value="">Select Category</option>
-                </select>
-            </div>
+<label>Date *</label>
 
-            <div>
-                <label>Part Number</label>
-                <input id="purchasePartNumber" type="text">
-            </div>
+<input
+id="purchaseDate"
+type="date">
 
-            <div>
-                <label>Quantity *</label>
-                <input id="purchaseQty" type="number" min="1" step="1" oninput="calculatePurchaseTotal()">
-            </div>
+</div>
 
-            <div>
-                <label>Unit Purchase Price *</label>
-                <input id="purchasePrice" type="number" min="0" step="0.01" oninput="calculatePurchaseTotal()">
-            </div>
 
-            <div>
-                <label>Supplier</label>
-                <input id="purchaseSupplier" type="text">
-            </div>
+<div>
 
-            <div>
-                <label>Payment Mode</label>
-                <select id="purchasePayment">
-                    <option value="Cash">Cash</option>
-                    <option value="Bank">Bank</option>
-                    <option value="Bkash">Bkash</option>
-                    <option value="Nagad">Nagad</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
+<label>Product *</label>
 
-            <div>
-                <label>Other Information</label>
-                <textarea id="purchaseOther"></textarea>
-            </div>
+<select
+id="purchaseProduct"
+onchange="purchaseProductChanged()">
 
-        </div>
+<option value="">
+Select Product
+</option>
 
-        <div class="total-box">
-            Total Purchase:
-            <span id="purchaseTotal">0.00</span>
-        </div>
+</select>
 
-        <div style="margin-top:10px;">
-            <button class="btn btn-success" onclick="savePurchase()">Save Purchase</button>
-            <button class="btn btn-secondary" onclick="clearPurchaseForm()">Clear</button>
-        </div>
+</div>
 
-    </div>
 
-    <div class="card">
+<div>
 
-        <h3>Purchase History</h3>
+<label>Category *</label>
 
-        <div class="table-wrap">
+<select id="purchaseCategory">
 
-            <table>
+<option value="">
+Select Category
+</option>
 
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Product</th>
-                        <th>Category</th>
-                        <th>Qty</th>
-                        <th>Unit Price</th>
-                        <th>Total</th>
-                        <th>Supplier</th>
-                        <th>Payment</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
+</select>
 
-                <tbody id="purchaseTableBody"></tbody>
+</div>
 
-            </table>
 
-        </div>
+<div>
 
-    </div>
+<label>Part Number</label>
+
+<input
+id="purchasePartNumber"
+type="text"
+placeholder="Part number">
+
+</div>
+
+
+<div>
+
+<label>Quantity *</label>
+
+<input
+id="purchaseQty"
+type="number"
+min="1"
+step="1"
+oninput="calculatePurchaseTotal()">
+
+</div>
+
+
+<div>
+
+<label>Unit Purchase Price *</label>
+
+<input
+id="purchasePrice"
+type="number"
+min="0"
+step="0.01"
+oninput="calculatePurchaseTotal()">
+
+</div>
+
+
+<div>
+
+<label>Supplier</label>
+
+<input
+id="purchaseSupplier"
+type="text"
+list="supplierList"
+placeholder="Select or type supplier">
+
+</div>
+
+
+<div>
+
+<label>Payment Mode</label>
+
+<select id="purchasePayment">
+
+<option value="Cash">Cash</option>
+<option value="Bank">Bank</option>
+<option value="Bkash">Bkash</option>
+<option value="Nagad">Nagad</option>
+<option value="Other">Other</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Other Information</label>
+
+<textarea
+id="purchaseOther"
+placeholder="Other information"></textarea>
+
+</div>
+
+</div>
+
+
+<datalist id="supplierList"></datalist>
+
+
+<div class="total-box">
+
+Total Purchase:
+<span id="purchaseTotal">0.00</span>
+
+</div>
+
+
+<div style="margin-top:10px;">
+
+<button
+class="btn btn-success"
+onclick="savePurchase()">
+Save Purchase
+</button>
+
+<button
+class="btn btn-secondary"
+onclick="clearPurchaseForm()">
+Clear
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>Purchase History</h3>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Date</th>
+<th>Product</th>
+<th>Category</th>
+<th>Qty</th>
+<th>Unit Price</th>
+<th>Total</th>
+<th>Supplier</th>
+<th>Payment</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="purchaseTableBody"></tbody>
+
+</table>
+
+</div>
+
+</div>
 
 </section>
 
 
-<!-- ================= SALES ================= -->
+
+<!-- =====================================================
+SALES
+===================================================== -->
 
 <section id="sales" class="page">
 
-    <div class="card">
+<div class="card">
 
-        <h2>Sales</h2>
+<h2>Sales</h2>
 
-        <div class="grid">
+<div class="grid">
 
-            <div>
-                <label>Date *</label>
-                <input id="saleDate" type="date">
-            </div>
 
-            <div>
-                <label>Product *</label>
-                <select id="saleProduct" onchange="saleProductChanged()">
-                    <option value="">Select Product</option>
-                </select>
-            </div>
+<div>
 
-            <div>
-                <label>Category *</label>
-                <select id="saleCategory">
-                    <option value="">Select Category</option>
-                </select>
-            </div>
+<label>Date *</label>
 
-            <div>
-                <label>Part Number</label>
-                <input id="salePartNumber" type="text">
-            </div>
+<input
+id="saleDate"
+type="date">
 
-            <div>
-                <label>Quantity *</label>
-                <input id="saleQty" type="number" min="1" step="1" oninput="calculateSaleTotal()">
-            </div>
+</div>
 
-            <div>
-                <label>Unit Sale Price *</label>
-                <input id="salePrice" type="number" min="0" step="0.01" oninput="calculateSaleTotal()">
-            </div>
 
-            <div>
-                <label>Customer</label>
-                <select id="saleCustomer">
-                    <option value="">Walk-in Customer</option>
-                </select>
-            </div>
+<div>
 
-            <div>
-                <label>Payment Type</label>
-                <select id="salePayment">
-                    <option value="Cash">Cash</option>
-                    <option value="Bank">Bank</option>
-                    <option value="Bkash">Bkash</option>
-                    <option value="Nagad">Nagad</option>
-                    <option value="Due">Due</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
+<label>Product *</label>
 
-            <div>
-                <label>Other Information</label>
-                <textarea id="saleOther"></textarea>
-            </div>
+<select
+id="saleProduct"
+onchange="saleProductChanged()">
 
-        </div>
+<option value="">
+Select Product
+</option>
 
-        <div class="total-box">
-            Total Sale:
-            <span id="saleTotal">0.00</span>
-        </div>
+</select>
 
-        <div style="margin-top:10px;">
-            <button class="btn btn-success" onclick="saveSale()">Save Sale</button>
-            <button class="btn btn-secondary" onclick="clearSaleForm()">Clear</button>
-        </div>
+</div>
 
-    </div>
 
-    <div class="card">
+<div>
 
-        <h3>Sales History</h3>
+<label>Category *</label>
 
-        <div class="table-wrap">
+<select id="saleCategory">
 
-            <table>
+<option value="">
+Select Category
+</option>
 
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Product</th>
-                        <th>Category</th>
-                        <th>Qty</th>
-                        <th>Unit Price</th>
-                        <th>Total</th>
-                        <th>Customer</th>
-                        <th>Payment</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
+</select>
 
-                <tbody id="salesTableBody"></tbody>
+</div>
 
-            </table>
 
-        </div>
+<div>
 
-    </div>
+<label>Part Number</label>
+
+<input
+id="salePartNumber"
+type="text">
+
+</div>
+
+
+<div>
+
+<label>Quantity *</label>
+
+<input
+id="saleQty"
+type="number"
+min="1"
+step="1"
+oninput="calculateSaleTotal()">
+
+</div>
+
+
+<div>
+
+<label>Unit Sale Price *</label>
+
+<input
+id="salePrice"
+type="number"
+min="0"
+step="0.01"
+oninput="calculateSaleTotal()">
+
+</div>
+
+
+<div>
+
+<label>Customer</label>
+
+<select id="saleCustomer">
+
+<option value="">
+Walk-in Customer
+</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Payment Type</label>
+
+<select id="salePayment">
+
+<option value="Cash">Cash</option>
+<option value="Bank">Bank</option>
+<option value="Bkash">Bkash</option>
+<option value="Nagad">Nagad</option>
+<option value="Due">Due</option>
+<option value="Other">Other</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Other Information</label>
+
+<textarea
+id="saleOther"
+placeholder="Other information"></textarea>
+
+</div>
+
+</div>
+
+
+<div class="total-box">
+
+Total Sale:
+<span id="saleTotal">0.00</span>
+
+</div>
+
+
+<div style="margin-top:10px;">
+
+<button
+class="btn btn-success"
+onclick="saveSale()">
+Save Sale
+</button>
+
+<button
+class="btn btn-secondary"
+onclick="clearSaleForm()">
+Clear
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>Sales History</h3>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Date</th>
+<th>Product</th>
+<th>Category</th>
+<th>Qty</th>
+<th>Unit Price</th>
+<th>Total</th>
+<th>Customer</th>
+<th>Payment</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="salesTableBody"></tbody>
+
+</table>
+
+</div>
+
+</div>
 
 </section>
 
 
-<!-- ================= CUSTOMERS ================= -->
+
+<!-- =====================================================
+CUSTOMERS
+===================================================== -->
 
 <section id="customers" class="page">
 
-    <div class="card">
+<div class="card">
 
-        <h2>Customers</h2>
+<h2>Customers</h2>
 
-        <div class="grid">
+<div class="grid">
 
-            <div>
-                <label>Customer Name *</label>
-                <input id="customerName" type="text">
-            </div>
 
-            <div>
-                <label>Phone</label>
-                <input id="customerPhone" type="text">
-            </div>
+<div>
 
-            <div>
-                <label>Address</label>
-                <textarea id="customerAddress"></textarea>
-            </div>
+<label>Customer Name *</label>
 
-        </div>
+<input
+id="customerName"
+type="text"
+placeholder="Enter customer name">
 
-        <div style="margin-top:10px;">
-            <button class="btn btn-primary" onclick="saveCustomer()">Save Customer</button>
-            <button class="btn btn-secondary" onclick="clearCustomerForm()">Clear</button>
-        </div>
+</div>
 
-    </div>
 
-    <div class="card">
+<div>
 
-        <h3>Customer List</h3>
+<label>Phone</label>
 
-        <div class="table-wrap">
+<input
+id="customerPhone"
+type="text"
+placeholder="Phone number">
 
-            <table>
+</div>
 
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Address</th>
-                        <th>Total Sales</th>
-                        <th>Due</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
 
-                <tbody id="customerTableBody"></tbody>
+<div>
 
-            </table>
+<label>Address</label>
 
-        </div>
+<textarea
+id="customerAddress"
+placeholder="Customer address"></textarea>
 
-    </div>
+</div>
+
+</div>
+
+
+<div style="margin-top:10px;">
+
+<button
+class="btn btn-primary"
+onclick="saveCustomer()">
+Save Customer
+</button>
+
+<button
+class="btn btn-secondary"
+onclick="clearCustomerForm()">
+Clear
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>Customer List</h3>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+<th>Phone</th>
+<th>Address</th>
+<th>Total Sales</th>
+<th>Due</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="customerTableBody"></tbody>
+
+</table>
+
+</div>
+
+</div>
 
 </section>
 
 
-<!-- ================= DUE COLLECTION ================= -->
+
+<!-- =====================================================
+DUE COLLECTION
+===================================================== -->
 
 <section id="due" class="page">
 
-    <div class="card">
+<div class="card">
 
-        <h2>Due Collection</h2>
+<h2>Due Collection</h2>
 
-        <div class="grid">
+<div class="grid">
 
-            <div>
-                <label>Date *</label>
-                <input id="dueDate" type="date">
-            </div>
 
-            <div>
-                <label>Customer *</label>
-                <select id="dueCustomer">
-                    <option value="">Select Customer</option>
-                </select>
-            </div>
+<div>
 
-            <div>
-                <label>Amount *</label>
-                <input id="dueAmount" type="number" min="0" step="0.01">
-            </div>
+<label>Date *</label>
 
-            <div>
-                <label>Payment Mode</label>
-                <select id="duePayment">
-                    <option value="Cash">Cash</option>
-                    <option value="Bank">Bank</option>
-                    <option value="Bkash">Bkash</option>
-                    <option value="Nagad">Nagad</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
+<input
+id="dueDate"
+type="date">
 
-            <div>
-                <label>Note</label>
-                <textarea id="dueNote"></textarea>
-            </div>
+</div>
 
-        </div>
 
-        <div style="margin-top:10px;">
-            <button class="btn btn-success" onclick="saveDueCollection()">Save Collection</button>
-            <button class="btn btn-secondary" onclick="clearDueForm()">Clear</button>
-        </div>
+<div>
 
-    </div>
+<label>Customer *</label>
 
-    <div class="card">
+<select id="dueCustomer">
 
-        <h3>Due Collection History</h3>
+<option value="">
+Select Customer
+</option>
 
-        <div class="table-wrap">
+</select>
 
-            <table>
+</div>
 
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Customer</th>
-                        <th>Amount</th>
-                        <th>Payment Mode</th>
-                        <th>Note</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
 
-                <tbody id="dueTableBody"></tbody>
+<div>
 
-            </table>
+<label>Amount *</label>
 
-        </div>
+<input
+id="dueAmount"
+type="number"
+min="0"
+step="0.01">
 
-    </div>
+</div>
+
+
+<div>
+
+<label>Payment Mode</label>
+
+<select id="duePayment">
+
+<option value="Cash">Cash</option>
+<option value="Bank">Bank</option>
+<option value="Bkash">Bkash</option>
+<option value="Nagad">Nagad</option>
+<option value="Other">Other</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Note</label>
+
+<textarea
+id="dueNote"
+placeholder="Note"></textarea>
+
+</div>
+
+</div>
+
+
+<div style="margin-top:10px;">
+
+<button
+class="btn btn-success"
+onclick="saveDueCollection()">
+Save Collection
+</button>
+
+<button
+class="btn btn-secondary"
+onclick="clearDueForm()">
+Clear
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>Due Collection History</h3>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Date</th>
+<th>Customer</th>
+<th>Amount</th>
+<th>Payment Mode</th>
+<th>Note</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="dueTableBody"></tbody>
+
+</table>
+
+</div>
+
+</div>
 
 </section>
 
 
-<!-- ================= REPORTS ================= -->
+
+<!-- =====================================================
+REPORTS
+===================================================== -->
 
 <section id="reports" class="page">
 
-    <div class="card">
+<div class="card">
 
-        <h2>Reports</h2>
+<h2>Reports</h2>
 
-        <div class="grid">
+<div class="grid">
 
-            <div>
-                <label>From Date</label>
-                <input id="reportFrom" type="date">
-            </div>
 
-            <div>
-                <label>To Date</label>
-                <input id="reportTo" type="date">
-            </div>
+<div>
 
-        </div>
+<label>From Date</label>
 
-        <div style="margin-top:10px;">
-            <button class="btn btn-primary" onclick="generateReport()">Generate Report</button>
-        </div>
+<input
+id="reportFrom"
+type="date">
 
-    </div>
+</div>
 
-    <div class="summary">
 
-        <div class="summary-box">
-            <div class="title">Total Purchase</div>
-            <div class="value" id="reportPurchase">0.00</div>
-        </div>
+<div>
 
-        <div class="summary-box">
-            <div class="title">Total Sales</div>
-            <div class="value" id="reportSales">0.00</div>
-        </div>
+<label>To Date</label>
 
-        <div class="summary-box">
-            <div class="title">Estimated Profit</div>
-            <div class="value profit-positive" id="reportProfit">0.00</div>
-        </div>
+<input
+id="reportTo"
+type="date">
 
-    </div>
+</div>
 
-    <div class="card" style="margin-top:15px;">
+</div>
 
-        <h3>Sales Report</h3>
 
-        <div class="table-wrap">
+<div style="margin-top:10px;">
 
-            <table>
+<button
+class="btn btn-primary"
+onclick="generateReport()">
+Generate Report
+</button>
 
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Product</th>
-                        <th>Category</th>
-                        <th>Qty</th>
-                        <th>Sale Price</th>
-                        <th>Total Sale</th>
-                        <th>Purchase Cost</th>
-                        <th>Profit</th>
-                    </tr>
-                </thead>
+</div>
 
-                <tbody id="reportSalesBody"></tbody>
+</div>
 
-            </table>
 
-        </div>
+<div class="summary">
 
-    </div>
+<div class="summary-box">
+
+<div class="title">
+Total Purchase
+</div>
+
+<div
+class="value"
+id="reportPurchase">
+0.00
+</div>
+
+</div>
+
+
+<div class="summary-box">
+
+<div class="title">
+Total Sales
+</div>
+
+<div
+class="value"
+id="reportSales">
+0.00
+</div>
+
+</div>
+
+
+<div class="summary-box">
+
+<div class="title">
+Estimated Profit
+</div>
+
+<div
+class="value profit-positive"
+id="reportProfit">
+0.00
+</div>
+
+</div>
+
+</div>
+
+
+<div
+class="card"
+style="margin-top:15px;">
+
+<h3>Sales Report</h3>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Date</th>
+<th>Product</th>
+<th>Category</th>
+<th>Qty</th>
+<th>Sale Price</th>
+<th>Total Sale</th>
+<th>Purchase Cost</th>
+<th>Profit</th>
+
+</tr>
+
+</thead>
+
+<tbody id="reportSalesBody"></tbody>
+
+</table>
+
+</div>
+
+</div>
 
 </section>
+
 
 </main>
 
 
+
 <script>
 
-/* =========================================================
-   DATABASE
-========================================================= */
+/* =====================================================
+DATABASE
+===================================================== */
 
 const DB_KEY = "electronicsShopDataV1";
 
 let db = {
-    products: [],
-    purchases: [],
-    sales: [],
-    customers: [],
-    dueCollections: []
+
+    products:[],
+    purchases:[],
+    sales:[],
+    customers:[],
+    dueCollections:[],
+    suppliers:[]
+
 };
 
 let editingProductId = null;
 let editingCustomerId = null;
 
 
-/* =========================================================
-   DEFAULT CATEGORIES
-========================================================= */
+/* =====================================================
+DEFAULT CATEGORIES
+===================================================== */
 
 const DEFAULT_CATEGORIES = [
+
     "LED Light",
     "Bulb",
     "Switch",
@@ -944,102 +1392,203 @@ const DEFAULT_CATEGORIES = [
     "Remote",
     "Electronic Parts",
     "Other"
+
 ];
 
 
-/* =========================================================
-   BASIC HELPERS
-========================================================= */
+/* =====================================================
+DEFAULT SUPPLIERS
+===================================================== */
+
+const DEFAULT_SUPPLIERS = [
+
+    "Local Supplier",
+    "Other"
+
+];
+
+
+/* =====================================================
+LOAD DATABASE
+===================================================== */
 
 function loadDB(){
 
     try{
 
-        const saved = localStorage.getItem(DB_KEY);
+        const saved =
+            localStorage.getItem(DB_KEY);
 
         if(saved){
 
-            const parsed = JSON.parse(saved);
+            const parsed =
+                JSON.parse(saved);
 
-            db.products = Array.isArray(parsed.products)
-                ? parsed.products : [];
+            db.products =
+                Array.isArray(parsed.products)
+                ? parsed.products
+                : [];
 
-            db.purchases = Array.isArray(parsed.purchases)
-                ? parsed.purchases : [];
+            db.purchases =
+                Array.isArray(parsed.purchases)
+                ? parsed.purchases
+                : [];
 
-            db.sales = Array.isArray(parsed.sales)
-                ? parsed.sales : [];
+            db.sales =
+                Array.isArray(parsed.sales)
+                ? parsed.sales
+                : [];
 
-            db.customers = Array.isArray(parsed.customers)
-                ? parsed.customers : [];
+            db.customers =
+                Array.isArray(parsed.customers)
+                ? parsed.customers
+                : [];
 
-            db.dueCollections = Array.isArray(parsed.dueCollections)
-                ? parsed.dueCollections : [];
+            db.dueCollections =
+                Array.isArray(parsed.dueCollections)
+                ? parsed.dueCollections
+                : [];
+
+            db.suppliers =
+                Array.isArray(parsed.suppliers)
+                ? parsed.suppliers
+                : [];
 
         }
 
     }catch(error){
 
-        console.error("Database load error:",error);
+        console.error(error);
 
         db = {
-            products: [],
-            purchases: [],
-            sales: [],
-            customers: [],
-            dueCollections: []
+
+            products:[],
+            purchases:[],
+            sales:[],
+            customers:[],
+            dueCollections:[],
+            suppliers:[]
+
         };
 
     }
 
+
+    /*
+    Existing purchase supplier names
+    are automatically added to supplier list.
+    */
+
+    db.purchases.forEach(function(p){
+
+        if(p.supplier){
+
+            addSupplierSilently(p.supplier);
+
+        }
+
+    });
+
+
     saveDB();
+
 }
 
+
+/* =====================================================
+SAVE DATABASE
+===================================================== */
 
 function saveDB(){
 
     try{
-        localStorage.setItem(DB_KEY,JSON.stringify(db));
+
+        localStorage.setItem(
+            DB_KEY,
+            JSON.stringify(db)
+        );
+
     }catch(error){
-        console.error("Database save error:",error);
-        alert("Unable to save data on this device.");
+
+        console.error(error);
+
+        alert(
+            "Unable to save data on this device."
+        );
+
     }
 
 }
 
 
+/* =====================================================
+DATE
+===================================================== */
+
 function today(){
 
-    const d = new Date();
+    const d =
+        new Date();
 
-    const month = String(d.getMonth()+1).padStart(2,"0");
-    const day = String(d.getDate()).padStart(2,"0");
+    const month =
+        String(d.getMonth()+1)
+        .padStart(2,"0");
 
-    return d.getFullYear() + "-" + month + "-" + day;
+    const day =
+        String(d.getDate())
+        .padStart(2,"0");
+
+    return (
+        d.getFullYear() +
+        "-" +
+        month +
+        "-" +
+        day
+    );
+
 }
 
+
+/* =====================================================
+MONEY
+===================================================== */
 
 function money(value){
 
-    const n = Number(value) || 0;
+    return (
+        Number(value) || 0
+    ).toFixed(2);
 
-    return n.toFixed(2);
 }
 
+
+/* =====================================================
+ID
+===================================================== */
 
 function uid(prefix){
 
-    return prefix + "-" +
+    return (
+        prefix +
+        "-" +
         Date.now().toString(36) +
         "-" +
-        Math.random().toString(36).substring(2,8);
+        Math.random()
+            .toString(36)
+            .substring(2,8)
+    );
 
 }
 
+
+/* =====================================================
+ESCAPE HTML
+===================================================== */
 
 function escapeHTML(value){
 
     return String(value ?? "")
+
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
@@ -1049,89 +1598,307 @@ function escapeHTML(value){
 }
 
 
-/* =========================================================
-   NAVIGATION
-   IMPORTANT: Navigation does NOT call refreshAll().
-   This prevents one refresh error from blocking all pages.
-========================================================= */
+/* =====================================================
+NAVIGATION
+===================================================== */
 
 function showPage(page,button){
 
-    document.querySelectorAll(".page").forEach(function(p){
-        p.classList.remove("active");
-    });
+    document
+        .querySelectorAll(".page")
+        .forEach(function(p){
 
-    const target = document.getElementById(page);
+            p.classList.remove("active");
+
+        });
+
+
+    const target =
+        document.getElementById(page);
+
 
     if(target){
+
         target.classList.add("active");
+
     }
 
-    document.querySelectorAll(".nav-btn").forEach(function(btn){
-        btn.classList.remove("active");
-    });
+
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(function(btn){
+
+            btn.classList.remove("active");
+
+        });
+
 
     if(button){
+
         button.classList.add("active");
+
     }
 
 }
 
 
-/* =========================================================
-   CATEGORY FUNCTIONS
-========================================================= */
+/* =====================================================
+CATEGORY LIST
+===================================================== */
 
 function getAllCategories(){
 
-    const categories = [];
+    const result = [];
+
 
     DEFAULT_CATEGORIES.forEach(function(c){
-        categories.push(c);
+
+        result.push(c);
+
     });
+
 
     db.products.forEach(function(p){
+
         if(p.category){
-            categories.push(String(p.category).trim());
+
+            result.push(
+                String(p.category).trim()
+            );
+
         }
+
     });
+
 
     db.purchases.forEach(function(p){
+
         if(p.category){
-            categories.push(String(p.category).trim());
+
+            result.push(
+                String(p.category).trim()
+            );
+
         }
+
     });
+
 
     db.sales.forEach(function(s){
+
         if(s.category){
-            categories.push(String(s.category).trim());
+
+            result.push(
+                String(s.category).trim()
+            );
+
         }
+
     });
 
-    return [...new Set(
-        categories.filter(function(c){
-            return c !== "";
-        })
-    )];
+
+    return [
+        ...new Set(
+            result.filter(function(x){
+
+                return x !== "";
+
+            })
+        )
+    ];
 
 }
 
 
+/* =====================================================
+CATEGORY DATALIST
+===================================================== */
+
 function loadCategoryList(){
 
-    const list = document.getElementById("categoryList");
+    const list =
+        document.getElementById(
+            "categoryList"
+        );
+
 
     if(!list){
+
         return;
+
     }
+
 
     list.innerHTML = "";
 
-    getAllCategories().forEach(function(category){
 
-        const option = document.createElement("option");
+    getAllCategories()
+        .forEach(function(category){
 
-        option.value = category;
+            const option =
+                document.createElement("option");
+
+            option.value =
+                category;
+
+            list.appendChild(option);
+
+        });
+
+}
+
+
+/* =====================================================
+CATEGORY SELECT
+===================================================== */
+
+function setCategoryOptions(
+    select,
+    selected
+){
+
+    if(!select){
+
+        return;
+
+    }
+
+
+    selected =
+        selected || "";
+
+
+    select.innerHTML =
+        '<option value="">Select Category</option>';
+
+
+    getAllCategories()
+        .forEach(function(category){
+
+            const option =
+                document.createElement("option");
+
+            option.value =
+                category;
+
+            option.textContent =
+                category;
+
+
+            if(category === selected){
+
+                option.selected = true;
+
+            }
+
+
+            select.appendChild(option);
+
+        });
+
+}
+
+
+/* =====================================================
+SUPPLIER FUNCTIONS
+===================================================== */
+
+function addSupplierSilently(name){
+
+    name =
+        String(name || "").trim();
+
+
+    if(!name){
+
+        return;
+
+    }
+
+
+    const exists =
+        db.suppliers.some(function(s){
+
+            return (
+                String(s).toLowerCase() ===
+                name.toLowerCase()
+            );
+
+        });
+
+
+    if(!exists){
+
+        db.suppliers.push(name);
+
+    }
+
+}
+
+
+/* =====================================================
+LOAD SUPPLIERS
+===================================================== */
+
+function loadSupplierList(){
+
+    const list =
+        document.getElementById(
+            "supplierList"
+        );
+
+
+    if(!list){
+
+        return;
+
+    }
+
+
+    list.innerHTML = "";
+
+
+    const suppliers = [
+
+        ...DEFAULT_SUPPLIERS,
+        ...db.suppliers
+
+    ];
+
+
+    /*
+    Old purchase supplier names
+    */
+
+    db.purchases.forEach(function(p){
+
+        if(p.supplier){
+
+            suppliers.push(
+                String(p.supplier).trim()
+            );
+
+        }
+
+    });
+
+
+    [
+        ...new Set(
+            suppliers.filter(function(s){
+
+                return String(s).trim() !== "";
+
+            })
+        )
+    ]
+    .forEach(function(supplier){
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            supplier;
 
         list.appendChild(option);
 
@@ -1140,99 +1907,139 @@ function loadCategoryList(){
 }
 
 
-function setCategoryOptions(select,selected){
-
-    if(!select){
-        return;
-    }
-
-    selected = selected || "";
-
-    select.innerHTML =
-        '<option value="">Select Category</option>';
-
-    getAllCategories().forEach(function(category){
-
-        const option = document.createElement("option");
-
-        option.value = category;
-        option.textContent = category;
-
-        if(category === selected){
-            option.selected = true;
-        }
-
-        select.appendChild(option);
-
-    });
-
-}
-
-
-/* =========================================================
-   PRODUCTS
-========================================================= */
+/* =====================================================
+PRODUCT
+===================================================== */
 
 function saveProduct(){
 
     const name =
-        document.getElementById("productName").value.trim();
+        document
+        .getElementById("productName")
+        .value
+        .trim();
+
 
     const category =
-        document.getElementById("productCategory").value.trim();
+        document
+        .getElementById("productCategory")
+        .value
+        .trim();
+
 
     const partNumber =
-        document.getElementById("productPartNumber").value.trim();
+        document
+        .getElementById("productPartNumber")
+        .value
+        .trim();
+
 
     const value =
-        document.getElementById("productValue").value.trim();
+        document
+        .getElementById("productValue")
+        .value
+        .trim();
+
 
     const voltage =
-        document.getElementById("productVoltage").value.trim();
+        document
+        .getElementById("productVoltage")
+        .value
+        .trim();
+
 
     const salePrice =
-        Number(document.getElementById("productSalePrice").value);
+        Number(
+            document
+            .getElementById("productSalePrice")
+            .value
+        );
+
 
     const other =
-        document.getElementById("productOther").value.trim();
+        document
+        .getElementById("productOther")
+        .value
+        .trim();
 
 
     if(!name){
-        alert("Please enter Product Name.");
+
+        alert(
+            "Please enter Product Name."
+        );
+
         return;
+
     }
+
 
     if(!category){
-        alert("Please enter Category.");
+
+        alert(
+            "Please enter Category."
+        );
+
         return;
+
     }
 
-    if(!Number.isFinite(salePrice) || salePrice < 0){
-        alert("Please enter a valid Sale Price.");
+
+    if(
+        !Number.isFinite(salePrice) ||
+        salePrice < 0
+    ){
+
+        alert(
+            "Please enter a valid Sale Price."
+        );
+
         return;
+
     }
 
 
     if(editingProductId){
 
-        const product =
-            db.products.find(function(p){
-                return p.id === editingProductId;
+        const p =
+            db.products.find(function(item){
+
+                return (
+                    item.id ===
+                    editingProductId
+                );
+
             });
 
-        if(product){
 
-            product.name = name;
-            product.category = category;
-            product.partNumber = partNumber;
-            product.value = value;
-            product.voltage = voltage;
-            product.salePrice = salePrice;
-            product.other = other;
+        if(p){
+
+            p.name =
+                name;
+
+            p.category =
+                category;
+
+            p.partNumber =
+                partNumber;
+
+            p.value =
+                value;
+
+            p.voltage =
+                voltage;
+
+            p.salePrice =
+                salePrice;
+
+            p.other =
+                other;
 
         }
 
-        editingProductId = null;
+
+        editingProductId =
+            null;
 
     }else{
 
@@ -1241,11 +2048,17 @@ function saveProduct(){
             id:uid("PRD"),
 
             name:name,
+
             category:category,
+
             partNumber:partNumber,
+
             value:value,
+
             voltage:voltage,
+
             salePrice:salePrice,
+
             other:other
 
         });
@@ -1259,64 +2072,134 @@ function saveProduct(){
 
     refreshAll();
 
-    alert("Product saved successfully.");
+    alert(
+        "Product saved successfully."
+    );
 
 }
 
+
+/* =====================================================
+CLEAR PRODUCT
+===================================================== */
 
 function clearProductForm(){
 
-    document.getElementById("productName").value = "";
-    document.getElementById("productCategory").value = "";
-    document.getElementById("productPartNumber").value = "";
-    document.getElementById("productValue").value = "";
-    document.getElementById("productVoltage").value = "";
-    document.getElementById("productSalePrice").value = "";
-    document.getElementById("productOther").value = "";
+    document.getElementById(
+        "productName"
+    ).value = "";
 
-    editingProductId = null;
+
+    document.getElementById(
+        "productCategory"
+    ).value = "";
+
+
+    document.getElementById(
+        "productPartNumber"
+    ).value = "";
+
+
+    document.getElementById(
+        "productValue"
+    ).value = "";
+
+
+    document.getElementById(
+        "productVoltage"
+    ).value = "";
+
+
+    document.getElementById(
+        "productSalePrice"
+    ).value = "";
+
+
+    document.getElementById(
+        "productOther"
+    ).value = "";
+
+
+    editingProductId =
+        null;
 
 }
 
+
+/* =====================================================
+EDIT PRODUCT
+===================================================== */
 
 function editProduct(id){
 
     const p =
         db.products.find(function(item){
+
             return item.id === id;
+
         });
 
+
     if(!p){
+
         return;
+
     }
 
-    document.getElementById("productName").value =
+
+    document.getElementById(
+        "productName"
+    ).value =
         p.name || "";
 
-    document.getElementById("productCategory").value =
+
+    document.getElementById(
+        "productCategory"
+    ).value =
         p.category || "";
 
-    document.getElementById("productPartNumber").value =
+
+    document.getElementById(
+        "productPartNumber"
+    ).value =
         p.partNumber || "";
 
-    document.getElementById("productValue").value =
+
+    document.getElementById(
+        "productValue"
+    ).value =
         p.value || "";
 
-    document.getElementById("productVoltage").value =
+
+    document.getElementById(
+        "productVoltage"
+    ).value =
         p.voltage || "";
 
-    document.getElementById("productSalePrice").value =
+
+    document.getElementById(
+        "productSalePrice"
+    ).value =
         p.salePrice ?? "";
 
-    document.getElementById("productOther").value =
+
+    document.getElementById(
+        "productOther"
+    ).value =
         p.other || "";
 
-    editingProductId = id;
+
+    editingProductId =
+        id;
+
 
     showPage(
         "products",
-        document.querySelectorAll(".nav-btn")[1]
+        document.querySelectorAll(
+            ".nav-btn"
+        )[1]
     );
+
 
     window.scrollTo({
         top:0,
@@ -1326,45 +2209,32 @@ function editProduct(id){
 }
 
 
+/* =====================================================
+DELETE PRODUCT
+===================================================== */
+
 function deleteProduct(id){
 
-    const hasPurchase =
-        db.purchases.some(function(p){
-            return p.productId === id;
-        });
-
-    const hasSale =
-        db.sales.some(function(s){
-            return s.productId === id;
-        });
-
-    if(hasPurchase || hasSale){
-
-        const ok = confirm(
-            "This product has transaction history. Delete it anyway?"
-        );
-
-        if(!ok){
-            return;
-        }
-
-    }else{
-
-        const ok = confirm(
+    const ok =
+        confirm(
             "Delete this product?"
         );
 
-        if(!ok){
-            return;
-        }
+
+    if(!ok){
+
+        return;
 
     }
 
 
     db.products =
         db.products.filter(function(p){
+
             return p.id !== id;
+
         });
+
 
     saveDB();
 
@@ -1373,123 +2243,221 @@ function deleteProduct(id){
 }
 
 
+/* =====================================================
+PRODUCT STOCK
+===================================================== */
+
 function getProductStock(productId){
 
     const purchased =
         db.purchases
-            .filter(function(p){
-                return p.productId === productId;
-            })
-            .reduce(function(total,p){
-                return total + Number(p.qty || 0);
-            },0);
+
+        .filter(function(p){
+
+            return (
+                p.productId ===
+                productId
+            );
+
+        })
+
+        .reduce(function(total,p){
+
+            return (
+                total +
+                Number(p.qty || 0)
+            );
+
+        },0);
 
 
     const sold =
         db.sales
-            .filter(function(s){
-                return s.productId === productId;
-            })
-            .reduce(function(total,s){
-                return total + Number(s.qty || 0);
-            },0);
+
+        .filter(function(s){
+
+            return (
+                s.productId ===
+                productId
+            );
+
+        })
+
+        .reduce(function(total,s){
+
+            return (
+                total +
+                Number(s.qty || 0)
+            );
+
+        },0);
 
 
-    return purchased - sold;
+    return (
+        purchased - sold
+    );
 
 }
 
 
+/* =====================================================
+RENDER PRODUCTS
+===================================================== */
+
 function renderProducts(){
 
     const body =
-        document.getElementById("productTableBody");
+        document.getElementById(
+            "productTableBody"
+        );
+
 
     if(!body){
+
         return;
+
     }
 
+
     const search =
-        document.getElementById("productSearch")
-            .value
-            .trim()
-            .toLowerCase();
+        document.getElementById(
+            "productSearch"
+        )
+        .value
+        .trim()
+        .toLowerCase();
 
 
     body.innerHTML = "";
 
 
     db.products
-        .filter(function(p){
 
-            if(!search){
-                return true;
-            }
+    .filter(function(p){
 
-            return (
-                String(p.name || "").toLowerCase().includes(search) ||
-                String(p.category || "").toLowerCase().includes(search) ||
-                String(p.partNumber || "").toLowerCase().includes(search)
-            );
+        if(!search){
 
-        })
-        .forEach(function(p){
+            return true;
 
-            const stock = getProductStock(p.id);
+        }
 
-            const tr = document.createElement("tr");
 
-            tr.innerHTML = `
+        return (
 
-                <td>${escapeHTML(p.name)}</td>
+            String(
+                p.name || ""
+            )
+            .toLowerCase()
+            .includes(search)
 
-                <td>${escapeHTML(p.category)}</td>
+            ||
 
-                <td>${escapeHTML(p.partNumber)}</td>
+            String(
+                p.category || ""
+            )
+            .toLowerCase()
+            .includes(search)
 
-                <td>${escapeHTML(p.value)}</td>
+            ||
 
-                <td>${escapeHTML(p.voltage)}</td>
+            String(
+                p.partNumber || ""
+            )
+            .toLowerCase()
+            .includes(search)
 
-                <td>${money(p.salePrice)}</td>
+        );
 
-                <td>${stock}</td>
+    })
 
-                <td>
-                    <button class="btn btn-warning"
-                        onclick="editProduct('${p.id}')">
-                        Edit
-                    </button>
+    .forEach(function(p){
 
-                    <button class="btn btn-danger"
-                        onclick="deleteProduct('${p.id}')">
-                        Delete
-                    </button>
-                </td>
+        const stock =
+            getProductStock(p.id);
 
-            `;
 
-            body.appendChild(tr);
+        const tr =
+            document.createElement("tr");
 
-        });
+
+        tr.innerHTML = `
+
+<td>
+${escapeHTML(p.name)}
+</td>
+
+<td>
+${escapeHTML(p.category)}
+</td>
+
+<td>
+${escapeHTML(p.partNumber)}
+</td>
+
+<td>
+${escapeHTML(p.value)}
+</td>
+
+<td>
+${escapeHTML(p.voltage)}
+</td>
+
+<td>
+${money(p.salePrice)}
+</td>
+
+<td>
+${stock}
+</td>
+
+<td>
+
+<button
+class="btn btn-warning"
+onclick="editProduct('${p.id}')">
+Edit
+</button>
+
+<button
+class="btn btn-danger"
+onclick="deleteProduct('${p.id}')">
+Delete
+</button>
+
+</td>
+
+`;
+
+
+        body.appendChild(tr);
+
+    });
 
 }
 
 
-/* =========================================================
-   PURCHASE
-========================================================= */
+/* =====================================================
+PURCHASE PRODUCT DROPDOWN
+===================================================== */
 
 function loadPurchaseProducts(){
 
     const select =
-        document.getElementById("purchaseProduct");
+        document.getElementById(
+            "purchaseProduct"
+        );
+
 
     if(!select){
+
         return;
+
     }
 
-    const oldValue = select.value;
+
+    const oldValue =
+        select.value;
+
 
     select.innerHTML =
         '<option value="">Select Product</option>';
@@ -1498,41 +2466,77 @@ function loadPurchaseProducts(){
     db.products.forEach(function(p){
 
         const option =
-            document.createElement("option");
+            document.createElement(
+                "option"
+            );
 
-        option.value = p.id;
+
+        option.value =
+            p.id;
+
 
         option.textContent =
             p.name +
-            (p.partNumber ? " (" + p.partNumber + ")" : "");
+            (
+                p.partNumber
+                ? " (" +
+                  p.partNumber +
+                  ")"
+                : ""
+            );
 
-        select.appendChild(option);
+
+        select.appendChild(
+            option
+        );
 
     });
 
 
     if(
         oldValue &&
-        [...select.options].some(function(o){
-            return o.value === oldValue;
-        })
+        [...select.options].some(
+            function(o){
+
+                return (
+                    o.value ===
+                    oldValue
+                );
+
+            }
+        )
     ){
-        select.value = oldValue;
+
+        select.value =
+            oldValue;
+
     }
 
 
     const p =
         db.products.find(function(item){
-            return item.id === select.value;
+
+            return (
+                item.id ===
+                select.value
+            );
+
         });
 
 
     if(p){
 
-        document.getElementById("purchaseCategory").value =
-            p.category || "";
+        setCategoryOptions(
+            document.getElementById(
+                "purchaseCategory"
+            ),
+            p.category || ""
+        );
 
-        document.getElementById("purchasePartNumber").value =
+
+        document.getElementById(
+            "purchasePartNumber"
+        ).value =
             p.partNumber || "";
 
     }
@@ -1540,124 +2544,260 @@ function loadPurchaseProducts(){
 }
 
 
+/* =====================================================
+PURCHASE PRODUCT CHANGE
+===================================================== */
+
 function purchaseProductChanged(){
 
     const productId =
-        document.getElementById("purchaseProduct").value;
+        document.getElementById(
+            "purchaseProduct"
+        ).value;
+
 
     const p =
         db.products.find(function(item){
-            return item.id === productId;
+
+            return (
+                item.id ===
+                productId
+            );
+
         });
 
 
-    const categorySelect =
-        document.getElementById("purchaseCategory");
+    const category =
+        document.getElementById(
+            "purchaseCategory"
+        );
 
 
     if(p){
 
         setCategoryOptions(
-            categorySelect,
+            category,
             p.category || ""
         );
 
-        document.getElementById("purchasePartNumber").value =
+
+        document.getElementById(
+            "purchasePartNumber"
+        ).value =
             p.partNumber || "";
 
     }else{
 
         setCategoryOptions(
-            categorySelect,
-            categorySelect.value
+            category,
+            ""
         );
 
-        document.getElementById("purchasePartNumber").value = "";
+
+        document.getElementById(
+            "purchasePartNumber"
+        ).value = "";
 
     }
 
 }
 
+
+/* =====================================================
+PURCHASE TOTAL
+===================================================== */
 
 function calculatePurchaseTotal(){
 
     const qty =
-        Number(document.getElementById("purchaseQty").value) || 0;
+        Number(
+            document.getElementById(
+                "purchaseQty"
+            ).value
+        ) || 0;
+
 
     const price =
-        Number(document.getElementById("purchasePrice").value) || 0;
+        Number(
+            document.getElementById(
+                "purchasePrice"
+            ).value
+        ) || 0;
 
-    document.getElementById("purchaseTotal").textContent =
-        money(qty * price);
+
+    document.getElementById(
+        "purchaseTotal"
+    ).textContent =
+        money(
+            qty * price
+        );
 
 }
 
 
+/* =====================================================
+SAVE PURCHASE
+===================================================== */
+
 function savePurchase(){
 
     const date =
-        document.getElementById("purchaseDate").value;
+        document.getElementById(
+            "purchaseDate"
+        ).value;
+
 
     const productId =
-        document.getElementById("purchaseProduct").value;
+        document.getElementById(
+            "purchaseProduct"
+        ).value;
+
 
     const category =
-        document.getElementById("purchaseCategory").value;
+        document.getElementById(
+            "purchaseCategory"
+        ).value;
+
 
     const partNumber =
-        document.getElementById("purchasePartNumber").value.trim();
+        document.getElementById(
+            "purchasePartNumber"
+        )
+        .value
+        .trim();
+
 
     const qty =
-        Number(document.getElementById("purchaseQty").value);
+        Number(
+            document.getElementById(
+                "purchaseQty"
+            ).value
+        );
+
 
     const price =
-        Number(document.getElementById("purchasePrice").value);
+        Number(
+            document.getElementById(
+                "purchasePrice"
+            ).value
+        );
+
 
     const supplier =
-        document.getElementById("purchaseSupplier").value.trim();
+        document.getElementById(
+            "purchaseSupplier"
+        )
+        .value
+        .trim();
+
 
     const payment =
-        document.getElementById("purchasePayment").value;
+        document.getElementById(
+            "purchasePayment"
+        ).value;
+
 
     const other =
-        document.getElementById("purchaseOther").value.trim();
+        document.getElementById(
+            "purchaseOther"
+        )
+        .value
+        .trim();
 
 
     if(!date){
-        alert("Please select Date.");
+
+        alert(
+            "Please select Date."
+        );
+
         return;
+
     }
+
 
     if(!productId){
-        alert("Please select Product.");
+
+        alert(
+            "Please select Product."
+        );
+
         return;
+
     }
+
 
     if(!category){
-        alert("Please select Category.");
+
+        alert(
+            "Please select Category."
+        );
+
         return;
+
     }
 
-    if(!Number.isFinite(qty) || qty <= 0){
-        alert("Please enter a valid Quantity.");
+
+    if(
+        !Number.isFinite(qty) ||
+        qty <= 0
+    ){
+
+        alert(
+            "Please enter a valid Quantity."
+        );
+
         return;
+
     }
 
-    if(!Number.isFinite(price) || price < 0){
-        alert("Please enter a valid Purchase Price.");
+
+    if(
+        !Number.isFinite(price) ||
+        price < 0
+    ){
+
+        alert(
+            "Please enter a valid Purchase Price."
+        );
+
         return;
+
     }
 
 
     const product =
         db.products.find(function(p){
-            return p.id === productId;
+
+            return (
+                p.id ===
+                productId
+            );
+
         });
 
 
     if(!product){
-        alert("Product not found.");
+
+        alert(
+            "Product not found."
+        );
+
         return;
+
+    }
+
+
+    /*
+    Save new supplier automatically
+    */
+
+    if(supplier){
+
+        addSupplierSilently(
+            supplier
+        );
+
     }
 
 
@@ -1679,7 +2819,8 @@ function savePurchase(){
 
         price:price,
 
-        total:qty * price,
+        total:
+            qty * price,
 
         supplier:supplier,
 
@@ -1696,52 +2837,106 @@ function savePurchase(){
 
     refreshAll();
 
-    alert("Purchase saved successfully.");
+
+    alert(
+        "Purchase saved successfully."
+    );
 
 }
 
+
+/* =====================================================
+CLEAR PURCHASE
+===================================================== */
 
 function clearPurchaseForm(){
 
-    document.getElementById("purchaseDate").value = today();
+    document.getElementById(
+        "purchaseDate"
+    ).value =
+        today();
 
-    document.getElementById("purchaseProduct").value = "";
+
+    document.getElementById(
+        "purchaseProduct"
+    ).value = "";
+
 
     setCategoryOptions(
-        document.getElementById("purchaseCategory"),
+        document.getElementById(
+            "purchaseCategory"
+        ),
         ""
     );
 
-    document.getElementById("purchasePartNumber").value = "";
 
-    document.getElementById("purchaseQty").value = "";
+    document.getElementById(
+        "purchasePartNumber"
+    ).value = "";
 
-    document.getElementById("purchasePrice").value = "";
 
-    document.getElementById("purchaseSupplier").value = "";
+    document.getElementById(
+        "purchaseQty"
+    ).value = "";
 
-    document.getElementById("purchasePayment").value = "Cash";
 
-    document.getElementById("purchaseOther").value = "";
+    document.getElementById(
+        "purchasePrice"
+    ).value = "";
 
-    document.getElementById("purchaseTotal").textContent = "0.00";
+
+    document.getElementById(
+        "purchaseSupplier"
+    ).value = "";
+
+
+    document.getElementById(
+        "purchasePayment"
+    ).value =
+        "Cash";
+
+
+    document.getElementById(
+        "purchaseOther"
+    ).value = "";
+
+
+    document.getElementById(
+        "purchaseTotal"
+    ).textContent =
+        "0.00";
 
 }
 
+
+/* =====================================================
+DELETE PURCHASE
+===================================================== */
 
 function deletePurchase(id){
 
     const ok =
-        confirm("Delete this purchase record?");
+        confirm(
+            "Delete this purchase record?"
+        );
+
 
     if(!ok){
+
         return;
+
     }
+
 
     db.purchases =
         db.purchases.filter(function(p){
-            return p.id !== id;
+
+            return (
+                p.id !== id
+            );
+
         });
+
 
     saveDB();
 
@@ -1750,14 +2945,24 @@ function deletePurchase(id){
 }
 
 
+/* =====================================================
+RENDER PURCHASE
+===================================================== */
+
 function renderPurchases(){
 
     const body =
-        document.getElementById("purchaseTableBody");
+        document.getElementById(
+            "purchaseTableBody"
+        );
+
 
     if(!body){
+
         return;
+
     }
+
 
     body.innerHTML = "";
 
@@ -1767,32 +2972,53 @@ function renderPurchases(){
         const tr =
             document.createElement("tr");
 
+
         tr.innerHTML = `
 
-            <td>${escapeHTML(p.date)}</td>
+<td>
+${escapeHTML(p.date)}
+</td>
 
-            <td>${escapeHTML(p.productName)}</td>
+<td>
+${escapeHTML(p.productName)}
+</td>
 
-            <td>${escapeHTML(p.category)}</td>
+<td>
+${escapeHTML(p.category)}
+</td>
 
-            <td>${p.qty}</td>
+<td>
+${p.qty}
+</td>
 
-            <td>${money(p.price)}</td>
+<td>
+${money(p.price)}
+</td>
 
-            <td>${money(p.total)}</td>
+<td>
+${money(p.total)}
+</td>
 
-            <td>${escapeHTML(p.supplier)}</td>
+<td>
+${escapeHTML(p.supplier)}
+</td>
 
-            <td>${escapeHTML(p.payment)}</td>
+<td>
+${escapeHTML(p.payment)}
+</td>
 
-            <td>
-                <button class="btn btn-danger"
-                    onclick="deletePurchase('${p.id}')">
-                    Delete
-                </button>
-            </td>
+<td>
 
-        `;
+<button
+class="btn btn-danger"
+onclick="deletePurchase('${p.id}')">
+Delete
+</button>
+
+</td>
+
+`;
+
 
         body.appendChild(tr);
 
@@ -1801,20 +3027,28 @@ function renderPurchases(){
 }
 
 
-/* =========================================================
-   SALES
-========================================================= */
+/* =====================================================
+SALES PRODUCT DROPDOWN
+===================================================== */
 
 function loadSaleProducts(){
 
     const select =
-        document.getElementById("saleProduct");
+        document.getElementById(
+            "saleProduct"
+        );
+
 
     if(!select){
+
         return;
+
     }
 
-    const oldValue = select.value;
+
+    const oldValue =
+        select.value;
+
 
     select.innerHTML =
         '<option value="">Select Product</option>';
@@ -1823,49 +3057,86 @@ function loadSaleProducts(){
     db.products.forEach(function(p){
 
         const stock =
-            getProductStock(p.id);
+            getProductStock(
+                p.id
+            );
+
 
         const option =
-            document.createElement("option");
+            document.createElement(
+                "option"
+            );
 
-        option.value = p.id;
+
+        option.value =
+            p.id;
+
 
         option.textContent =
             p.name +
             " - Stock: " +
             stock;
 
-        select.appendChild(option);
+
+        select.appendChild(
+            option
+        );
 
     });
 
 
     if(
         oldValue &&
-        [...select.options].some(function(o){
-            return o.value === oldValue;
-        })
+        [...select.options].some(
+            function(o){
+
+                return (
+                    o.value ===
+                    oldValue
+                );
+
+            }
+        )
     ){
-        select.value = oldValue;
+
+        select.value =
+            oldValue;
+
     }
 
 
     const p =
         db.products.find(function(item){
-            return item.id === select.value;
+
+            return (
+                item.id ===
+                select.value
+            );
+
         });
 
 
     if(p){
 
-        document.getElementById("saleCategory").value =
-            p.category || "";
+        setCategoryOptions(
+            document.getElementById(
+                "saleCategory"
+            ),
+            p.category || ""
+        );
 
-        document.getElementById("salePartNumber").value =
+
+        document.getElementById(
+            "salePartNumber"
+        ).value =
             p.partNumber || "";
 
-        document.getElementById("salePrice").value =
+
+        document.getElementById(
+            "salePrice"
+        ).value =
             p.salePrice ?? "";
+
 
         calculateSaleTotal();
 
@@ -1874,44 +3145,70 @@ function loadSaleProducts(){
 }
 
 
+/* =====================================================
+SALE PRODUCT CHANGE
+===================================================== */
+
 function saleProductChanged(){
 
     const productId =
-        document.getElementById("saleProduct").value;
+        document.getElementById(
+            "saleProduct"
+        ).value;
+
 
     const p =
         db.products.find(function(item){
-            return item.id === productId;
+
+            return (
+                item.id ===
+                productId
+            );
+
         });
 
 
-    const categorySelect =
-        document.getElementById("saleCategory");
+    const category =
+        document.getElementById(
+            "saleCategory"
+        );
 
 
     if(p){
 
         setCategoryOptions(
-            categorySelect,
+            category,
             p.category || ""
         );
 
-        document.getElementById("salePartNumber").value =
+
+        document.getElementById(
+            "salePartNumber"
+        ).value =
             p.partNumber || "";
 
-        document.getElementById("salePrice").value =
+
+        document.getElementById(
+            "salePrice"
+        ).value =
             p.salePrice ?? "";
 
     }else{
 
         setCategoryOptions(
-            categorySelect,
-            categorySelect.value
+            category,
+            ""
         );
 
-        document.getElementById("salePartNumber").value = "";
 
-        document.getElementById("salePrice").value = "";
+        document.getElementById(
+            "salePartNumber"
+        ).value = "";
+
+
+        document.getElementById(
+            "salePrice"
+        ).value = "";
 
     }
 
@@ -1921,30 +3218,60 @@ function saleProductChanged(){
 }
 
 
+/* =====================================================
+SALE TOTAL
+===================================================== */
+
 function calculateSaleTotal(){
 
     const qty =
-        Number(document.getElementById("saleQty").value) || 0;
+        Number(
+            document.getElementById(
+                "saleQty"
+            ).value
+        ) || 0;
+
 
     const price =
-        Number(document.getElementById("salePrice").value) || 0;
+        Number(
+            document.getElementById(
+                "salePrice"
+            ).value
+        ) || 0;
 
-    document.getElementById("saleTotal").textContent =
-        money(qty * price);
+
+    document.getElementById(
+        "saleTotal"
+    ).textContent =
+        money(
+            qty * price
+        );
 
 }
 
 
+/* =====================================================
+SALE CUSTOMER DROPDOWN
+===================================================== */
+
 function loadSaleCustomers(){
 
     const select =
-        document.getElementById("saleCustomer");
+        document.getElementById(
+            "saleCustomer"
+        );
+
 
     if(!select){
+
         return;
+
     }
 
-    const oldValue = select.value;
+
+    const oldValue =
+        select.value;
+
 
     select.innerHTML =
         '<option value="">Walk-in Customer</option>';
@@ -1953,122 +3280,244 @@ function loadSaleCustomers(){
     db.customers.forEach(function(c){
 
         const option =
-            document.createElement("option");
+            document.createElement(
+                "option"
+            );
 
-        option.value = c.id;
 
-        option.textContent = c.name;
+        option.value =
+            c.id;
 
-        select.appendChild(option);
+
+        option.textContent =
+            c.name +
+            (
+                c.phone
+                ? " - " + c.phone
+                : ""
+            );
+
+
+        select.appendChild(
+            option
+        );
 
     });
 
 
     if(
         oldValue &&
-        [...select.options].some(function(o){
-            return o.value === oldValue;
-        })
+        [...select.options].some(
+            function(o){
+
+                return (
+                    o.value ===
+                    oldValue
+                );
+
+            }
+        )
     ){
-        select.value = oldValue;
+
+        select.value =
+            oldValue;
+
     }
 
 }
 
 
+/* =====================================================
+SAVE SALE
+===================================================== */
+
 function saveSale(){
 
     const date =
-        document.getElementById("saleDate").value;
+        document.getElementById(
+            "saleDate"
+        ).value;
+
 
     const productId =
-        document.getElementById("saleProduct").value;
+        document.getElementById(
+            "saleProduct"
+        ).value;
+
 
     const category =
-        document.getElementById("saleCategory").value;
+        document.getElementById(
+            "saleCategory"
+        ).value;
+
 
     const partNumber =
-        document.getElementById("salePartNumber").value.trim();
+        document.getElementById(
+            "salePartNumber"
+        )
+        .value
+        .trim();
+
 
     const qty =
-        Number(document.getElementById("saleQty").value);
+        Number(
+            document.getElementById(
+                "saleQty"
+            ).value
+        );
+
 
     const price =
-        Number(document.getElementById("salePrice").value);
+        Number(
+            document.getElementById(
+                "salePrice"
+            ).value
+        );
+
 
     const customerId =
-        document.getElementById("saleCustomer").value;
+        document.getElementById(
+            "saleCustomer"
+        ).value;
+
 
     const payment =
-        document.getElementById("salePayment").value;
+        document.getElementById(
+            "salePayment"
+        ).value;
+
 
     const other =
-        document.getElementById("saleOther").value.trim();
+        document.getElementById(
+            "saleOther"
+        )
+        .value
+        .trim();
 
 
     if(!date){
-        alert("Please select Date.");
+
+        alert(
+            "Please select Date."
+        );
+
         return;
+
     }
+
 
     if(!productId){
-        alert("Please select Product.");
+
+        alert(
+            "Please select Product."
+        );
+
         return;
+
     }
+
 
     if(!category){
-        alert("Please select Category.");
+
+        alert(
+            "Please select Category."
+        );
+
         return;
+
     }
 
-    if(!Number.isFinite(qty) || qty <= 0){
-        alert("Please enter a valid Quantity.");
+
+    if(
+        !Number.isFinite(qty) ||
+        qty <= 0
+    ){
+
+        alert(
+            "Please enter a valid Quantity."
+        );
+
         return;
+
     }
 
-    if(!Number.isFinite(price) || price < 0){
-        alert("Please enter a valid Sale Price.");
+
+    if(
+        !Number.isFinite(price) ||
+        price < 0
+    ){
+
+        alert(
+            "Please enter a valid Sale Price."
+        );
+
         return;
+
     }
 
 
     const product =
         db.products.find(function(p){
-            return p.id === productId;
+
+            return (
+                p.id ===
+                productId
+            );
+
         });
 
 
     if(!product){
-        alert("Product not found.");
+
+        alert(
+            "Product not found."
+        );
+
         return;
+
     }
 
 
     const stock =
-        getProductStock(productId);
+        getProductStock(
+            productId
+        );
 
 
     if(qty > stock){
 
         alert(
-            "Not enough stock.\n\nAvailable stock: " + stock
+            "Not enough stock.\n\n" +
+            "Available stock: " +
+            stock
         );
 
         return;
+
     }
 
 
     let customerName = "";
 
+
     if(customerId){
 
         const customer =
             db.customers.find(function(c){
-                return c.id === customerId;
+
+                return (
+                    c.id ===
+                    customerId
+                );
+
             });
 
+
         if(customer){
-            customerName = customer.name;
+
+            customerName =
+                customer.name;
+
         }
 
     }
@@ -2092,7 +3541,8 @@ function saveSale(){
 
         price:price,
 
-        total:qty * price,
+        total:
+            qty * price,
 
         customerId:customerId,
 
@@ -2111,52 +3561,106 @@ function saveSale(){
 
     refreshAll();
 
-    alert("Sale saved successfully.");
+
+    alert(
+        "Sale saved successfully."
+    );
 
 }
 
+
+/* =====================================================
+CLEAR SALE
+===================================================== */
 
 function clearSaleForm(){
 
-    document.getElementById("saleDate").value = today();
+    document.getElementById(
+        "saleDate"
+    ).value =
+        today();
 
-    document.getElementById("saleProduct").value = "";
+
+    document.getElementById(
+        "saleProduct"
+    ).value = "";
+
 
     setCategoryOptions(
-        document.getElementById("saleCategory"),
+        document.getElementById(
+            "saleCategory"
+        ),
         ""
     );
 
-    document.getElementById("salePartNumber").value = "";
 
-    document.getElementById("saleQty").value = "";
+    document.getElementById(
+        "salePartNumber"
+    ).value = "";
 
-    document.getElementById("salePrice").value = "";
 
-    document.getElementById("saleCustomer").value = "";
+    document.getElementById(
+        "saleQty"
+    ).value = "";
 
-    document.getElementById("salePayment").value = "Cash";
 
-    document.getElementById("saleOther").value = "";
+    document.getElementById(
+        "salePrice"
+    ).value = "";
 
-    document.getElementById("saleTotal").textContent = "0.00";
+
+    document.getElementById(
+        "saleCustomer"
+    ).value = "";
+
+
+    document.getElementById(
+        "salePayment"
+    ).value =
+        "Cash";
+
+
+    document.getElementById(
+        "saleOther"
+    ).value = "";
+
+
+    document.getElementById(
+        "saleTotal"
+    ).textContent =
+        "0.00";
 
 }
 
+
+/* =====================================================
+DELETE SALE
+===================================================== */
 
 function deleteSale(id){
 
     const ok =
-        confirm("Delete this sales record?");
+        confirm(
+            "Delete this sales record?"
+        );
+
 
     if(!ok){
+
         return;
+
     }
+
 
     db.sales =
         db.sales.filter(function(s){
-            return s.id !== id;
+
+            return (
+                s.id !== id
+            );
+
         });
+
 
     saveDB();
 
@@ -2165,14 +3669,24 @@ function deleteSale(id){
 }
 
 
+/* =====================================================
+RENDER SALES
+===================================================== */
+
 function renderSales(){
 
     const body =
-        document.getElementById("salesTableBody");
+        document.getElementById(
+            "salesTableBody"
+        );
+
 
     if(!body){
+
         return;
+
     }
+
 
     body.innerHTML = "";
 
@@ -2182,32 +3696,56 @@ function renderSales(){
         const tr =
             document.createElement("tr");
 
+
         tr.innerHTML = `
 
-            <td>${escapeHTML(s.date)}</td>
+<td>
+${escapeHTML(s.date)}
+</td>
 
-            <td>${escapeHTML(s.productName)}</td>
+<td>
+${escapeHTML(s.productName)}
+</td>
 
-            <td>${escapeHTML(s.category)}</td>
+<td>
+${escapeHTML(s.category)}
+</td>
 
-            <td>${s.qty}</td>
+<td>
+${s.qty}
+</td>
 
-            <td>${money(s.price)}</td>
+<td>
+${money(s.price)}
+</td>
 
-            <td>${money(s.total)}</td>
+<td>
+${money(s.total)}
+</td>
 
-            <td>${escapeHTML(s.customerName || "Walk-in Customer")}</td>
+<td>
+${escapeHTML(
+    s.customerName ||
+    "Walk-in Customer"
+)}
+</td>
 
-            <td>${escapeHTML(s.payment)}</td>
+<td>
+${escapeHTML(s.payment)}
+</td>
 
-            <td>
-                <button class="btn btn-danger"
-                    onclick="deleteSale('${s.id}')">
-                    Delete
-                </button>
-            </td>
+<td>
 
-        `;
+<button
+class="btn btn-danger"
+onclick="deleteSale('${s.id}')">
+Delete
+</button>
+
+</td>
+
+`;
+
 
         body.appendChild(tr);
 
@@ -2216,31 +3754,41 @@ function renderSales(){
 }
 
 
-/* =========================================================
-   CUSTOMERS
-========================================================= */
+/* =====================================================
+CUSTOMERS
+===================================================== */
 
 function saveCustomer(){
 
     const name =
-        document.getElementById("customerName")
-            .value
-            .trim();
+        document.getElementById(
+            "customerName"
+        )
+        .value
+        .trim();
+
 
     const phone =
-        document.getElementById("customerPhone")
-            .value
-            .trim();
+        document.getElementById(
+            "customerPhone"
+        )
+        .value
+        .trim();
+
 
     const address =
-        document.getElementById("customerAddress")
-            .value
-            .trim();
+        document.getElementById(
+            "customerAddress"
+        )
+        .value
+        .trim();
 
 
     if(!name){
 
-        alert("Please enter Customer Name.");
+        alert(
+            "Please enter Customer Name."
+        );
 
         return;
 
@@ -2251,18 +3799,31 @@ function saveCustomer(){
 
         const c =
             db.customers.find(function(item){
-                return item.id === editingCustomerId;
+
+                return (
+                    item.id ===
+                    editingCustomerId
+                );
+
             });
+
 
         if(c){
 
-            c.name = name;
-            c.phone = phone;
-            c.address = address;
+            c.name =
+                name;
+
+            c.phone =
+                phone;
+
+            c.address =
+                address;
 
         }
 
-        editingCustomerId = null;
+
+        editingCustomerId =
+            null;
 
     }else{
 
@@ -2287,51 +3848,92 @@ function saveCustomer(){
 
     refreshAll();
 
-    alert("Customer saved successfully.");
+
+    alert(
+        "Customer saved successfully."
+    );
 
 }
 
+
+/* =====================================================
+CLEAR CUSTOMER
+===================================================== */
 
 function clearCustomerForm(){
 
-    document.getElementById("customerName").value = "";
+    document.getElementById(
+        "customerName"
+    ).value = "";
 
-    document.getElementById("customerPhone").value = "";
 
-    document.getElementById("customerAddress").value = "";
+    document.getElementById(
+        "customerPhone"
+    ).value = "";
 
-    editingCustomerId = null;
+
+    document.getElementById(
+        "customerAddress"
+    ).value = "";
+
+
+    editingCustomerId =
+        null;
 
 }
 
+
+/* =====================================================
+EDIT CUSTOMER
+===================================================== */
 
 function editCustomer(id){
 
     const c =
         db.customers.find(function(item){
-            return item.id === id;
+
+            return (
+                item.id ===
+                id
+            );
+
         });
 
+
     if(!c){
+
         return;
+
     }
 
 
-    document.getElementById("customerName").value =
+    document.getElementById(
+        "customerName"
+    ).value =
         c.name || "";
 
-    document.getElementById("customerPhone").value =
+
+    document.getElementById(
+        "customerPhone"
+    ).value =
         c.phone || "";
 
-    document.getElementById("customerAddress").value =
+
+    document.getElementById(
+        "customerAddress"
+    ).value =
         c.address || "";
 
-    editingCustomerId = id;
+
+    editingCustomerId =
+        id;
 
 
     showPage(
         "customers",
-        document.querySelectorAll(".nav-btn")[4]
+        document.querySelectorAll(
+            ".nav-btn"
+        )[4]
     );
 
 
@@ -2343,46 +3945,34 @@ function editCustomer(id){
 }
 
 
+/* =====================================================
+DELETE CUSTOMER
+===================================================== */
+
 function deleteCustomer(id){
 
-    const hasSales =
-        db.sales.some(function(s){
-            return s.customerId === id;
-        });
-
-    const hasDue =
-        db.dueCollections.some(function(d){
-            return d.customerId === id;
-        });
+    const ok =
+        confirm(
+            "Delete this customer?"
+        );
 
 
-    if(hasSales || hasDue){
+    if(!ok){
 
-        const ok =
-            confirm(
-                "This customer has transaction history. Delete anyway?"
-            );
-
-        if(!ok){
-            return;
-        }
-
-    }else{
-
-        const ok =
-            confirm("Delete this customer?");
-
-        if(!ok){
-            return;
-        }
+        return;
 
     }
 
 
     db.customers =
         db.customers.filter(function(c){
-            return c.id !== id;
+
+            return (
+                c.id !== id
+            );
+
         });
+
 
     saveDB();
 
@@ -2391,57 +3981,113 @@ function deleteCustomer(id){
 }
 
 
+/* =====================================================
+CUSTOMER SALES
+===================================================== */
+
 function getCustomerSales(customerId){
 
     return db.sales
+
         .filter(function(s){
-            return s.customerId === customerId;
+
+            return (
+                s.customerId ===
+                customerId
+            );
+
         })
+
         .reduce(function(total,s){
-            return total + Number(s.total || 0);
+
+            return (
+                total +
+                Number(s.total || 0)
+            );
+
         },0);
 
 }
 
 
+/* =====================================================
+CUSTOMER DUE
+===================================================== */
+
 function getCustomerDue(customerId){
 
     const dueSales =
         db.sales
-            .filter(function(s){
-                return (
-                    s.customerId === customerId &&
-                    s.payment === "Due"
-                );
-            })
-            .reduce(function(total,s){
-                return total + Number(s.total || 0);
-            },0);
+
+        .filter(function(s){
+
+            return (
+                s.customerId ===
+                customerId &&
+                s.payment ===
+                "Due"
+            );
+
+        })
+
+        .reduce(function(total,s){
+
+            return (
+                total +
+                Number(s.total || 0)
+            );
+
+        },0);
 
 
     const collections =
         db.dueCollections
-            .filter(function(d){
-                return d.customerId === customerId;
-            })
-            .reduce(function(total,d){
-                return total + Number(d.amount || 0);
-            },0);
+
+        .filter(function(d){
+
+            return (
+                d.customerId ===
+                customerId
+            );
+
+        })
+
+        .reduce(function(total,d){
+
+            return (
+                total +
+                Number(d.amount || 0)
+            );
+
+        },0);
 
 
-    return Math.max(0,dueSales - collections);
+    return Math.max(
+        0,
+        dueSales - collections
+    );
 
 }
 
 
+/* =====================================================
+RENDER CUSTOMERS
+===================================================== */
+
 function renderCustomers(){
 
     const body =
-        document.getElementById("customerTableBody");
+        document.getElementById(
+            "customerTableBody"
+        );
+
 
     if(!body){
+
         return;
+
     }
+
 
     body.innerHTML = "";
 
@@ -2449,43 +4095,62 @@ function renderCustomers(){
     db.customers.forEach(function(c){
 
         const sales =
-            getCustomerSales(c.id);
+            getCustomerSales(
+                c.id
+            );
+
 
         const due =
-            getCustomerDue(c.id);
+            getCustomerDue(
+                c.id
+            );
 
 
         const tr =
-            document.createElement("tr");
+            document.createElement(
+                "tr"
+            );
 
 
         tr.innerHTML = `
 
-            <td>${escapeHTML(c.name)}</td>
+<td>
+${escapeHTML(c.name)}
+</td>
 
-            <td>${escapeHTML(c.phone)}</td>
+<td>
+${escapeHTML(c.phone)}
+</td>
 
-            <td>${escapeHTML(c.address)}</td>
+<td>
+${escapeHTML(c.address)}
+</td>
 
-            <td>${money(sales)}</td>
+<td>
+${money(sales)}
+</td>
 
-            <td class="due-positive">${money(due)}</td>
+<td class="due-positive">
+${money(due)}
+</td>
 
-            <td>
+<td>
 
-                <button class="btn btn-warning"
-                    onclick="editCustomer('${c.id}')">
-                    Edit
-                </button>
+<button
+class="btn btn-warning"
+onclick="editCustomer('${c.id}')">
+Edit
+</button>
 
-                <button class="btn btn-danger"
-                    onclick="deleteCustomer('${c.id}')">
-                    Delete
-                </button>
+<button
+class="btn btn-danger"
+onclick="deleteCustomer('${c.id}')">
+Delete
+</button>
 
-            </td>
+</td>
 
-        `;
+`;
 
 
         body.appendChild(tr);
@@ -2495,20 +4160,28 @@ function renderCustomers(){
 }
 
 
-/* =========================================================
-   DUE COLLECTION
-========================================================= */
+/* =====================================================
+DUE CUSTOMER DROPDOWN
+===================================================== */
 
 function loadDueCustomers(){
 
     const select =
-        document.getElementById("dueCustomer");
+        document.getElementById(
+            "dueCustomer"
+        );
+
 
     if(!select){
+
         return;
+
     }
 
-    const oldValue = select.value;
+
+    const oldValue =
+        select.value;
+
 
     select.innerHTML =
         '<option value="">Select Customer</option>';
@@ -2517,53 +4190,97 @@ function loadDueCustomers(){
     db.customers.forEach(function(c){
 
         const option =
-            document.createElement("option");
+            document.createElement(
+                "option"
+            );
 
-        option.value = c.id;
+
+        option.value =
+            c.id;
+
 
         option.textContent =
             c.name +
             " - Due: " +
-            money(getCustomerDue(c.id));
+            money(
+                getCustomerDue(c.id)
+            );
 
-        select.appendChild(option);
+
+        select.appendChild(
+            option
+        );
 
     });
 
 
     if(
         oldValue &&
-        [...select.options].some(function(o){
-            return o.value === oldValue;
-        })
+        [...select.options].some(
+            function(o){
+
+                return (
+                    o.value ===
+                    oldValue
+                );
+
+            }
+        )
     ){
-        select.value = oldValue;
+
+        select.value =
+            oldValue;
+
     }
 
 }
 
 
+/* =====================================================
+SAVE DUE COLLECTION
+===================================================== */
+
 function saveDueCollection(){
 
     const date =
-        document.getElementById("dueDate").value;
+        document.getElementById(
+            "dueDate"
+        ).value;
+
 
     const customerId =
-        document.getElementById("dueCustomer").value;
+        document.getElementById(
+            "dueCustomer"
+        ).value;
+
 
     const amount =
-        Number(document.getElementById("dueAmount").value);
+        Number(
+            document.getElementById(
+                "dueAmount"
+            ).value
+        );
+
 
     const payment =
-        document.getElementById("duePayment").value;
+        document.getElementById(
+            "duePayment"
+        ).value;
+
 
     const note =
-        document.getElementById("dueNote").value.trim();
+        document.getElementById(
+            "dueNote"
+        )
+        .value
+        .trim();
 
 
     if(!date){
 
-        alert("Please select Date.");
+        alert(
+            "Please select Date."
+        );
 
         return;
 
@@ -2572,16 +4289,23 @@ function saveDueCollection(){
 
     if(!customerId){
 
-        alert("Please select Customer.");
+        alert(
+            "Please select Customer."
+        );
 
         return;
 
     }
 
 
-    if(!Number.isFinite(amount) || amount <= 0){
+    if(
+        !Number.isFinite(amount) ||
+        amount <= 0
+    ){
 
-        alert("Please enter a valid Amount.");
+        alert(
+            "Please enter a valid Amount."
+        );
 
         return;
 
@@ -2590,33 +4314,22 @@ function saveDueCollection(){
 
     const customer =
         db.customers.find(function(c){
-            return c.id === customerId;
+
+            return (
+                c.id ===
+                customerId
+            );
+
         });
 
 
     if(!customer){
 
-        alert("Customer not found.");
+        alert(
+            "Customer not found."
+        );
 
         return;
-
-    }
-
-
-    const currentDue =
-        getCustomerDue(customerId);
-
-
-    if(amount > currentDue){
-
-        const ok =
-            confirm(
-                "Collection amount is higher than current due.\n\nContinue?"
-            );
-
-        if(!ok){
-            return;
-        }
 
     }
 
@@ -2646,39 +4359,75 @@ function saveDueCollection(){
 
     refreshAll();
 
-    alert("Due collection saved successfully.");
+
+    alert(
+        "Due collection saved successfully."
+    );
 
 }
 
+
+/* =====================================================
+CLEAR DUE
+===================================================== */
 
 function clearDueForm(){
 
-    document.getElementById("dueDate").value = today();
+    document.getElementById(
+        "dueDate"
+    ).value =
+        today();
 
-    document.getElementById("dueCustomer").value = "";
 
-    document.getElementById("dueAmount").value = "";
+    document.getElementById(
+        "dueCustomer"
+    ).value = "";
 
-    document.getElementById("duePayment").value = "Cash";
 
-    document.getElementById("dueNote").value = "";
+    document.getElementById(
+        "dueAmount"
+    ).value = "";
+
+
+    document.getElementById(
+        "duePayment"
+    ).value =
+        "Cash";
+
+
+    document.getElementById(
+        "dueNote"
+    ).value = "";
 
 }
 
+
+/* =====================================================
+DELETE DUE
+===================================================== */
 
 function deleteDueCollection(id){
 
     const ok =
-        confirm("Delete this due collection record?");
+        confirm(
+            "Delete this due collection record?"
+        );
+
 
     if(!ok){
+
         return;
+
     }
 
 
     db.dueCollections =
         db.dueCollections.filter(function(d){
-            return d.id !== id;
+
+            return (
+                d.id !== id
+            );
+
         });
 
 
@@ -2689,14 +4438,24 @@ function deleteDueCollection(id){
 }
 
 
+/* =====================================================
+RENDER DUE
+===================================================== */
+
 function renderDue(){
 
     const body =
-        document.getElementById("dueTableBody");
+        document.getElementById(
+            "dueTableBody"
+        );
+
 
     if(!body){
+
         return;
+
     }
+
 
     body.innerHTML = "";
 
@@ -2704,31 +4463,44 @@ function renderDue(){
     db.dueCollections.forEach(function(d){
 
         const tr =
-            document.createElement("tr");
+            document.createElement(
+                "tr"
+            );
 
 
         tr.innerHTML = `
 
-            <td>${escapeHTML(d.date)}</td>
+<td>
+${escapeHTML(d.date)}
+</td>
 
-            <td>${escapeHTML(d.customerName)}</td>
+<td>
+${escapeHTML(d.customerName)}
+</td>
 
-            <td>${money(d.amount)}</td>
+<td>
+${money(d.amount)}
+</td>
 
-            <td>${escapeHTML(d.payment)}</td>
+<td>
+${escapeHTML(d.payment)}
+</td>
 
-            <td>${escapeHTML(d.note)}</td>
+<td>
+${escapeHTML(d.note)}
+</td>
 
-            <td>
+<td>
 
-                <button class="btn btn-danger"
-                    onclick="deleteDueCollection('${d.id}')">
-                    Delete
-                </button>
+<button
+class="btn btn-danger"
+onclick="deleteDueCollection('${d.id}')">
+Delete
+</button>
 
-            </td>
+</td>
 
-        `;
+`;
 
 
         body.appendChild(tr);
@@ -2738,15 +4510,20 @@ function renderDue(){
 }
 
 
-/* =========================================================
-   PURCHASE COST
-========================================================= */
+/* =====================================================
+AVERAGE PURCHASE COST
+===================================================== */
 
 function getAveragePurchaseCost(productId){
 
     const purchases =
         db.purchases.filter(function(p){
-            return p.productId === productId;
+
+            return (
+                p.productId ===
+                productId
+            );
+
         });
 
 
@@ -2756,69 +4533,115 @@ function getAveragePurchaseCost(productId){
 
     purchases.forEach(function(p){
 
-        const q = Number(p.qty || 0);
-        const t = Number(p.total || 0);
+        qty +=
+            Number(p.qty || 0);
 
-        qty += q;
-        total += t;
+        total +=
+            Number(p.total || 0);
 
     });
 
 
     if(qty <= 0){
+
         return 0;
+
     }
 
 
-    return total / qty;
+    return (
+        total / qty
+    );
 
 }
 
 
-/* =========================================================
-   DASHBOARD
-========================================================= */
+/* =====================================================
+DASHBOARD
+===================================================== */
 
 function updateDashboard(){
 
-    document.getElementById("dashProducts").textContent =
+    document.getElementById(
+        "dashProducts"
+    ).textContent =
         db.products.length;
 
 
-    document.getElementById("dashCustomers").textContent =
+    document.getElementById(
+        "dashCustomers"
+    ).textContent =
         db.customers.length;
 
 
     const totalPurchase =
-        db.purchases.reduce(function(total,p){
-            return total + Number(p.total || 0);
-        },0);
+        db.purchases.reduce(
+            function(total,p){
+
+                return (
+                    total +
+                    Number(p.total || 0)
+                );
+
+            },
+            0
+        );
 
 
     const totalSales =
-        db.sales.reduce(function(total,s){
-            return total + Number(s.total || 0);
-        },0);
+        db.sales.reduce(
+            function(total,s){
+
+                return (
+                    total +
+                    Number(s.total || 0)
+                );
+
+            },
+            0
+        );
 
 
     const stockValue =
-        db.products.reduce(function(total,p){
+        db.products.reduce(
+            function(total,p){
 
-            const stock =
-                getProductStock(p.id);
+                const stock =
+                    getProductStock(
+                        p.id
+                    );
 
-            const cost =
-                getAveragePurchaseCost(p.id);
 
-            return total + (stock * cost);
+                const cost =
+                    getAveragePurchaseCost(
+                        p.id
+                    );
 
-        },0);
+
+                return (
+                    total +
+                    stock * cost
+                );
+
+            },
+            0
+        );
 
 
     const totalDue =
-        db.customers.reduce(function(total,c){
-            return total + getCustomerDue(c.id);
-        },0);
+        db.customers.reduce(
+            function(total,c){
+
+                return (
+                    total +
+                    getCustomerDue(
+                        c.id
+                    )
+                );
+
+            },
+            0
+        );
 
 
     let profit = 0;
@@ -2827,49 +4650,78 @@ function updateDashboard(){
     db.sales.forEach(function(s){
 
         const cost =
-            getAveragePurchaseCost(s.productId);
+            getAveragePurchaseCost(
+                s.productId
+            );
+
 
         profit +=
-            Number(s.total || 0) -
-            (Number(s.qty || 0) * cost);
+            Number(s.total || 0)
+            -
+            (
+                Number(s.qty || 0)
+                *
+                cost
+            );
 
     });
 
 
-    document.getElementById("dashPurchase").textContent =
+    document.getElementById(
+        "dashPurchase"
+    ).textContent =
         money(totalPurchase);
 
-    document.getElementById("dashSales").textContent =
+
+    document.getElementById(
+        "dashSales"
+    ).textContent =
         money(totalSales);
 
-    document.getElementById("dashStock").textContent =
+
+    document.getElementById(
+        "dashStock"
+    ).textContent =
         money(stockValue);
 
-    document.getElementById("dashDue").textContent =
+
+    document.getElementById(
+        "dashDue"
+    ).textContent =
         money(totalDue);
 
-    document.getElementById("dashProfit").textContent =
+
+    document.getElementById(
+        "dashProfit"
+    ).textContent =
         money(profit);
 
 }
 
 
-/* =========================================================
-   REPORTS
-========================================================= */
+/* =====================================================
+REPORT
+===================================================== */
 
 function generateReport(){
 
     const from =
-        document.getElementById("reportFrom").value;
+        document.getElementById(
+            "reportFrom"
+        ).value;
+
 
     const to =
-        document.getElementById("reportTo").value;
+        document.getElementById(
+            "reportTo"
+        ).value;
 
 
     if(!from || !to){
 
-        alert("Please select From Date and To Date.");
+        alert(
+            "Please select From Date and To Date."
+        );
 
         return;
 
@@ -2878,7 +4730,9 @@ function generateReport(){
 
     if(from > to){
 
-        alert("From Date cannot be later than To Date.");
+        alert(
+            "From Date cannot be later than To Date."
+        );
 
         return;
 
@@ -2908,15 +4762,31 @@ function generateReport(){
 
 
     const totalPurchase =
-        purchases.reduce(function(total,p){
-            return total + Number(p.total || 0);
-        },0);
+        purchases.reduce(
+            function(total,p){
+
+                return (
+                    total +
+                    Number(p.total || 0)
+                );
+
+            },
+            0
+        );
 
 
     const totalSales =
-        sales.reduce(function(total,s){
-            return total + Number(s.total || 0);
-        },0);
+        sales.reduce(
+            function(total,s){
+
+                return (
+                    total +
+                    Number(s.total || 0)
+                );
+
+            },
+            0
+        );
 
 
     let profit = 0;
@@ -2925,27 +4795,46 @@ function generateReport(){
     sales.forEach(function(s){
 
         const cost =
-            getAveragePurchaseCost(s.productId);
+            getAveragePurchaseCost(
+                s.productId
+            );
+
 
         profit +=
-            Number(s.total || 0) -
-            (Number(s.qty || 0) * cost);
+            Number(s.total || 0)
+            -
+            (
+                Number(s.qty || 0)
+                *
+                cost
+            );
 
     });
 
 
-    document.getElementById("reportPurchase").textContent =
+    document.getElementById(
+        "reportPurchase"
+    ).textContent =
         money(totalPurchase);
 
-    document.getElementById("reportSales").textContent =
+
+    document.getElementById(
+        "reportSales"
+    ).textContent =
         money(totalSales);
 
-    document.getElementById("reportProfit").textContent =
+
+    document.getElementById(
+        "reportProfit"
+    ).textContent =
         money(profit);
 
 
     const body =
-        document.getElementById("reportSalesBody");
+        document.getElementById(
+            "reportSalesBody"
+        );
+
 
     body.innerHTML = "";
 
@@ -2953,40 +4842,64 @@ function generateReport(){
     sales.forEach(function(s){
 
         const costPerUnit =
-            getAveragePurchaseCost(s.productId);
+            getAveragePurchaseCost(
+                s.productId
+            );
+
 
         const purchaseCost =
-            Number(s.qty || 0) * costPerUnit;
+            Number(s.qty || 0)
+            *
+            costPerUnit;
+
 
         const saleProfit =
-            Number(s.total || 0) - purchaseCost;
+            Number(s.total || 0)
+            -
+            purchaseCost;
 
 
         const tr =
-            document.createElement("tr");
+            document.createElement(
+                "tr"
+            );
 
 
         tr.innerHTML = `
 
-            <td>${escapeHTML(s.date)}</td>
+<td>
+${escapeHTML(s.date)}
+</td>
 
-            <td>${escapeHTML(s.productName)}</td>
+<td>
+${escapeHTML(s.productName)}
+</td>
 
-            <td>${escapeHTML(s.category)}</td>
+<td>
+${escapeHTML(s.category)}
+</td>
 
-            <td>${s.qty}</td>
+<td>
+${s.qty}
+</td>
 
-            <td>${money(s.price)}</td>
+<td>
+${money(s.price)}
+</td>
 
-            <td>${money(s.total)}</td>
+<td>
+${money(s.total)}
+</td>
 
-            <td>${money(purchaseCost)}</td>
+<td>
+${money(purchaseCost)}
+</td>
 
-            <td class="profit-positive">
-                ${money(saleProfit)}
-            </td>
+<td class="profit-positive">
+${money(saleProfit)}
+</td>
 
-        `;
+`;
 
 
         body.appendChild(tr);
@@ -2996,15 +4909,17 @@ function generateReport(){
 }
 
 
-/* =========================================================
-   REFRESH ALL DATA
-========================================================= */
+/* =====================================================
+REFRESH ALL
+===================================================== */
 
 function refreshAll(){
 
     try{
 
         loadCategoryList();
+
+        loadSupplierList();
 
         renderProducts();
 
@@ -3024,67 +4939,139 @@ function refreshAll(){
 
         loadDueCustomers();
 
-        setCategoryOptions(
-            document.getElementById("purchaseCategory"),
-            document.getElementById("purchaseCategory").value
-        );
+        /*
+        Rebuild category dropdowns
+        */
 
-        setCategoryOptions(
-            document.getElementById("saleCategory"),
-            document.getElementById("saleCategory").value
-        );
+        const purchaseCategory =
+            document.getElementById(
+                "purchaseCategory"
+            );
+
+
+        const saleCategory =
+            document.getElementById(
+                "saleCategory"
+            );
+
+
+        if(purchaseCategory){
+
+            setCategoryOptions(
+                purchaseCategory,
+                purchaseCategory.value
+            );
+
+        }
+
+
+        if(saleCategory){
+
+            setCategoryOptions(
+                saleCategory,
+                saleCategory.value
+            );
+
+        }
+
 
         updateDashboard();
 
     }catch(error){
 
-        console.error("Refresh error:",error);
+        console.error(
+            "Refresh error:",
+            error
+        );
 
     }
 
 }
 
 
-/* =========================================================
-   INITIALIZE
-========================================================= */
+/* =====================================================
+INITIALIZE
+===================================================== */
 
 function initialize(){
 
     loadDB();
 
 
-    const t = today();
+    const t =
+        today();
 
 
-    document.getElementById("purchaseDate").value = t;
+    document.getElementById(
+        "purchaseDate"
+    ).value =
+        t;
 
-    document.getElementById("saleDate").value = t;
 
-    document.getElementById("dueDate").value = t;
+    document.getElementById(
+        "saleDate"
+    ).value =
+        t;
 
 
-    document.getElementById("reportFrom").value =
-        t.substring(0,4) + "-01-01";
+    document.getElementById(
+        "dueDate"
+    ).value =
+        t;
 
-    document.getElementById("reportTo").value = t;
 
+    document.getElementById(
+        "reportFrom"
+    ).value =
+        t.substring(0,4) +
+        "-01-01";
+
+
+    document.getElementById(
+        "reportTo"
+    ).value =
+        t;
+
+
+    /*
+    Initial Category dropdown
+    */
 
     setCategoryOptions(
-        document.getElementById("purchaseCategory"),
+        document.getElementById(
+            "purchaseCategory"
+        ),
         ""
     );
 
+
     setCategoryOptions(
-        document.getElementById("saleCategory"),
+        document.getElementById(
+            "saleCategory"
+        ),
         ""
     );
 
+
+    /*
+    Initial Supplier list
+    */
+
+    loadSupplierList();
+
+
+    /*
+    Refresh everything
+    */
 
     refreshAll();
 
 }
 
+
+/* =====================================================
+START APP
+===================================================== */
 
 initialize();
 
