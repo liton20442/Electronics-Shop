@@ -8,34 +8,45 @@
 
 <style>
 *{box-sizing:border-box}
+
 body{
 margin:0;
 font-family:Arial,sans-serif;
 background:#f3f6fa;
 color:#222
 }
+
 header{
 background:#1565c0;
-color:#fff;
+color:white;
 padding:18px;
 text-align:center;
 font-size:23px;
 font-weight:bold
 }
-.container{max-width:950px;margin:auto;padding:15px}
+
+.container{
+max-width:1000px;
+margin:auto;
+padding:15px
+}
+
 .card{
-background:#fff;
+background:white;
 border-radius:12px;
 padding:15px;
 margin-bottom:15px;
 box-shadow:0 2px 8px rgba(0,0,0,.08)
 }
+
 h2{margin-top:0}
+
 .grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:10px
 }
+
 input,select,button,textarea{
 width:100%;
 padding:12px;
@@ -43,58 +54,84 @@ border:1px solid #ccc;
 border-radius:8px;
 font-size:16px
 }
+
 textarea{min-height:70px}
+
 button{
 border:0;
 background:#1565c0;
 color:white;
-font-weight:bold
+font-weight:bold;
+cursor:pointer
 }
+
 button.green{background:#2e7d32}
 button.red{background:#c62828}
 button.orange{background:#ef6c00}
+button.gray{background:#607d8b}
+
+.form-group{
+margin-bottom:12px
+}
+
 label{
 display:block;
 font-weight:bold;
 margin-bottom:5px
 }
-.form-group{margin-bottom:12px}
+
 .stat-grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:10px
 }
+
 .stat{
 background:#e3f2fd;
 padding:15px;
 border-radius:10px;
 text-align:center
 }
+
 .stat strong{
 display:block;
 font-size:24px;
 margin-top:5px
 }
+
 .nav{
 display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:8px;
 margin-bottom:15px
 }
-.nav button{background:#455a64}
+
+.nav button{
+background:#455a64
+}
+
 table{
 width:100%;
 border-collapse:collapse;
 margin-top:10px;
 font-size:14px
 }
+
 th,td{
 border:1px solid #ddd;
 padding:8px;
-text-align:left
+text-align:left;
+vertical-align:top
 }
-th{background:#e3f2fd}
-.hidden{display:none}
+
+th{
+background:#e3f2fd
+}
+
+.hidden{
+display:none
+}
+
 .total-box{
 background:#fff3e0;
 padding:12px;
@@ -102,14 +139,65 @@ border-radius:8px;
 margin-top:10px;
 font-weight:bold
 }
-.due{color:#c62828;font-weight:bold}
-.paid{color:#2e7d32;font-weight:bold}
+
+.due{
+color:#c62828;
+font-weight:bold
+}
+
+.paid{
+color:#2e7d32;
+font-weight:bold
+}
+
+.actions{
+display:flex;
+gap:5px;
+min-width:140px
+}
+
+.small-btn{
+width:auto;
+padding:7px 10px;
+font-size:13px
+}
+
+.edit-title{
+background:#fff3e0;
+padding:10px;
+border-radius:8px;
+margin-bottom:12px;
+font-weight:bold
+}
 
 @media(max-width:600px){
-.grid,.stat-grid{grid-template-columns:1fr}
-.nav{grid-template-columns:repeat(2,1fr)}
-table{font-size:12px}
-th,td{padding:6px}
+
+.grid,
+.stat-grid{
+grid-template-columns:1fr
+}
+
+.nav{
+grid-template-columns:repeat(2,1fr)
+}
+
+table{
+font-size:12px
+}
+
+th,td{
+padding:6px
+}
+
+.actions{
+display:block;
+min-width:75px
+}
+
+.actions button{
+margin-bottom:4px
+}
+
 }
 </style>
 </head>
@@ -121,9 +209,11 @@ th,td{padding:6px}
 <div class="container">
 
 <!-- DASHBOARD -->
+
 <div id="dashboardSection">
 
 <div class="card">
+
 <h2>📊 Dashboard</h2>
 
 <div class="stat-grid">
@@ -159,24 +249,51 @@ Today's Collection
 </div>
 
 </div>
+
 </div>
 
 <div class="nav">
-<button onclick="showSection('productSection')">➕ Products</button>
-<button onclick="showSection('purchaseSection')">📦 Purchase</button>
-<button onclick="showSection('salesSection')">🛒 Sales</button>
-<button onclick="showSection('customerSection')">👤 Customers</button>
-<button onclick="showSection('paymentSection')">💰 Collection</button>
-<button onclick="showSection('reportSection')">📊 Reports</button>
+
+<button onclick="showSection('productSection')">
+➕ Products
+</button>
+
+<button onclick="showSection('purchaseSection')">
+📦 Purchase
+</button>
+
+<button onclick="showSection('salesSection')">
+🛒 Sales
+</button>
+
+<button onclick="showSection('customerSection')">
+👤 Customers
+</button>
+
+<button onclick="showSection('paymentSection')">
+💰 Collection
+</button>
+
+<button onclick="showSection('reportSection')">
+📊 Reports
+</button>
+
 </div>
 
 </div>
 
 
 <!-- PRODUCTS -->
+
 <div id="productSection" class="card hidden">
 
-<h2>➕ Add Product</h2>
+<h2 id="productFormTitle">➕ Add Product</h2>
+
+<div id="productEditNotice" class="edit-title hidden">
+✏️ Editing Product
+</div>
+
+<input type="hidden" id="productEditId">
 
 <div class="grid">
 
@@ -213,17 +330,36 @@ Today's Collection
 </div>
 
 <div class="form-group">
+
 <label>Other Information</label>
-<textarea id="productNote" placeholder="Optional"></textarea>
+
+<textarea
+id="productNote"
+placeholder="Optional"></textarea>
+
 </div>
 
-<button onclick="addProduct()">💾 Save Product</button>
+<div class="grid">
+
+<button class="green" onclick="saveProduct()">
+💾 Save Product
+</button>
+
+<button
+id="cancelProductButton"
+class="gray hidden"
+onclick="cancelProductEdit()">
+Cancel Edit
+</button>
+
+</div>
 
 <hr>
 
 <h2>🔎 Product List</h2>
 
-<input id="productSearch"
+<input
+id="productSearch"
 placeholder="Search by product, part number, value or voltage"
 oninput="renderProducts()">
 
@@ -233,9 +369,16 @@ oninput="renderProducts()">
 
 
 <!-- PURCHASE -->
+
 <div id="purchaseSection" class="card hidden">
 
 <h2>📦 Purchase</h2>
+
+<div id="purchaseEditNotice" class="edit-title hidden">
+✏️ Editing Purchase
+</div>
+
+<input type="hidden" id="purchaseEditId">
 
 <div class="grid">
 
@@ -261,27 +404,49 @@ oninput="renderProducts()">
 
 <div class="form-group">
 <label>Quantity *</label>
-<input id="purchaseQty" type="number" min="1"
+<input
+id="purchaseQty"
+type="number"
+min="1"
 oninput="calculatePurchase()">
 </div>
 
 <div class="form-group">
 <label>Purchase Price per Piece *</label>
-<input id="purchasePrice" type="number" min="0"
+<input
+id="purchasePrice"
+type="number"
+min="0"
 oninput="calculatePurchase()">
 </div>
 
 </div>
 
 <div class="total-box">
-Total Purchase: <span id="purchaseTotal">৳0</span>
+
+Total Purchase:
+<span id="purchaseTotal">৳0</span>
+
 </div>
 
 <br>
 
-<button class="green" onclick="addPurchase()">
+<div class="grid">
+
+<button
+class="green"
+onclick="savePurchase()">
 📦 Save Purchase
 </button>
+
+<button
+id="cancelPurchaseButton"
+class="gray hidden"
+onclick="cancelPurchaseEdit()">
+Cancel Edit
+</button>
+
+</div>
 
 <div id="purchaseList"></div>
 
@@ -289,9 +454,16 @@ Total Purchase: <span id="purchaseTotal">৳0</span>
 
 
 <!-- SALES -->
+
 <div id="salesSection" class="card hidden">
 
 <h2>🛒 Sales</h2>
+
+<div id="saleEditNotice" class="edit-title hidden">
+✏️ Editing Sale
+</div>
+
+<input type="hidden" id="saleEditId">
 
 <div class="grid">
 
@@ -307,56 +479,104 @@ Total Purchase: <span id="purchaseTotal">৳0</span>
 
 <div class="form-group">
 <label>Mobile Number</label>
-<input id="customerMobile" type="tel"
-placeholder="Mobile number">
+<input id="customerMobile" type="tel" placeholder="Mobile number">
 </div>
 
 <div class="form-group">
 <label>Product *</label>
-<select id="salesProduct"
-onchange="loadProductSalePrice()"></select>
+<select
+id="salesProduct"
+onchange="loadProductSalePrice()">
+</select>
 </div>
 
 <div class="form-group">
 <label>Quantity *</label>
-<input id="salesQty" type="number" min="1"
+<input
+id="salesQty"
+type="number"
+min="1"
 oninput="calculateSale()">
 </div>
 
 <div class="form-group">
 <label>Sale Price per Piece *</label>
-<input id="salesPrice" type="number" min="0"
+<input
+id="salesPrice"
+type="number"
+min="0"
 oninput="calculateSale()">
 </div>
 
 <div class="form-group">
+
 <label>Payment Type</label>
-<select id="paymentType"
+
+<select
+id="paymentType"
 onchange="togglePaidAmount()">
-<option value="full">Fully Paid</option>
-<option value="partial">Partially Paid</option>
-<option value="due">Due</option>
+
+<option value="full">
+Fully Paid
+</option>
+
+<option value="partial">
+Partially Paid
+</option>
+
+<option value="due">
+Due
+</option>
+
 </select>
+
 </div>
 
 <div class="form-group">
+
 <label>Paid Now</label>
-<input id="paidAmount" type="number" min="0"
-value="0" oninput="calculateSale()">
+
+<input
+id="paidAmount"
+type="number"
+min="0"
+value="0"
+oninput="calculateSale()">
+
 </div>
 
 </div>
 
 <div class="total-box">
-Total Sale: <span id="salesTotal">৳0</span><br>
-Due: <span id="salesDue">৳0</span>
+
+Total Sale:
+<span id="salesTotal">৳0</span>
+
+<br>
+
+Due:
+<span id="salesDue">৳0</span>
+
 </div>
 
 <br>
 
-<button class="green" onclick="addSale()">
+<div class="grid">
+
+<button
+class="green"
+onclick="saveSale()">
 🛒 Save Sale
 </button>
+
+<button
+id="cancelSaleButton"
+class="gray hidden"
+onclick="cancelSaleEdit()">
+Cancel Edit
+</button>
+
+</div>
 
 <div id="salesList"></div>
 
@@ -364,11 +584,13 @@ Due: <span id="salesDue">৳0</span>
 
 
 <!-- CUSTOMERS -->
+
 <div id="customerSection" class="card hidden">
 
 <h2>👤 Customer Accounts</h2>
 
-<input id="customerSearch"
+<input
+id="customerSearch"
 placeholder="Search customer name or mobile"
 oninput="renderCustomers()">
 
@@ -378,6 +600,7 @@ oninput="renderCustomers()">
 
 
 <!-- COLLECTION -->
+
 <div id="paymentSection" class="card hidden">
 
 <h2>💰 Due Collection</h2>
@@ -385,28 +608,49 @@ oninput="renderCustomers()">
 <div class="grid">
 
 <div class="form-group">
+
 <label>Payment Date *</label>
-<input id="paymentDate" type="date">
+
+<input
+id="paymentDate"
+type="date">
+
 </div>
 
 <div class="form-group">
+
 <label>Customer *</label>
+
 <select id="paymentCustomer"></select>
+
 </div>
 
 <div class="form-group">
+
 <label>Payment Amount *</label>
-<input id="paymentAmount" type="number" min="1">
+
+<input
+id="paymentAmount"
+type="number"
+min="1">
+
 </div>
 
 </div>
 
 <div class="form-group">
+
 <label>Note</label>
-<input id="paymentNote" placeholder="Optional">
+
+<input
+id="paymentNote"
+placeholder="Optional">
+
 </div>
 
-<button class="green" onclick="addPayment()">
+<button
+class="green"
+onclick="addPayment()">
 💰 Save Collection
 </button>
 
@@ -416,6 +660,7 @@ oninput="renderCustomers()">
 
 
 <!-- REPORTS -->
+
 <div id="reportSection" class="card hidden">
 
 <h2>📊 Reports</h2>
@@ -458,28 +703,51 @@ sales:[],
 payments:[]
 };
 
+
 function saveDB(){
-localStorage.setItem(DB_KEY,JSON.stringify(db));
+
+localStorage.setItem(
+DB_KEY,
+JSON.stringify(db)
+);
+
 }
+
 
 function today(){
-return new Date().toISOString().split("T")[0];
+
+return new Date()
+.toISOString()
+.split("T")[0];
+
 }
+
 
 document.getElementById("purchaseDate").value=today();
+
 document.getElementById("salesDate").value=today();
+
 document.getElementById("paymentDate").value=today();
 
+
 function money(n){
-return "৳"+Number(n||0).toLocaleString("en-US",{
+
+return "৳"+Number(n||0).toLocaleString(
+"en-US",
+{
 minimumFractionDigits:2,
 maximumFractionDigits:2
-});
 }
+);
+
+}
+
 
 function showSection(id){
 
-document.querySelectorAll(".card").forEach(el=>{
+document.querySelectorAll(".card")
+.forEach(el=>{
+
 if([
 "productSection",
 "purchaseSection",
@@ -488,45 +756,266 @@ if([
 "paymentSection",
 "reportSection"
 ].includes(el.id)){
+
 el.classList.add("hidden");
+
 }
+
 });
 
-document.getElementById(id).classList.remove("hidden");
+document
+.getElementById(id)
+.classList.remove("hidden");
 
 refreshSelects();
 
-if(id==="productSection")renderProducts();
-if(id==="purchaseSection")renderPurchases();
-if(id==="salesSection")renderSales();
-if(id==="customerSection")renderCustomers();
-if(id==="paymentSection")renderPayments();
+if(id==="productSection")
+renderProducts();
+
+if(id==="purchaseSection")
+renderPurchases();
+
+if(id==="salesSection")
+renderSales();
+
+if(id==="customerSection")
+renderCustomers();
+
+if(id==="paymentSection")
+renderPayments();
+
 }
 
 
-function addProduct(){
+/* =========================
+PRODUCTS
+========================= */
 
-const name=document.getElementById("productName").value.trim();
+
+function saveProduct(){
+
+const editId=Number(
+document.getElementById("productEditId").value
+)||0;
+
+const name=document
+.getElementById("productName")
+.value
+.trim();
 
 if(!name){
+
 alert("Please enter product name.");
+
 return;
+
 }
 
+
+if(editId){
+
+const p=db.products.find(
+x=>x.id===editId
+);
+
+if(!p){
+
+alert("Product not found.");
+
+return;
+
+}
+
+p.name=name;
+
+p.category=document
+.getElementById("productCategory")
+.value.trim();
+
+p.part=document
+.getElementById("productPart")
+.value.trim();
+
+p.value=document
+.getElementById("productValue")
+.value.trim();
+
+p.voltage=document
+.getElementById("productVoltage")
+.value.trim();
+
+p.salePrice=Number(
+document.getElementById("productSalePrice")
+.value
+)||0;
+
+p.note=document
+.getElementById("productNote")
+.value.trim();
+
+saveDB();
+
+clearProductForm();
+
+refreshAll();
+
+alert("Product updated successfully.");
+
+return;
+
+}
+
+
 const product={
+
 id:Date.now(),
+
 name:name,
-category:document.getElementById("productCategory").value.trim(),
-part:document.getElementById("productPart").value.trim(),
-value:document.getElementById("productValue").value.trim(),
-voltage:document.getElementById("productVoltage").value.trim(),
-salePrice:Number(document.getElementById("productSalePrice").value)||0,
-note:document.getElementById("productNote").value.trim(),
+
+category:document
+.getElementById("productCategory")
+.value.trim(),
+
+part:document
+.getElementById("productPart")
+.value.trim(),
+
+value:document
+.getElementById("productValue")
+.value.trim(),
+
+voltage:document
+.getElementById("productVoltage")
+.value.trim(),
+
+salePrice:Number(
+document.getElementById("productSalePrice")
+.value
+)||0,
+
+note:document
+.getElementById("productNote")
+.value.trim(),
+
 stock:0
+
 };
 
 db.products.push(product);
+
 saveDB();
+
+clearProductForm();
+
+refreshAll();
+
+alert("Product saved successfully.");
+
+}
+
+
+function editProduct(id){
+
+const p=db.products.find(
+x=>x.id===id
+);
+
+if(!p)return;
+
+
+document.getElementById("productEditId")
+.value=p.id;
+
+document.getElementById("productName")
+.value=p.name||"";
+
+document.getElementById("productCategory")
+.value=p.category||"";
+
+document.getElementById("productPart")
+.value=p.part||"";
+
+document.getElementById("productValue")
+.value=p.value||"";
+
+document.getElementById("productVoltage")
+.value=p.voltage||"";
+
+document.getElementById("productSalePrice")
+.value=p.salePrice||"";
+
+document.getElementById("productNote")
+.value=p.note||"";
+
+
+document.getElementById("productFormTitle")
+.textContent="✏️ Edit Product";
+
+document.getElementById("productEditNotice")
+.classList.remove("hidden");
+
+document.getElementById("cancelProductButton")
+.classList.remove("hidden");
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+function deleteProduct(id){
+
+const p=db.products.find(
+x=>x.id===id
+);
+
+if(!p)return;
+
+
+const hasPurchase=db.purchases.some(
+x=>x.productId===id
+);
+
+const hasSale=db.sales.some(
+x=>x.productId===id
+);
+
+
+if(hasPurchase||hasSale){
+
+alert(
+"This product has purchase or sales history.\n\n"+
+"To protect your stock and transaction records, "+
+"you cannot delete it.\n\n"+
+"You can edit the product instead."
+);
+
+return;
+
+}
+
+
+if(!confirm(
+"Delete this product permanently?"
+))return;
+
+
+db.products=db.products.filter(
+x=>x.id!==id
+);
+
+saveDB();
+
+refreshAll();
+
+}
+
+
+function clearProductForm(){
+
+document.getElementById("productEditId").value="";
 
 [
 "productName",
@@ -537,12 +1026,28 @@ saveDB();
 "productSalePrice",
 "productNote"
 ].forEach(id=>{
+
 document.getElementById(id).value="";
+
 });
 
-refreshAll();
 
-alert("Product saved successfully.");
+document.getElementById("productFormTitle")
+.textContent="➕ Add Product";
+
+document.getElementById("productEditNotice")
+.classList.add("hidden");
+
+document.getElementById("cancelProductButton")
+.classList.add("hidden");
+
+}
+
+
+function cancelProductEdit(){
+
+clearProductForm();
+
 }
 
 
@@ -552,43 +1057,113 @@ const search=(
 document.getElementById("productSearch")?.value||""
 ).toLowerCase();
 
+
 const list=db.products.filter(p=>
 `${p.name} ${p.category} ${p.part} ${p.value} ${p.voltage}`
 .toLowerCase()
 .includes(search)
 );
 
+
 if(!list.length){
-document.getElementById("productList").innerHTML=
-"<p>No products found.</p>";
+
+document.getElementById("productList")
+.innerHTML="<p>No products found.</p>";
+
 return;
+
 }
 
+
 let html=`
+
 <table>
+
 <tr>
+
 <th>Product</th>
+
 <th>Value</th>
+
 <th>Voltage</th>
+
 <th>Stock</th>
+
 <th>Sale Price</th>
-</tr>`;
+
+<th>Actions</th>
+
+</tr>
+
+`;
+
 
 list.forEach(p=>{
+
 html+=`
+
 <tr>
-<td><b>${esc(p.name)}</b><br>${esc(p.part||"")}</td>
-<td>${esc(p.value||"-")}</td>
-<td>${esc(p.voltage||"-")}</td>
-<td>${p.stock}</td>
-<td>${p.salePrice?money(p.salePrice):"—"}</td>
-</tr>`;
+
+<td>
+<b>${esc(p.name)}</b>
+<br>
+${esc(p.part||"")}
+</td>
+
+<td>
+${esc(p.value||"-")}
+</td>
+
+<td>
+${esc(p.voltage||"-")}
+</td>
+
+<td>
+${p.stock}
+</td>
+
+<td>
+${p.salePrice?money(p.salePrice):"—"}
+</td>
+
+<td>
+
+<div class="actions">
+
+<button
+class="small-btn orange"
+onclick="editProduct(${p.id})">
+Edit
+</button>
+
+<button
+class="small-btn red"
+onclick="deleteProduct(${p.id})">
+Delete
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+`;
+
 });
+
 
 html+="</table>";
 
-document.getElementById("productList").innerHTML=html;
+document.getElementById("productList")
+.innerHTML=html;
+
 }
+
+
+/* =========================
+SELECTS
+========================= */
 
 
 function refreshSelects(){
@@ -603,12 +1178,19 @@ ${p.voltage?" - "+esc(p.voltage):""}
 </option>`
 ).join("");
 
-document.getElementById("purchaseProduct").innerHTML=options;
-document.getElementById("salesProduct").innerHTML=options;
+
+document.getElementById("purchaseProduct")
+.innerHTML=options;
+
+document.getElementById("salesProduct")
+.innerHTML=options;
+
 
 const customers=getCustomers();
 
-document.getElementById("paymentCustomer").innerHTML=
+
+document.getElementById("paymentCustomer")
+.innerHTML=
 '<option value="">Select Customer</option>'+
 customers.map(c=>
 `<option value="${esc(c.key)}">
@@ -616,7 +1198,13 @@ ${esc(c.name)}
 ${c.mobile?" - "+esc(c.mobile):""}
 </option>`
 ).join("");
+
 }
+
+
+/* =========================
+PURCHASE
+========================= */
 
 
 function calculatePurchase(){
@@ -629,56 +1217,368 @@ const price=Number(
 document.getElementById("purchasePrice").value
 )||0;
 
-document.getElementById("purchaseTotal").textContent=
-money(qty*price);
+
+document.getElementById("purchaseTotal")
+.textContent=money(qty*price);
+
 }
 
 
-function addPurchase(){
+function savePurchase(){
 
-const date=document.getElementById("purchaseDate").value;
+const editId=Number(
+document.getElementById("purchaseEditId").value
+)||0;
+
+const date=document
+.getElementById("purchaseDate")
+.value;
+
 const productId=Number(
-document.getElementById("purchaseProduct").value
+document.getElementById("purchaseProduct")
+.value
 );
+
 const qty=Number(
-document.getElementById("purchaseQty").value
+document.getElementById("purchaseQty")
+.value
 );
+
 const price=Number(
-document.getElementById("purchasePrice").value
+document.getElementById("purchasePrice")
+.value
 );
+
 
 if(!date||!productId||qty<=0||price<0){
-alert("Please complete the purchase information.");
+
+alert(
+"Please complete the purchase information."
+);
+
 return;
+
 }
 
-const p=db.products.find(x=>x.id===productId);
 
-const purchase={
-id:Date.now(),
-date:date,
-supplier:document.getElementById("supplierName").value.trim(),
-mobile:document.getElementById("supplierMobile").value.trim(),
-productId:productId,
-productName:p.name,
-qty:qty,
-price:price,
-total:qty*price
-};
+const newProduct=db.products.find(
+x=>x.id===productId
+);
 
-db.purchases.push(purchase);
-p.stock+=qty;
+if(!newProduct){
+
+alert("Product not found.");
+
+return;
+
+}
+
+
+/* EDIT PURCHASE */
+
+if(editId){
+
+const old=db.purchases.find(
+x=>x.id===editId
+);
+
+if(!old){
+
+alert("Purchase record not found.");
+
+return;
+
+}
+
+
+const oldProduct=db.products.find(
+x=>x.id===old.productId
+);
+
+if(!oldProduct){
+
+alert("Original product not found.");
+
+return;
+
+}
+
+
+/*
+First calculate stock after removing
+the old purchase.
+*/
+
+const stockAfterRemovingOld=
+Number(oldProduct.stock||0)-Number(old.qty||0);
+
+
+if(stockAfterRemovingOld<0){
+
+alert(
+"This purchase cannot be edited because "+
+"some of its stock has already been sold."
+);
+
+return;
+
+}
+
+
+/*
+If changing product, check that the
+new product is available and then
+apply changes.
+*/
+
+if(old.productId===productId){
+
+const finalStock=
+stockAfterRemovingOld+qty;
+
+oldProduct.stock=finalStock;
+
+}else{
+
+oldProduct.stock=stockAfterRemovingOld;
+
+newProduct.stock=
+Number(newProduct.stock||0)+qty;
+
+}
+
+
+/* Update purchase record */
+
+old.date=date;
+
+old.supplier=document
+.getElementById("supplierName")
+.value.trim();
+
+old.mobile=document
+.getElementById("supplierMobile")
+.value.trim();
+
+old.productId=productId;
+
+old.productName=newProduct.name;
+
+old.qty=qty;
+
+old.price=price;
+
+old.total=qty*price;
+
 
 saveDB();
 
-document.getElementById("purchaseQty").value="";
-document.getElementById("purchasePrice").value="";
-document.getElementById("supplierName").value="";
-document.getElementById("supplierMobile").value="";
+clearPurchaseForm();
 
 refreshAll();
 
-alert("Purchase saved and stock increased.");
+alert("Purchase updated successfully.");
+
+return;
+
+}
+
+
+/* NEW PURCHASE */
+
+
+const purchase={
+
+id:Date.now(),
+
+date:date,
+
+supplier:document
+.getElementById("supplierName")
+.value.trim(),
+
+mobile:document
+.getElementById("supplierMobile")
+.value.trim(),
+
+productId:productId,
+
+productName:newProduct.name,
+
+qty:qty,
+
+price:price,
+
+total:qty*price
+
+};
+
+
+db.purchases.push(purchase);
+
+newProduct.stock=
+Number(newProduct.stock||0)+qty;
+
+
+saveDB();
+
+clearPurchaseForm();
+
+refreshAll();
+
+alert(
+"Purchase saved and stock increased."
+);
+
+}
+
+
+function editPurchase(id){
+
+const x=db.purchases.find(
+p=>p.id===id
+);
+
+if(!x)return;
+
+
+document.getElementById("purchaseEditId")
+.value=x.id;
+
+document.getElementById("purchaseDate")
+.value=x.date;
+
+document.getElementById("supplierName")
+.value=x.supplier||"";
+
+document.getElementById("supplierMobile")
+.value=x.mobile||"";
+
+document.getElementById("purchaseProduct")
+.value=x.productId;
+
+document.getElementById("purchaseQty")
+.value=x.qty;
+
+document.getElementById("purchasePrice")
+.value=x.price;
+
+
+calculatePurchase();
+
+
+document.getElementById("purchaseEditNotice")
+.classList.remove("hidden");
+
+document.getElementById("cancelPurchaseButton")
+.classList.remove("hidden");
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+function deletePurchase(id){
+
+const x=db.purchases.find(
+p=>p.id===id
+);
+
+if(!x)return;
+
+
+const p=db.products.find(
+z=>z.id===x.productId
+);
+
+if(!p){
+
+alert("Product not found.");
+
+return;
+
+}
+
+
+if(Number(p.stock||0)<Number(x.qty||0)){
+
+alert(
+"This purchase cannot be deleted because "+
+"some of the purchased stock has already been sold."
+);
+
+return;
+
+}
+
+
+if(!confirm(
+"Delete this purchase record?\n\n"+
+"The purchased quantity will also be removed from stock."
+))return;
+
+
+p.stock=
+Number(p.stock||0)-Number(x.qty||0);
+
+
+db.purchases=db.purchases.filter(
+z=>z.id!==id
+);
+
+
+saveDB();
+
+refreshAll();
+
+alert("Purchase deleted successfully.");
+
+}
+
+
+function clearPurchaseForm(){
+
+document.getElementById("purchaseEditId")
+.value="";
+
+document.getElementById("purchaseDate")
+.value=today();
+
+document.getElementById("supplierName")
+.value="";
+
+document.getElementById("supplierMobile")
+.value="";
+
+document.getElementById("purchaseProduct")
+.value="";
+
+document.getElementById("purchaseQty")
+.value="";
+
+document.getElementById("purchasePrice")
+.value="";
+
+document.getElementById("purchaseTotal")
+.textContent="৳0";
+
+
+document.getElementById("purchaseEditNotice")
+.classList.add("hidden");
+
+document.getElementById("cancelPurchaseButton")
+.classList.add("hidden");
+
+}
+
+
+function cancelPurchaseEdit(){
+
+clearPurchaseForm();
+
 }
 
 
@@ -686,52 +1586,135 @@ function renderPurchases(){
 
 let html="<h3>Recent Purchases</h3>";
 
+
 if(!db.purchases.length){
+
 html+="<p>No purchases yet.</p>";
+
 }else{
 
 html+=`
-<table>
-<tr>
-<th>Date</th>
-<th>Product</th>
-<th>Qty</th>
-<th>Price</th>
-<th>Total</th>
-<th>Supplier</th>
-</tr>`;
 
-db.purchases.slice().reverse().forEach(x=>{
-html+=`
+<table>
+
 <tr>
-<td>${formatDate(x.date)}</td>
-<td>${esc(x.productName)}</td>
-<td>${x.qty}</td>
-<td>${money(x.price)}</td>
-<td>${money(x.total)}</td>
-<td>${esc(x.supplier||"-")}</td>
-</tr>`;
+
+<th>Date</th>
+
+<th>Product</th>
+
+<th>Qty</th>
+
+<th>Price</th>
+
+<th>Total</th>
+
+<th>Supplier</th>
+
+<th>Actions</th>
+
+</tr>
+
+`;
+
+
+db.purchases
+.slice()
+.reverse()
+.forEach(x=>{
+
+html+=`
+
+<tr>
+
+<td>
+${formatDate(x.date)}
+</td>
+
+<td>
+${esc(x.productName)}
+</td>
+
+<td>
+${x.qty}
+</td>
+
+<td>
+${money(x.price)}
+</td>
+
+<td>
+${money(x.total)}
+</td>
+
+<td>
+${esc(x.supplier||"-")}
+<br>
+${esc(x.mobile||"")}
+</td>
+
+<td>
+
+<div class="actions">
+
+<button
+class="small-btn orange"
+onclick="editPurchase(${x.id})">
+Edit
+</button>
+
+<button
+class="small-btn red"
+onclick="deletePurchase(${x.id})">
+Delete
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+`;
+
 });
 
+
 html+="</table>";
+
 }
 
-document.getElementById("purchaseList").innerHTML=html;
+
+document.getElementById("purchaseList")
+.innerHTML=html;
+
 }
+
+
+/* =========================
+SALES
+========================= */
 
 
 function loadProductSalePrice(){
 
 const id=Number(
-document.getElementById("salesProduct").value
+document.getElementById("salesProduct")
+.value
 );
 
-const p=db.products.find(x=>x.id===id);
+const p=db.products.find(
+x=>x.id===id
+);
 
-document.getElementById("salesPrice").value=
+
+document.getElementById("salesPrice")
+.value=
 p&&p.salePrice?p.salePrice:"";
 
+
 calculateSale();
+
 }
 
 
@@ -747,115 +1730,496 @@ document.getElementById("salesPrice").value
 
 const total=qty*price;
 
+
 let paid=Number(
 document.getElementById("paidAmount").value
 )||0;
 
-const type=document.getElementById("paymentType").value;
+
+const type=
+document.getElementById("paymentType").value;
+
 
 if(type==="full"){
+
 paid=total;
-document.getElementById("paidAmount").value=total||0;
+
+document.getElementById("paidAmount")
+.value=total||0;
+
 }
+
 
 if(type==="due"){
+
 paid=0;
-document.getElementById("paidAmount").value=0;
+
+document.getElementById("paidAmount")
+.value=0;
+
 }
+
 
 if(paid>total){
+
 paid=total;
-document.getElementById("paidAmount").value=total;
+
+document.getElementById("paidAmount")
+.value=total;
+
 }
 
-document.getElementById("salesTotal").textContent=money(total);
-document.getElementById("salesDue").textContent=money(total-paid);
+
+document.getElementById("salesTotal")
+.textContent=money(total);
+
+document.getElementById("salesDue")
+.textContent=money(total-paid);
+
 }
 
 
 function togglePaidAmount(){
+
 calculateSale();
+
 }
 
 
-function addSale(){
+function saveSale(){
 
-const date=document.getElementById("salesDate").value;
+const editId=Number(
+document.getElementById("saleEditId")
+.value
+)||0;
+
+const date=document
+.getElementById("salesDate")
+.value;
 
 const productId=Number(
-document.getElementById("salesProduct").value
+document.getElementById("salesProduct")
+.value
 );
 
 const qty=Number(
-document.getElementById("salesQty").value
+document.getElementById("salesQty")
+.value
 );
 
 const price=Number(
-document.getElementById("salesPrice").value
+document.getElementById("salesPrice")
+.value
 );
 
-const customerName=
-document.getElementById("customerName").value.trim();
 
-const customerMobile=
-document.getElementById("customerMobile").value.trim();
+const customerName=document
+.getElementById("customerName")
+.value
+.trim();
+
+const customerMobile=document
+.getElementById("customerMobile")
+.value
+.trim();
+
 
 let paid=Number(
-document.getElementById("paidAmount").value
+document.getElementById("paidAmount")
+.value
 )||0;
 
+
 if(!date||!productId||qty<=0||price<0){
-alert("Please complete the sales information.");
-return;
-}
 
-const p=db.products.find(x=>x.id===productId);
-
-if(!p||p.stock<qty){
 alert(
-"Insufficient stock. Current stock: "+
-(p?p.stock:0)
+"Please complete the sales information."
 );
+
 return;
+
 }
+
+
+const newProduct=db.products.find(
+x=>x.id===productId
+);
+
+if(!newProduct){
+
+alert("Product not found.");
+
+return;
+
+}
+
 
 const total=qty*price;
 
-const type=document.getElementById("paymentType").value;
+const type=
+document.getElementById("paymentType")
+.value;
 
-if(type==="full")paid=total;
-if(type==="due")paid=0;
-if(paid>total)paid=total;
 
-const sale={
-id:Date.now(),
-date:date,
-customer:customerName,
-mobile:customerMobile,
-productId:productId,
-productName:p.name,
-qty:qty,
-price:price,
-total:total,
-paid:paid,
-due:total-paid
-};
+if(type==="full")
+paid=total;
 
-db.sales.push(sale);
-p.stock-=qty;
+if(type==="due")
+paid=0;
+
+if(paid>total)
+paid=total;
+
+
+/* EDIT SALE */
+
+if(editId){
+
+const old=db.sales.find(
+x=>x.id===editId
+);
+
+if(!old){
+
+alert("Sale record not found.");
+
+return;
+
+}
+
+
+const oldProduct=db.products.find(
+x=>x.id===old.productId
+);
+
+if(!oldProduct){
+
+alert("Original product not found.");
+
+return;
+
+}
+
+
+/*
+Return old sold quantity to stock first.
+*/
+
+const stockAfterReturningOld=
+Number(oldProduct.stock||0)+Number(old.qty||0);
+
+
+/*
+Now remove the new sale quantity.
+*/
+
+if(old.productId===productId){
+
+const finalStock=
+stockAfterReturningOld-qty;
+
+if(finalStock<0){
+
+alert(
+"Insufficient stock for this edited sale.\n\n"+
+"Available stock: "+
+stockAfterReturningOld
+);
+
+return;
+
+}
+
+oldProduct.stock=finalStock;
+
+}else{
+
+if(Number(newProduct.stock||0)<qty){
+
+alert(
+"Insufficient stock for the new product.\n\n"+
+"Available stock: "+
+Number(newProduct.stock||0)
+);
+
+return;
+
+}
+
+oldProduct.stock=
+stockAfterReturningOld;
+
+newProduct.stock=
+Number(newProduct.stock||0)-qty;
+
+}
+
+
+/* Update sale */
+
+old.date=date;
+
+old.customer=customerName;
+
+old.mobile=customerMobile;
+
+old.productId=productId;
+
+old.productName=newProduct.name;
+
+old.qty=qty;
+
+old.price=price;
+
+old.total=total;
+
+old.paid=paid;
+
+old.due=total-paid;
+
 
 saveDB();
 
-document.getElementById("salesQty").value="";
-document.getElementById("salesPrice").value="";
-document.getElementById("customerName").value="";
-document.getElementById("customerMobile").value="";
-document.getElementById("paidAmount").value=0;
-document.getElementById("paymentType").value="full";
+clearSaleForm();
+
+refreshAll();
+
+alert("Sale updated successfully.");
+
+return;
+
+}
+
+
+/* NEW SALE */
+
+
+if(Number(newProduct.stock||0)<qty){
+
+alert(
+"Insufficient stock. Current stock: "+
+Number(newProduct.stock||0)
+);
+
+return;
+
+}
+
+
+const sale={
+
+id:Date.now(),
+
+date:date,
+
+customer:customerName,
+
+mobile:customerMobile,
+
+productId:productId,
+
+productName:newProduct.name,
+
+qty:qty,
+
+price:price,
+
+total:total,
+
+paid:paid,
+
+due:total-paid
+
+};
+
+
+db.sales.push(sale);
+
+newProduct.stock=
+Number(newProduct.stock||0)-qty;
+
+
+saveDB();
+
+clearSaleForm();
 
 refreshAll();
 
 alert("Sale saved successfully.");
+
+}
+
+
+function editSale(id){
+
+const x=db.sales.find(
+s=>s.id===id
+);
+
+if(!x)return;
+
+
+document.getElementById("saleEditId")
+.value=x.id;
+
+document.getElementById("salesDate")
+.value=x.date;
+
+document.getElementById("customerName")
+.value=x.customer||"";
+
+document.getElementById("customerMobile")
+.value=x.mobile||"";
+
+document.getElementById("salesProduct")
+.value=x.productId;
+
+document.getElementById("salesQty")
+.value=x.qty;
+
+document.getElementById("salesPrice")
+.value=x.price;
+
+
+document.getElementById("paidAmount")
+.value=x.paid||0;
+
+
+/*
+Determine payment type from existing record.
+*/
+
+if(Number(x.paid||0)>=Number(x.total||0)){
+
+document.getElementById("paymentType")
+.value="full";
+
+}else if(Number(x.paid||0)===0){
+
+document.getElementById("paymentType")
+.value="due";
+
+}else{
+
+document.getElementById("paymentType")
+.value="partial";
+
+}
+
+
+calculateSale();
+
+
+document.getElementById("saleEditNotice")
+.classList.remove("hidden");
+
+document.getElementById("cancelSaleButton")
+.classList.remove("hidden");
+
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+function deleteSale(id){
+
+const x=db.sales.find(
+s=>s.id===id
+);
+
+if(!x)return;
+
+
+if(!confirm(
+"Delete this sale record?\n\n"+
+"The sold quantity will be returned to stock."
+))return;
+
+
+const p=db.products.find(
+z=>z.id===x.productId
+);
+
+if(!p){
+
+alert("Product not found.");
+
+return;
+
+}
+
+
+p.stock=
+Number(p.stock||0)+Number(x.qty||0);
+
+
+db.sales=db.sales.filter(
+z=>z.id!==id
+);
+
+
+saveDB();
+
+refreshAll();
+
+alert("Sale deleted successfully.");
+
+}
+
+
+function clearSaleForm(){
+
+document.getElementById("saleEditId")
+.value="";
+
+document.getElementById("salesDate")
+.value=today();
+
+document.getElementById("customerName")
+.value="";
+
+document.getElementById("customerMobile")
+.value="";
+
+document.getElementById("salesProduct")
+.value="";
+
+document.getElementById("salesQty")
+.value="";
+
+document.getElementById("salesPrice")
+.value="";
+
+document.getElementById("paymentType")
+.value="full";
+
+document.getElementById("paidAmount")
+.value=0;
+
+document.getElementById("salesTotal")
+.textContent="৳0";
+
+document.getElementById("salesDue")
+.textContent="৳0";
+
+
+document.getElementById("saleEditNotice")
+.classList.add("hidden");
+
+document.getElementById("cancelSaleButton")
+.classList.add("hidden");
+
+}
+
+
+function cancelSaleEdit(){
+
+clearSaleForm();
+
 }
 
 
@@ -863,42 +2227,126 @@ function renderSales(){
 
 let html="<h3>Recent Sales</h3>";
 
+
 if(!db.sales.length){
+
 html+="<p>No sales yet.</p>";
+
 }else{
 
 html+=`
-<table>
-<tr>
-<th>Date</th>
-<th>Customer</th>
-<th>Product</th>
-<th>Total</th>
-<th>Paid</th>
-<th>Due</th>
-</tr>`;
 
-db.sales.slice().reverse().forEach(x=>{
-html+=`
+<table>
+
 <tr>
-<td>${formatDate(x.date)}</td>
-<td>${esc(x.customer||"General")}</td>
-<td>${esc(x.productName)}</td>
-<td>${money(x.total)}</td>
-<td>${money(x.paid)}</td>
-<td class="due">${money(x.due)}</td>
-</tr>`;
+
+<th>Date</th>
+
+<th>Customer</th>
+
+<th>Product</th>
+
+<th>Qty</th>
+
+<th>Total</th>
+
+<th>Paid</th>
+
+<th>Due</th>
+
+<th>Actions</th>
+
+</tr>
+
+`;
+
+
+db.sales
+.slice()
+.reverse()
+.forEach(x=>{
+
+html+=`
+
+<tr>
+
+<td>
+${formatDate(x.date)}
+</td>
+
+<td>
+${esc(x.customer||"General")}
+<br>
+${esc(x.mobile||"")}
+</td>
+
+<td>
+${esc(x.productName)}
+</td>
+
+<td>
+${x.qty}
+</td>
+
+<td>
+${money(x.total)}
+</td>
+
+<td class="paid">
+${money(x.paid)}
+</td>
+
+<td class="due">
+${money(x.due)}
+</td>
+
+<td>
+
+<div class="actions">
+
+<button
+class="small-btn orange"
+onclick="editSale(${x.id})">
+Edit
+</button>
+
+<button
+class="small-btn red"
+onclick="deleteSale(${x.id})">
+Delete
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+`;
+
 });
 
+
 html+="</table>";
+
 }
 
-document.getElementById("salesList").innerHTML=html;
+
+document.getElementById("salesList")
+.innerHTML=html;
+
 }
+
+
+/* =========================
+CUSTOMERS
+========================= */
 
 
 function customerKey(name,mobile){
+
 return `${name.trim().toLowerCase()}|${mobile.trim()}`;
+
 }
 
 
@@ -906,23 +2354,34 @@ function getCustomers(){
 
 const map={};
 
+
 db.sales.forEach(s=>{
 
 if(!s.customer)return;
+
 
 const key=customerKey(
 s.customer,
 s.mobile||""
 );
 
+
 if(!map[key]){
+
 map[key]={
+
 key:key,
+
 name:s.customer,
+
 mobile:s.mobile||""
+
 };
+
 }
+
 });
+
 
 db.payments.forEach(p=>{
 
@@ -931,151 +2390,277 @@ p.customer,
 p.mobile||""
 );
 
+
 if(!map[key]){
+
 map[key]={
+
 key:key,
+
 name:p.customer,
+
 mobile:p.mobile||""
+
 };
+
 }
+
 });
 
+
 return Object.values(map);
+
 }
 
 
 function getCustomerBalance(key){
 
 let total=0;
+
 let paid=0;
+
 
 db.sales.forEach(s=>{
 
 if(
-customerKey(s.customer||"",s.mobile||"")===key
+customerKey(
+s.customer||"",
+s.mobile||""
+)===key
 ){
+
 total+=Number(s.total)||0;
+
 paid+=Number(s.paid)||0;
+
 }
+
 });
+
 
 db.payments.forEach(p=>{
 
 if(
-customerKey(p.customer||"",p.mobile||"")===key
+customerKey(
+p.customer||"",
+p.mobile||""
+)===key
 ){
+
 paid+=Number(p.amount)||0;
+
 }
+
 });
 
+
 return{
+
 total:total,
+
 paid:paid,
-due:Math.max(0,total-paid)
+
+due:Math.max(
+0,
+total-paid
+)
+
 };
+
 }
 
 
 function renderCustomers(){
 
 const search=(
-document.getElementById("customerSearch")?.value||""
+document.getElementById("customerSearch")
+?.value||""
 ).toLowerCase();
 
-const customers=getCustomers().filter(c=>
+
+const customers=getCustomers()
+.filter(c=>
 `${c.name} ${c.mobile}`
 .toLowerCase()
 .includes(search)
 );
 
+
 if(!customers.length){
-document.getElementById("customerList").innerHTML=
+
+document.getElementById("customerList")
+.innerHTML=
 "<p>No customers found.</p>";
+
 return;
+
 }
 
+
 let html=`
+
 <table>
+
 <tr>
+
 <th>Customer</th>
+
 <th>Mobile</th>
+
 <th>Total Sales</th>
+
 <th>Paid</th>
+
 <th>Current Due</th>
-</tr>`;
+
+</tr>
+
+`;
+
 
 customers.forEach(c=>{
 
 const b=getCustomerBalance(c.key);
 
+
 html+=`
+
 <tr>
-<td>${esc(c.name)}</td>
-<td>${esc(c.mobile||"-")}</td>
-<td>${money(b.total)}</td>
-<td class="paid">${money(b.paid)}</td>
-<td class="due">${money(b.due)}</td>
-</tr>`;
+
+<td>
+${esc(c.name)}
+</td>
+
+<td>
+${esc(c.mobile||"-")}
+</td>
+
+<td>
+${money(b.total)}
+</td>
+
+<td class="paid">
+${money(b.paid)}
+</td>
+
+<td class="due">
+${money(b.due)}
+</td>
+
+</tr>
+
+`;
+
 });
+
 
 html+="</table>";
 
-document.getElementById("customerList").innerHTML=html;
+
+document.getElementById("customerList")
+.innerHTML=html;
+
 }
+
+
+/* =========================
+COLLECTION
+========================= */
 
 
 function addPayment(){
 
-const date=document.getElementById("paymentDate").value;
+const date=document
+.getElementById("paymentDate")
+.value;
 
-const key=document.getElementById("paymentCustomer").value;
+const key=document
+.getElementById("paymentCustomer")
+.value;
 
 const amount=Number(
-document.getElementById("paymentAmount").value
+document.getElementById("paymentAmount")
+.value
 );
 
+
 if(!date||!key||amount<=0){
-alert("Please complete the payment information.");
+
+alert(
+"Please complete the payment information."
+);
+
 return;
+
 }
+
 
 const customer=getCustomers().find(
 c=>c.key===key
 );
 
+
 if(!customer){
+
 alert("Customer not found.");
+
 return;
+
 }
+
 
 const balance=getCustomerBalance(key);
 
+
 if(amount>balance.due){
+
 alert(
 "Current customer due is "+
 money(balance.due)+
 ". You cannot collect more than this."
 );
+
 return;
+
 }
 
+
 db.payments.push({
+
 id:Date.now(),
+
 date:date,
+
 customer:customer.name,
+
 mobile:customer.mobile,
+
 amount:amount,
-note:document.getElementById("paymentNote").value.trim()
+
+note:document
+.getElementById("paymentNote")
+.value.trim()
+
 });
+
 
 saveDB();
 
-document.getElementById("paymentAmount").value="";
-document.getElementById("paymentNote").value="";
+
+document.getElementById("paymentAmount")
+.value="";
+
+document.getElementById("paymentNote")
+.value="";
+
 
 refreshAll();
 
-alert("Payment collected successfully.");
+
+alert(
+"Payment collected successfully."
+);
+
 }
 
 
@@ -1083,206 +2668,414 @@ function renderPayments(){
 
 let html="<h3>Recent Collections</h3>";
 
+
 if(!db.payments.length){
+
 html+="<p>No collections yet.</p>";
+
 }else{
 
 html+=`
-<table>
-<tr>
-<th>Date</th>
-<th>Customer</th>
-<th>Amount</th>
-<th>Note</th>
-</tr>`;
 
-db.payments.slice().reverse().forEach(x=>{
-html+=`
+<table>
+
 <tr>
-<td>${formatDate(x.date)}</td>
-<td>${esc(x.customer)}</td>
-<td class="paid">${money(x.amount)}</td>
-<td>${esc(x.note||"-")}</td>
-</tr>`;
+
+<th>Date</th>
+
+<th>Customer</th>
+
+<th>Amount</th>
+
+<th>Note</th>
+
+</tr>
+
+`;
+
+
+db.payments
+.slice()
+.reverse()
+.forEach(x=>{
+
+html+=`
+
+<tr>
+
+<td>
+${formatDate(x.date)}
+</td>
+
+<td>
+${esc(x.customer)}
+<br>
+${esc(x.mobile||"")}
+</td>
+
+<td class="paid">
+${money(x.amount)}
+</td>
+
+<td>
+${esc(x.note||"-")}
+</td>
+
+</tr>
+
+`;
+
 });
 
+
 html+="</table>";
+
 }
 
-document.getElementById("paymentList").innerHTML=html;
+
+document.getElementById("paymentList")
+.innerHTML=html;
+
 }
+
+
+/* =========================
+REPORTS
+========================= */
 
 
 function showPurchaseReport(){
 
 const total=db.purchases.reduce(
-(a,x)=>a+x.total,0
+(a,x)=>a+(Number(x.total)||0),
+0
 );
 
-document.getElementById("reportResult").innerHTML=`
+
+document.getElementById("reportResult")
+.innerHTML=`
+
 <div class="total-box">
-Total Purchase: ${money(total)}
-</div>`;
+
+Total Purchase:
+${money(total)}
+
+<br><br>
+
+Total Purchase Records:
+${db.purchases.length}
+
+</div>
+
+`;
+
 }
 
 
 function showSalesReport(){
 
 const total=db.sales.reduce(
-(a,x)=>a+x.total,0
+(a,x)=>a+(Number(x.total)||0),
+0
 );
 
 const paid=db.sales.reduce(
-(a,x)=>a+x.paid,0
+(a,x)=>a+(Number(x.paid)||0),
+0
 );
 
 const due=db.sales.reduce(
-(a,x)=>a+x.due,0
+(a,x)=>a+(Number(x.due)||0),
+0
 );
 
-document.getElementById("reportResult").innerHTML=`
+
+document.getElementById("reportResult")
+.innerHTML=`
+
 <div class="total-box">
-Total Sales: ${money(total)}<br>
-Total Paid: ${money(paid)}<br>
-Sales Due: ${money(due)}
-</div>`;
+
+Total Sales:
+${money(total)}
+
+<br>
+
+Total Paid:
+${money(paid)}
+
+<br>
+
+Sales Due:
+${money(due)}
+
+<br><br>
+
+Total Sales Records:
+${db.sales.length}
+
+</div>
+
+`;
+
 }
 
 
 function showStockReport(){
 
 let html=`
+
 <table>
+
 <tr>
+
 <th>Product</th>
+
 <th>Value</th>
+
 <th>Voltage</th>
+
 <th>Stock</th>
-</tr>`;
+
+</tr>
+
+`;
+
 
 db.products.forEach(p=>{
+
 html+=`
+
 <tr>
-<td>${esc(p.name)}</td>
-<td>${esc(p.value||"-")}</td>
-<td>${esc(p.voltage||"-")}</td>
-<td>${p.stock}</td>
-</tr>`;
+
+<td>
+${esc(p.name)}
+</td>
+
+<td>
+${esc(p.value||"-")}
+</td>
+
+<td>
+${esc(p.voltage||"-")}
+</td>
+
+<td>
+${p.stock}
+</td>
+
+</tr>
+
+`;
+
 });
+
 
 html+="</table>";
 
-document.getElementById("reportResult").innerHTML=html;
+
+document.getElementById("reportResult")
+.innerHTML=html;
+
 }
 
 
 function showDueReport(){
 
 let html=`
+
 <table>
+
 <tr>
+
 <th>Customer</th>
+
 <th>Mobile</th>
+
 <th>Current Due</th>
-</tr>`;
+
+</tr>
+
+`;
+
 
 getCustomers().forEach(c=>{
 
 const b=getCustomerBalance(c.key);
 
+
 if(b.due>0){
 
 html+=`
+
 <tr>
-<td>${esc(c.name)}</td>
-<td>${esc(c.mobile||"-")}</td>
-<td class="due">${money(b.due)}</td>
-</tr>`;
+
+<td>
+${esc(c.name)}
+</td>
+
+<td>
+${esc(c.mobile||"-")}
+</td>
+
+<td class="due">
+${money(b.due)}
+</td>
+
+</tr>
+
+`;
+
 }
+
 });
+
 
 html+="</table>";
 
-document.getElementById("reportResult").innerHTML=html;
+
+document.getElementById("reportResult")
+.innerHTML=html;
+
 }
+
+
+/* =========================
+DASHBOARD
+========================= */
 
 
 function updateDashboard(){
 
-document.getElementById("totalProducts").textContent=
-db.products.length;
+document.getElementById("totalProducts")
+.textContent=db.products.length;
 
-document.getElementById("totalStock").textContent=
-db.products.reduce(
-(a,p)=>a+(Number(p.stock)||0),0
+
+document.getElementById("totalStock")
+.textContent=db.products.reduce(
+(a,p)=>a+(Number(p.stock)||0),
+0
 );
+
 
 const t=today();
 
-document.getElementById("todayPurchase").textContent=
-money(
+
+document.getElementById("todayPurchase")
+.textContent=money(
+
 db.purchases
 .filter(x=>x.date===t)
-.reduce((a,x)=>a+x.total,0)
+.reduce(
+(a,x)=>a+(Number(x.total)||0),
+0
+)
+
 );
 
-document.getElementById("todaySales").textContent=
-money(
+
+document.getElementById("todaySales")
+.textContent=money(
+
 db.sales
 .filter(x=>x.date===t)
-.reduce((a,x)=>a+x.total,0)
+.reduce(
+(a,x)=>a+(Number(x.total)||0),
+0
+)
+
 );
 
-document.getElementById("todayPayment").textContent=
-money(
+
+document.getElementById("todayPayment")
+.textContent=money(
+
 db.payments
 .filter(x=>x.date===t)
-.reduce((a,x)=>a+x.amount,0)
+.reduce(
+(a,x)=>a+(Number(x.amount)||0),
+0
+)
+
 );
 
-document.getElementById("totalDue").textContent=
-money(
+
+document.getElementById("totalDue")
+.textContent=money(
+
 getCustomers().reduce(
-(a,c)=>a+getCustomerBalance(c.key).due,0
+(a,c)=>
+a+getCustomerBalance(c.key).due,
+0
 )
+
 );
+
 }
+
+
+/* =========================
+REFRESH
+========================= */
 
 
 function refreshAll(){
 
 refreshSelects();
+
 updateDashboard();
+
 renderProducts();
+
 renderPurchases();
+
 renderSales();
+
 renderCustomers();
+
 renderPayments();
+
 }
+
+
+/* =========================
+HELPERS
+========================= */
 
 
 function formatDate(d){
 
 if(!d)return"-";
 
+
 const p=d.split("-");
+
 
 if(p.length!==3)return d;
 
+
 return`${p[2]}-${p[1]}-${p[0]}`;
+
 }
 
 
 function esc(str){
 
 return String(str??"")
+
 .replace(/&/g,"&amp;")
+
 .replace(/</g,"&lt;")
+
 .replace(/>/g,"&gt;")
+
 .replace(/"/g,"&quot;")
+
 .replace(/'/g,"&#039;");
+
 }
 
+
+/* START */
 
 refreshAll();
 
