@@ -200,6 +200,14 @@ background:#e8f5e9
 margin-bottom:12px
 }
 
+.new-entry-box{
+background:#f5f5f5;
+padding:10px;
+border-radius:8px;
+margin-top:6px;
+border:1px solid #ddd
+}
+
 @media(max-width:600px){
 
 .grid,
@@ -329,18 +337,57 @@ Today's Collection
 
 <div class="form-group">
 <label>Product Name *</label>
-<input id="productName" placeholder="Example: Capacitor">
+<input id="productName" placeholder="Example: IC 4440">
 </div>
 
+
+<!-- CATEGORY -->
+
 <div class="form-group">
+
 <label>Category</label>
-<input id="productCategory" placeholder="Example: Capacitor">
+
+<select
+id="productCategory"
+onchange="productCategoryChanged()">
+</select>
+
+<div
+id="newProductCategoryBox"
+class="new-entry-box hidden">
+
+<input
+id="newProductCategory"
+placeholder="Enter new category">
+
 </div>
 
-<div class="form-group">
-<label>Part Number</label>
-<input id="productPart" placeholder="Example: 2N3055">
 </div>
+
+
+<!-- PART NUMBER -->
+
+<div class="form-group">
+
+<label>Part Number</label>
+
+<select
+id="productPart"
+onchange="productPartChanged()">
+</select>
+
+<div
+id="newProductPartBox"
+class="new-entry-box hidden">
+
+<input
+id="newProductPart"
+placeholder="Enter new part number">
+
+</div>
+
+</div>
+
 
 <div class="form-group">
 <label>Value</label>
@@ -390,7 +437,7 @@ Cancel Edit
 
 <input
 id="productSearch"
-placeholder="Search by product, part number, value or voltage"
+placeholder="Search by product, category, part number, value or voltage"
 oninput="renderProducts()">
 
 <div id="productList"></div>
@@ -427,10 +474,36 @@ oninput="renderProducts()">
 <input id="supplierMobile" type="tel" placeholder="Mobile number">
 </div>
 
+
+<!-- PURCHASE CATEGORY -->
+
 <div class="form-group">
-<label>Product *</label>
-<select id="purchaseProduct"></select>
+
+<label>Category *</label>
+
+<select
+id="purchaseCategory"
+onchange="purchaseCategoryChanged()">
+</select>
+
 </div>
+
+
+<!-- PURCHASE PART -->
+
+<div class="form-group">
+
+<label>Part Number *</label>
+
+<select
+id="purchasePart"
+onchange="purchasePartChanged()"
+disabled>
+<option value="">Select Category First</option>
+</select>
+
+</div>
+
 
 <div class="form-group">
 <label>Quantity *</label>
@@ -506,13 +579,36 @@ Stock is automatically calculated from total purchases minus total sales.
 <input id="customerMobile" type="tel" placeholder="Mobile number">
 </div>
 
+
+<!-- SALES CATEGORY -->
+
 <div class="form-group">
-<label>Product *</label>
+
+<label>Category *</label>
+
 <select
-id="salesProduct"
-onchange="loadProductSalePrice()">
+id="salesCategory"
+onchange="salesCategoryChanged()">
 </select>
+
 </div>
+
+
+<!-- SALES PART -->
+
+<div class="form-group">
+
+<label>Part Number *</label>
+
+<select
+id="salesPart"
+onchange="salesPartChanged()"
+disabled>
+<option value="">Select Category First</option>
+</select>
+
+</div>
+
 
 <div class="form-group">
 <label>Quantity *</label>
@@ -610,8 +706,6 @@ oninput="renderCustomers()">
 
 </div>
 
-<!-- CUSTOMER DETAILS -->
-
 <div id="customerDetailArea" class="hidden">
 
 <button
@@ -632,8 +726,6 @@ onclick="closeCustomerDetails()">
 <div id="paymentSection" class="card hidden">
 
 <h2>💰 Due Collection</h2>
-
-<!-- NEW: COLLECTION EDIT NOTICE -->
 
 <div id="paymentEditNotice" class="edit-title hidden">
 ✏️ Editing Collection
@@ -689,8 +781,6 @@ class="green"
 onclick="addPayment()">
 💰 Save Collection
 </button>
-
-<!-- NEW: CANCEL COLLECTION EDIT -->
 
 <button
 id="cancelPaymentButton"
@@ -889,6 +979,408 @@ renderPayments();
 
 
 /* =========================
+CATEGORY / PART NUMBER
+========================= */
+
+function getCategories(){
+
+const set=new Set();
+
+db.products.forEach(p=>{
+
+const category=(p.category||"").trim();
+
+if(category){
+set.add(category);
+}
+
+});
+
+return Array.from(set).sort(
+(a,b)=>a.localeCompare(b)
+);
+
+}
+
+
+function getProductsByCategory(category){
+
+return db.products.filter(p=>
+(p.category||"").trim()===category
+);
+
+}
+
+
+/* PRODUCT FORM CATEGORY */
+
+function populateProductCategories(selected=""){
+
+const select=document.getElementById(
+"productCategory"
+);
+
+let html='<option value="">Select Category</option>';
+
+getCategories().forEach(c=>{
+
+html+=`
+<option value="${esc(c)}">
+${esc(c)}
+</option>
+`;
+
+});
+
+html+=`
+<option value="__new__">
+➕ New Category
+</option>
+`;
+
+select.innerHTML=html;
+
+if(selected){
+
+if(
+getCategories().includes(selected)
+){
+
+select.value=selected;
+
+}else{
+
+select.value="__new__";
+
+document.getElementById(
+"newProductCategory"
+).value=selected;
+
+}
+
+}
+
+productCategoryChanged();
+
+}
+
+
+function productCategoryChanged(){
+
+const category=
+document.getElementById(
+"productCategory"
+).value;
+
+const newBox=
+document.getElementById(
+"newProductCategoryBox"
+);
+
+const newPartBox=
+document.getElementById(
+"newProductPartBox"
+);
+
+if(category==="__new__"){
+
+newBox.classList.remove("hidden");
+
+document.getElementById(
+"newProductCategory"
+).focus();
+
+}else{
+
+newBox.classList.add("hidden");
+
+}
+
+populateProductParts(category);
+
+}
+
+
+function populateProductParts(
+category,
+selected=""
+){
+
+const select=document.getElementById(
+"productPart"
+);
+
+let html=
+'<option value="">Select Part Number</option>';
+
+if(category && category!=="__new__"){
+
+getProductsByCategory(category)
+.forEach(p=>{
+
+if(p.part){
+
+html+=`
+<option value="${esc(p.part)}">
+${esc(p.part)}
+${p.name&&p.name!==p.part?
+" - "+esc(p.name):""}
+</option>
+`;
+
+}
+
+});
+
+}
+
+html+=`
+<option value="__new__">
+➕ New Part Number
+</option>
+`;
+
+select.innerHTML=html;
+
+if(selected){
+
+const exists=
+getProductsByCategory(category)
+.some(p=>
+(p.part||"")===selected
+);
+
+if(exists){
+
+select.value=selected;
+
+}else{
+
+select.value="__new__";
+
+document.getElementById(
+"newProductPart"
+).value=selected;
+
+}
+
+}
+
+productPartChanged();
+
+}
+
+
+function productPartChanged(){
+
+const value=
+document.getElementById(
+"productPart"
+).value;
+
+const box=
+document.getElementById(
+"newProductPartBox"
+);
+
+if(value==="__new__"){
+
+box.classList.remove("hidden");
+
+}else{
+
+box.classList.add("hidden");
+
+}
+
+}
+
+
+/* =========================
+PURCHASE / SALES CATEGORY
+========================= */
+
+function populateTransactionCategories(){
+
+const categories=getCategories();
+
+const purchase=
+document.getElementById(
+"purchaseCategory"
+);
+
+const sales=
+document.getElementById(
+"salesCategory"
+);
+
+let html=
+'<option value="">Select Category</option>';
+
+categories.forEach(c=>{
+
+html+=`
+<option value="${esc(c)}">
+${esc(c)}
+</option>
+`;
+
+});
+
+purchase.innerHTML=html;
+sales.innerHTML=html;
+
+populatePurchaseParts();
+populateSalesParts();
+
+}
+
+
+function populatePurchaseParts(
+category="",
+selected=""
+){
+
+const select=
+document.getElementById(
+"purchasePart"
+);
+
+if(!category){
+
+select.innerHTML=
+'<option value="">Select Category First</option>';
+
+select.disabled=true;
+
+return;
+
+}
+
+const products=
+getProductsByCategory(category);
+
+let html=
+'<option value="">Select Part Number</option>';
+
+products.forEach(p=>{
+
+html+=`
+<option value="${p.id}">
+${esc(p.part||p.name)}
+${p.name&&p.part&&p.name!==p.part?
+" - "+esc(p.name):""}
+</option>
+`;
+
+});
+
+select.innerHTML=html;
+select.disabled=false;
+
+if(selected){
+
+select.value=String(selected);
+
+}
+
+}
+
+
+function purchaseCategoryChanged(){
+
+const category=
+document.getElementById(
+"purchaseCategory"
+).value;
+
+populatePurchaseParts(category);
+
+}
+
+
+function purchasePartChanged(){
+
+calculatePurchase();
+
+}
+
+
+function populateSalesParts(
+category="",
+selected=""
+){
+
+const select=
+document.getElementById(
+"salesPart"
+);
+
+if(!category){
+
+select.innerHTML=
+'<option value="">Select Category First</option>';
+
+select.disabled=true;
+
+return;
+
+}
+
+const products=
+getProductsByCategory(category);
+
+let html=
+'<option value="">Select Part Number</option>';
+
+products.forEach(p=>{
+
+html+=`
+<option value="${p.id}">
+${esc(p.part||p.name)}
+${p.name&&p.part&&p.name!==p.part?
+" - "+esc(p.name):""}
+</option>
+`;
+
+});
+
+select.innerHTML=html;
+select.disabled=false;
+
+if(selected){
+
+select.value=String(selected);
+
+}
+
+}
+
+
+function salesCategoryChanged(){
+
+const category=
+document.getElementById(
+"salesCategory"
+).value;
+
+populateSalesParts(category);
+
+document.getElementById(
+"salesPrice"
+).value="";
+
+}
+
+
+function salesPartChanged(){
+
+loadProductSalePrice();
+
+}
+
+
+/* =========================
 PRODUCT
 ========================= */
 
@@ -909,6 +1401,59 @@ return;
 
 }
 
+
+/* CATEGORY */
+
+let category=
+document.getElementById(
+"productCategory"
+).value;
+
+if(category==="__new__"){
+
+category=document
+.getElementById(
+"newProductCategory"
+)
+.value.trim();
+
+}
+
+if(!category){
+
+alert("Please select or enter a category.");
+return;
+
+}
+
+
+/* PART NUMBER */
+
+let part=
+document.getElementById(
+"productPart"
+).value;
+
+if(part==="__new__"){
+
+part=document
+.getElementById(
+"newProductPart"
+)
+.value.trim();
+
+}
+
+if(!part){
+
+alert("Please select or enter a part number.");
+return;
+
+}
+
+
+/* EDIT */
+
 if(editId){
 
 const p=db.products.find(
@@ -918,14 +1463,8 @@ x=>x.id===editId
 if(!p)return;
 
 p.name=name;
-
-p.category=document
-.getElementById("productCategory")
-.value.trim();
-
-p.part=document
-.getElementById("productPart")
-.value.trim();
+p.category=category;
+p.part=part;
 
 p.value=document
 .getElementById("productValue")
@@ -953,19 +1492,18 @@ return;
 
 }
 
+
+/* NEW PRODUCT */
+
 const product={
 
 id:Date.now(),
 
 name:name,
 
-category:document
-.getElementById("productCategory")
-.value.trim(),
+category:category,
 
-part:document
-.getElementById("productPart")
-.value.trim(),
+part:part,
 
 value:document
 .getElementById("productValue")
@@ -1006,13 +1544,30 @@ const p=db.products.find(x=>x.id===id);
 if(!p)return;
 
 document.getElementById("productEditId").value=p.id;
-document.getElementById("productName").value=p.name||"";
-document.getElementById("productCategory").value=p.category||"";
-document.getElementById("productPart").value=p.part||"";
-document.getElementById("productValue").value=p.value||"";
-document.getElementById("productVoltage").value=p.voltage||"";
-document.getElementById("productSalePrice").value=p.salePrice||"";
-document.getElementById("productNote").value=p.note||"";
+
+document.getElementById("productName").value=
+p.name||"";
+
+document.getElementById("productValue").value=
+p.value||"";
+
+document.getElementById("productVoltage").value=
+p.voltage||"";
+
+document.getElementById("productSalePrice").value=
+p.salePrice||"";
+
+document.getElementById("productNote").value=
+p.note||"";
+
+populateProductCategories(
+p.category||""
+);
+
+populateProductParts(
+p.category||"",
+p.part||""
+);
 
 document.getElementById("productFormTitle")
 .textContent="✏️ Edit Product";
@@ -1056,19 +1611,25 @@ alert("Product deleted successfully.");
 
 function clearProductForm(){
 
-document.getElementById("productEditId").value="";
+document.getElementById(
+"productEditId"
+).value="";
 
 [
 "productName",
-"productCategory",
-"productPart",
+"newProductCategory",
+"newProductPart",
 "productValue",
 "productVoltage",
 "productSalePrice",
 "productNote"
 ].forEach(id=>{
+
 document.getElementById(id).value="";
+
 });
+
+populateProductCategories();
 
 document.getElementById("productFormTitle")
 .textContent="➕ Add Product";
@@ -1083,7 +1644,9 @@ document.getElementById("cancelProductButton")
 
 
 function cancelProductEdit(){
+
 clearProductForm();
+
 }
 
 
@@ -1111,8 +1674,11 @@ return;
 let html=`
 
 <table>
+
 <tr>
 <th>Product</th>
+<th>Category</th>
+<th>Part Number</th>
 <th>Value</th>
 <th>Voltage</th>
 <th>Stock</th>
@@ -1131,9 +1697,11 @@ html+=`
 
 <td>
 <b>${esc(p.name)}</b>
-<br>
-${esc(p.part||"")}
 </td>
+
+<td>${esc(p.category||"-")}</td>
+
+<td>${esc(p.part||"-")}</td>
 
 <td>${esc(p.value||"-")}</td>
 
@@ -1185,21 +1753,28 @@ SELECTS
 
 function refreshSelects(){
 
-const options=
-'<option value="">Select Product</option>'+
-db.products.map(p=>
-`<option value="${p.id}">
-${esc(p.name)}
-${p.value?" - "+esc(p.value):""}
-${p.voltage?" - "+esc(p.voltage):""}
-</option>`
-).join("");
+populateProductCategories(
+document.getElementById(
+"productCategory"
+)?.value==="__new__"
+?""
+:
+document.getElementById(
+"productCategory"
+)?.value||""
+);
 
-document.getElementById("purchaseProduct")
-.innerHTML=options;
 
-document.getElementById("salesProduct")
-.innerHTML=options;
+/*
+Transaction categories
+*/
+
+populateTransactionCategories();
+
+
+/*
+Customer list
+*/
 
 const customers=getCustomers();
 
@@ -1247,7 +1822,7 @@ const date=document
 .value;
 
 const productId=Number(
-document.getElementById("purchaseProduct").value
+document.getElementById("purchasePart").value
 );
 
 const qty=Number(
@@ -1296,6 +1871,8 @@ old.mobile=document
 
 old.productId=productId;
 old.productName=p.name;
+old.category=p.category||"";
+old.part=p.part||"";
 old.qty=qty;
 old.price=price;
 old.total=qty*price;
@@ -1327,6 +1904,10 @@ productId:productId,
 
 productName:p.name,
 
+category:p.category||"",
+
+part:p.part||"",
+
 qty:qty,
 
 price:price,
@@ -1356,7 +1937,25 @@ document.getElementById("purchaseEditId").value=x.id;
 document.getElementById("purchaseDate").value=x.date;
 document.getElementById("supplierName").value=x.supplier||"";
 document.getElementById("supplierMobile").value=x.mobile||"";
-document.getElementById("purchaseProduct").value=x.productId;
+
+const product=db.products.find(
+p=>Number(p.id)===Number(x.productId)
+);
+
+const category=
+product?.category||
+x.category||
+"";
+
+document.getElementById(
+"purchaseCategory"
+).value=category;
+
+populatePurchaseParts(
+category,
+x.productId
+);
+
 document.getElementById("purchaseQty").value=x.qty;
 document.getElementById("purchasePrice").value=x.price;
 
@@ -1405,7 +2004,13 @@ document.getElementById("purchaseEditId").value="";
 document.getElementById("purchaseDate").value=today();
 document.getElementById("supplierName").value="";
 document.getElementById("supplierMobile").value="";
-document.getElementById("purchaseProduct").value="";
+
+document.getElementById(
+"purchaseCategory"
+).value="";
+
+populatePurchaseParts();
+
 document.getElementById("purchaseQty").value="";
 document.getElementById("purchasePrice").value="";
 document.getElementById("purchaseTotal").textContent="৳0";
@@ -1420,7 +2025,9 @@ document.getElementById("cancelPurchaseButton")
 
 
 function cancelPurchaseEdit(){
+
 clearPurchaseForm();
+
 }
 
 
@@ -1440,6 +2047,8 @@ html+=`
 
 <tr>
 <th>Date</th>
+<th>Category</th>
+<th>Part Number</th>
 <th>Product</th>
 <th>Qty</th>
 <th>Price</th>
@@ -1460,6 +2069,10 @@ html+=`
 <tr>
 
 <td>${formatDate(x.date)}</td>
+
+<td>${esc(x.category||"-")}</td>
+
+<td>${esc(x.part||"-")}</td>
 
 <td>${esc(x.productName)}</td>
 
@@ -1518,10 +2131,12 @@ SALES
 function loadProductSalePrice(){
 
 const id=Number(
-document.getElementById("salesProduct").value
+document.getElementById("salesPart").value
 );
 
-const p=db.products.find(x=>x.id===id);
+const p=db.products.find(
+x=>x.id===id
+);
 
 document.getElementById("salesPrice").value=
 p&&p.salePrice?p.salePrice:"";
@@ -1584,7 +2199,9 @@ document.getElementById("salesDue")
 
 
 function togglePaidAmount(){
+
 calculateSale();
+
 }
 
 
@@ -1599,7 +2216,7 @@ const date=document
 .value;
 
 const productId=Number(
-document.getElementById("salesProduct").value
+document.getElementById("salesPart").value
 );
 
 const qty=Number(
@@ -1629,7 +2246,9 @@ return;
 
 }
 
-const p=db.products.find(x=>x.id===productId);
+const p=db.products.find(
+x=>x.id===productId
+);
 
 if(!p){
 
@@ -1644,7 +2263,9 @@ const type=
 document.getElementById("paymentType").value;
 
 if(type==="full") paid=total;
+
 if(type==="due") paid=0;
+
 if(paid>total) paid=total;
 
 if(editId){
@@ -1660,6 +2281,8 @@ old.customer=customerName;
 old.mobile=customerMobile;
 old.productId=productId;
 old.productName=p.name;
+old.category=p.category||"";
+old.part=p.part||"";
 old.qty=qty;
 old.price=price;
 old.total=total;
@@ -1688,6 +2311,10 @@ mobile:customerMobile,
 productId:productId,
 
 productName:p.name,
+
+category:p.category||"",
+
+part:p.part||"",
 
 qty:qty,
 
@@ -1722,7 +2349,25 @@ document.getElementById("saleEditId").value=x.id;
 document.getElementById("salesDate").value=x.date;
 document.getElementById("customerName").value=x.customer||"";
 document.getElementById("customerMobile").value=x.mobile||"";
-document.getElementById("salesProduct").value=x.productId;
+
+const product=db.products.find(
+p=>Number(p.id)===Number(x.productId)
+);
+
+const category=
+product?.category||
+x.category||
+"";
+
+document.getElementById(
+"salesCategory"
+).value=category;
+
+populateSalesParts(
+category,
+x.productId
+);
+
 document.getElementById("salesQty").value=x.qty;
 document.getElementById("salesPrice").value=x.price;
 document.getElementById("paidAmount").value=x.paid||0;
@@ -1786,7 +2431,13 @@ document.getElementById("saleEditId").value="";
 document.getElementById("salesDate").value=today();
 document.getElementById("customerName").value="";
 document.getElementById("customerMobile").value="";
-document.getElementById("salesProduct").value="";
+
+document.getElementById(
+"salesCategory"
+).value="";
+
+populateSalesParts();
+
 document.getElementById("salesQty").value="";
 document.getElementById("salesPrice").value="";
 document.getElementById("paymentType").value="full";
@@ -1804,7 +2455,9 @@ document.getElementById("cancelSaleButton")
 
 
 function cancelSaleEdit(){
+
 clearSaleForm();
+
 }
 
 
@@ -1825,6 +2478,8 @@ html+=`
 <tr>
 <th>Date</th>
 <th>Customer</th>
+<th>Category</th>
+<th>Part Number</th>
 <th>Product</th>
 <th>Qty</th>
 <th>Total</th>
@@ -1851,6 +2506,10 @@ ${esc(x.customer||"General")}
 <br>
 ${esc(x.mobile||"")}
 </td>
+
+<td>${esc(x.category||"-")}</td>
+
+<td>${esc(x.part||"-")}</td>
 
 <td>${esc(x.productName)}</td>
 
@@ -2117,7 +2776,6 @@ document.getElementById("customerListArea")
 document.getElementById("customerDetailArea")
 .classList.remove("hidden");
 
-
 let html=`
 
 <div class="customer-header">
@@ -2156,9 +2814,6 @@ Current Due
 
 const transactions=[];
 
-
-/* SALES */
-
 db.sales.forEach(s=>{
 
 if(
@@ -2180,9 +2835,6 @@ data:s
 }
 
 });
-
-
-/* PAYMENTS */
 
 db.payments.forEach(p=>{
 
@@ -2206,7 +2858,6 @@ data:p
 
 });
 
-
 transactions.sort((a,b)=>{
 
 if(a.date===b.date){
@@ -2218,7 +2869,6 @@ return Number(a.id)-Number(b.id);
 return a.date.localeCompare(b.date);
 
 });
-
 
 let runningDue=0;
 
@@ -2272,6 +2922,16 @@ ${formatDate(s.date)}
 <td>
 
 <b>${esc(s.productName)}</b>
+
+<br>
+
+Category:
+${esc(s.category||"-")}
+
+<br>
+
+Part:
+${esc(s.part||"-")}
 
 <br>
 
@@ -2404,25 +3064,6 @@ document.getElementById("customerListArea")
 COLLECTION
 ========================= */
 
-/*
-IMPORTANT:
-
-When editing a collection, the old collection amount
-is temporarily added back to the customer's due.
-
-Example:
-
-Original due = 500
-Old collection = 200
-Current balance shown while editing = 700
-
-If new collection = 300
-Final due = 400
-
-This prevents the old collection from being counted twice.
-*/
-
-
 function addPayment(){
 
 const editId=Number(
@@ -2459,17 +3100,8 @@ return;
 
 }
 
-
-/* CURRENT CUSTOMER DUE */
-
 let currentDue=
 getCustomerBalance(key).due;
-
-
-/*
-If editing an existing payment,
-return the old payment to the due first.
-*/
 
 if(editId){
 
@@ -2496,12 +3128,6 @@ oldPayment.amount
 
 }
 
-
-/*
-New collection cannot exceed
-the customer's available due.
-*/
-
 if(amount>currentDue){
 
 alert(
@@ -2515,7 +3141,7 @@ return;
 }
 
 
-/* EDIT EXISTING COLLECTION */
+/* EDIT */
 
 if(editId){
 
@@ -2550,7 +3176,7 @@ return;
 }
 
 
-/* NEW COLLECTION */
+/* NEW */
 
 db.payments.push({
 
@@ -2597,12 +3223,6 @@ return;
 
 }
 
-
-/*
-Make sure customer dropdown is refreshed
-before selecting the customer.
-*/
-
 refreshSelects();
 
 const key=customerKey(
@@ -2625,13 +3245,11 @@ document.getElementById("paymentAmount")
 document.getElementById("paymentNote")
 .value=payment.note||"";
 
-
 document.getElementById("paymentEditNotice")
 .classList.remove("hidden");
 
 document.getElementById("cancelPaymentButton")
 .classList.remove("hidden");
-
 
 window.scrollTo({
 top:0,
@@ -2891,6 +3509,8 @@ let html=`
 <table>
 
 <tr>
+<th>Category</th>
+<th>Part Number</th>
 <th>Product</th>
 <th>Value</th>
 <th>Voltage</th>
@@ -2906,6 +3526,10 @@ const stock=getProductStock(p.id);
 html+=`
 
 <tr>
+
+<td>${esc(p.category||"-")}</td>
+
+<td>${esc(p.part||"-")}</td>
 
 <td>${esc(p.name)}</td>
 
@@ -3042,6 +3666,7 @@ a+getCustomerBalance(c.key).due,
 )
 
 );
+
 
 }
 
