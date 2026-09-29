@@ -153,7 +153,7 @@ font-weight:bold
 .actions{
 display:flex;
 gap:5px;
-min-width:140px
+min-width:145px
 }
 
 .small-btn{
@@ -168,6 +168,13 @@ padding:10px;
 border-radius:8px;
 margin-bottom:12px;
 font-weight:bold
+}
+
+.note-box{
+background:#e8f5e9;
+padding:10px;
+border-radius:8px;
+margin-top:10px
 }
 
 @media(max-width:600px){
@@ -448,6 +455,10 @@ Cancel Edit
 
 </div>
 
+<div class="note-box">
+Stock is automatically calculated from total purchases minus total sales.
+</div>
+
 <div id="purchaseList"></div>
 
 </div>
@@ -578,6 +589,10 @@ Cancel Edit
 
 </div>
 
+<div class="note-box">
+Sales are recorded even if stock becomes negative. This prevents editing from being blocked.
+</div>
+
 <div id="salesList"></div>
 
 </div>
@@ -696,12 +711,20 @@ onclick="addPayment()">
 
 const DB_KEY="electronicsShopDataV1";
 
-let db=JSON.parse(localStorage.getItem(DB_KEY))||{
+
+let db=JSON.parse(
+localStorage.getItem(DB_KEY)
+)||{
 products:[],
 purchases:[],
 sales:[],
 payments:[]
 };
+
+
+/* =========================
+DATABASE
+========================= */
 
 
 function saveDB(){
@@ -712,6 +735,70 @@ JSON.stringify(db)
 );
 
 }
+
+
+/*
+IMPORTANT:
+
+Stock is always calculated from:
+
+Total Purchases - Total Sales
+
+So Edit/Delete can never leave
+old stock calculations behind.
+*/
+
+
+function getProductStock(productId){
+
+let purchased=0;
+
+let sold=0;
+
+
+db.purchases.forEach(x=>{
+
+if(Number(x.productId)===Number(productId)){
+
+purchased+=Number(x.qty)||0;
+
+}
+
+});
+
+
+db.sales.forEach(x=>{
+
+if(Number(x.productId)===Number(productId)){
+
+sold+=Number(x.qty)||0;
+
+}
+
+});
+
+
+return purchased-sold;
+
+}
+
+
+function recalculateAllStock(){
+
+db.products.forEach(p=>{
+
+p.stock=getProductStock(p.id);
+
+});
+
+saveDB();
+
+}
+
+
+/* =========================
+DATE
+========================= */
 
 
 function today(){
@@ -730,6 +817,11 @@ document.getElementById("salesDate").value=today();
 document.getElementById("paymentDate").value=today();
 
 
+/* =========================
+MONEY
+========================= */
+
+
 function money(n){
 
 return "৳"+Number(n||0).toLocaleString(
@@ -741,6 +833,11 @@ maximumFractionDigits:2
 );
 
 }
+
+
+/* =========================
+NAVIGATION
+========================= */
 
 
 function showSection(id){
@@ -763,11 +860,14 @@ el.classList.add("hidden");
 
 });
 
+
 document
 .getElementById(id)
 .classList.remove("hidden");
 
+
 refreshSelects();
+
 
 if(id==="productSection")
 renderProducts();
@@ -788,7 +888,7 @@ renderPayments();
 
 
 /* =========================
-PRODUCTS
+PRODUCT
 ========================= */
 
 
@@ -798,10 +898,12 @@ const editId=Number(
 document.getElementById("productEditId").value
 )||0;
 
+
 const name=document
 .getElementById("productName")
 .value
 .trim();
+
 
 if(!name){
 
@@ -812,19 +914,16 @@ return;
 }
 
 
+/* EDIT */
+
 if(editId){
 
 const p=db.products.find(
 x=>x.id===editId
 );
 
-if(!p){
+if(!p)return;
 
-alert("Product not found.");
-
-return;
-
-}
 
 p.name=name;
 
@@ -853,6 +952,7 @@ p.note=document
 .getElementById("productNote")
 .value.trim();
 
+
 saveDB();
 
 clearProductForm();
@@ -865,6 +965,8 @@ return;
 
 }
 
+
+/* NEW */
 
 const product={
 
@@ -900,6 +1002,7 @@ note:document
 stock:0
 
 };
+
 
 db.products.push(product);
 
@@ -957,6 +1060,7 @@ document.getElementById("productEditNotice")
 document.getElementById("cancelProductButton")
 .classList.remove("hidden");
 
+
 window.scrollTo({
 top:0,
 behavior:"smooth"
@@ -974,31 +1078,9 @@ x=>x.id===id
 if(!p)return;
 
 
-const hasPurchase=db.purchases.some(
-x=>x.productId===id
-);
-
-const hasSale=db.sales.some(
-x=>x.productId===id
-);
-
-
-if(hasPurchase||hasSale){
-
-alert(
-"This product has purchase or sales history.\n\n"+
-"To protect your stock and transaction records, "+
-"you cannot delete it.\n\n"+
-"You can edit the product instead."
-);
-
-return;
-
-}
-
-
 if(!confirm(
-"Delete this product permanently?"
+"Delete this product?\n\n"+
+"Transaction history will remain in the system."
 ))return;
 
 
@@ -1006,16 +1088,21 @@ db.products=db.products.filter(
 x=>x.id!==id
 );
 
+
 saveDB();
 
 refreshAll();
+
+alert("Product deleted successfully.");
 
 }
 
 
 function clearProductForm(){
 
-document.getElementById("productEditId").value="";
+document.getElementById("productEditId")
+.value="";
+
 
 [
 "productName",
@@ -1068,7 +1155,7 @@ const list=db.products.filter(p=>
 if(!list.length){
 
 document.getElementById("productList")
-.innerHTML="<p>No products found.</p>";
+.innerHTML="<p>No products found yet.</p>";
 
 return;
 
@@ -1082,15 +1169,10 @@ let html=`
 <tr>
 
 <th>Product</th>
-
 <th>Value</th>
-
 <th>Voltage</th>
-
 <th>Stock</th>
-
 <th>Sale Price</th>
-
 <th>Actions</th>
 
 </tr>
@@ -1099,6 +1181,9 @@ let html=`
 
 
 list.forEach(p=>{
+
+const stock=getProductStock(p.id);
+
 
 html+=`
 
@@ -1119,7 +1204,7 @@ ${esc(p.voltage||"-")}
 </td>
 
 <td>
-${p.stock}
+${stock}
 </td>
 
 <td>
@@ -1230,6 +1315,7 @@ const editId=Number(
 document.getElementById("purchaseEditId").value
 )||0;
 
+
 const date=document
 .getElementById("purchaseDate")
 .value;
@@ -1261,11 +1347,11 @@ return;
 }
 
 
-const newProduct=db.products.find(
+const p=db.products.find(
 x=>x.id===productId
 );
 
-if(!newProduct){
+if(!p){
 
 alert("Product not found.");
 
@@ -1282,73 +1368,8 @@ const old=db.purchases.find(
 x=>x.id===editId
 );
 
-if(!old){
+if(!old)return;
 
-alert("Purchase record not found.");
-
-return;
-
-}
-
-
-const oldProduct=db.products.find(
-x=>x.id===old.productId
-);
-
-if(!oldProduct){
-
-alert("Original product not found.");
-
-return;
-
-}
-
-
-/*
-First calculate stock after removing
-the old purchase.
-*/
-
-const stockAfterRemovingOld=
-Number(oldProduct.stock||0)-Number(old.qty||0);
-
-
-if(stockAfterRemovingOld<0){
-
-alert(
-"This purchase cannot be edited because "+
-"some of its stock has already been sold."
-);
-
-return;
-
-}
-
-
-/*
-If changing product, check that the
-new product is available and then
-apply changes.
-*/
-
-if(old.productId===productId){
-
-const finalStock=
-stockAfterRemovingOld+qty;
-
-oldProduct.stock=finalStock;
-
-}else{
-
-oldProduct.stock=stockAfterRemovingOld;
-
-newProduct.stock=
-Number(newProduct.stock||0)+qty;
-
-}
-
-
-/* Update purchase record */
 
 old.date=date;
 
@@ -1362,7 +1383,7 @@ old.mobile=document
 
 old.productId=productId;
 
-old.productName=newProduct.name;
+old.productName=p.name;
 
 old.qty=qty;
 
@@ -1371,7 +1392,12 @@ old.price=price;
 old.total=qty*price;
 
 
-saveDB();
+/*
+Recalculate all product stock
+from all transactions.
+*/
+
+recalculateAllStock();
 
 clearPurchaseForm();
 
@@ -1385,7 +1411,6 @@ return;
 
 
 /* NEW PURCHASE */
-
 
 const purchase={
 
@@ -1403,7 +1428,7 @@ mobile:document
 
 productId:productId,
 
-productName:newProduct.name,
+productName:p.name,
 
 qty:qty,
 
@@ -1416,19 +1441,13 @@ total:qty*price
 
 db.purchases.push(purchase);
 
-newProduct.stock=
-Number(newProduct.stock||0)+qty;
-
-
-saveDB();
+recalculateAllStock();
 
 clearPurchaseForm();
 
 refreshAll();
 
-alert(
-"Purchase saved and stock increased."
-);
+alert("Purchase saved successfully.");
 
 }
 
@@ -1473,6 +1492,7 @@ document.getElementById("purchaseEditNotice")
 document.getElementById("cancelPurchaseButton")
 .classList.remove("hidden");
 
+
 window.scrollTo({
 top:0,
 behavior:"smooth"
@@ -1490,47 +1510,18 @@ p=>p.id===id
 if(!x)return;
 
 
-const p=db.products.find(
-z=>z.id===x.productId
-);
-
-if(!p){
-
-alert("Product not found.");
-
-return;
-
-}
-
-
-if(Number(p.stock||0)<Number(x.qty||0)){
-
-alert(
-"This purchase cannot be deleted because "+
-"some of the purchased stock has already been sold."
-);
-
-return;
-
-}
-
-
 if(!confirm(
 "Delete this purchase record?\n\n"+
-"The purchased quantity will also be removed from stock."
+"Stock will be recalculated automatically."
 ))return;
 
 
-p.stock=
-Number(p.stock||0)-Number(x.qty||0);
-
-
 db.purchases=db.purchases.filter(
-z=>z.id!==id
+p=>p.id!==id
 );
 
 
-saveDB();
+recalculateAllStock();
 
 refreshAll();
 
@@ -1600,17 +1591,11 @@ html+=`
 <tr>
 
 <th>Date</th>
-
 <th>Product</th>
-
 <th>Qty</th>
-
 <th>Price</th>
-
 <th>Total</th>
-
 <th>Supplier</th>
-
 <th>Actions</th>
 
 </tr>
@@ -1793,6 +1778,7 @@ document.getElementById("saleEditId")
 .value
 )||0;
 
+
 const date=document
 .getElementById("salesDate")
 .value;
@@ -1841,11 +1827,11 @@ return;
 }
 
 
-const newProduct=db.products.find(
+const p=db.products.find(
 x=>x.id===productId
 );
 
-if(!newProduct){
+if(!p){
 
 alert("Product not found.");
 
@@ -1879,83 +1865,8 @@ const old=db.sales.find(
 x=>x.id===editId
 );
 
-if(!old){
+if(!old)return;
 
-alert("Sale record not found.");
-
-return;
-
-}
-
-
-const oldProduct=db.products.find(
-x=>x.id===old.productId
-);
-
-if(!oldProduct){
-
-alert("Original product not found.");
-
-return;
-
-}
-
-
-/*
-Return old sold quantity to stock first.
-*/
-
-const stockAfterReturningOld=
-Number(oldProduct.stock||0)+Number(old.qty||0);
-
-
-/*
-Now remove the new sale quantity.
-*/
-
-if(old.productId===productId){
-
-const finalStock=
-stockAfterReturningOld-qty;
-
-if(finalStock<0){
-
-alert(
-"Insufficient stock for this edited sale.\n\n"+
-"Available stock: "+
-stockAfterReturningOld
-);
-
-return;
-
-}
-
-oldProduct.stock=finalStock;
-
-}else{
-
-if(Number(newProduct.stock||0)<qty){
-
-alert(
-"Insufficient stock for the new product.\n\n"+
-"Available stock: "+
-Number(newProduct.stock||0)
-);
-
-return;
-
-}
-
-oldProduct.stock=
-stockAfterReturningOld;
-
-newProduct.stock=
-Number(newProduct.stock||0)-qty;
-
-}
-
-
-/* Update sale */
 
 old.date=date;
 
@@ -1965,7 +1876,7 @@ old.mobile=customerMobile;
 
 old.productId=productId;
 
-old.productName=newProduct.name;
+old.productName=p.name;
 
 old.qty=qty;
 
@@ -1978,7 +1889,12 @@ old.paid=paid;
 old.due=total-paid;
 
 
-saveDB();
+/*
+Stock is automatically recalculated
+from all purchase and sale records.
+*/
+
+recalculateAllStock();
 
 clearSaleForm();
 
@@ -1993,19 +1909,6 @@ return;
 
 /* NEW SALE */
 
-
-if(Number(newProduct.stock||0)<qty){
-
-alert(
-"Insufficient stock. Current stock: "+
-Number(newProduct.stock||0)
-);
-
-return;
-
-}
-
-
 const sale={
 
 id:Date.now(),
@@ -2018,7 +1921,7 @@ mobile:customerMobile,
 
 productId:productId,
 
-productName:newProduct.name,
+productName:p.name,
 
 qty:qty,
 
@@ -2035,11 +1938,7 @@ due:total-paid
 
 db.sales.push(sale);
 
-newProduct.stock=
-Number(newProduct.stock||0)-qty;
-
-
-saveDB();
+recalculateAllStock();
 
 clearSaleForm();
 
@@ -2080,14 +1979,9 @@ document.getElementById("salesQty")
 document.getElementById("salesPrice")
 .value=x.price;
 
-
 document.getElementById("paidAmount")
 .value=x.paid||0;
 
-
-/*
-Determine payment type from existing record.
-*/
 
 if(Number(x.paid||0)>=Number(x.total||0)){
 
@@ -2136,33 +2030,16 @@ if(!x)return;
 
 if(!confirm(
 "Delete this sale record?\n\n"+
-"The sold quantity will be returned to stock."
+"Stock will be recalculated automatically."
 ))return;
 
 
-const p=db.products.find(
-z=>z.id===x.productId
-);
-
-if(!p){
-
-alert("Product not found.");
-
-return;
-
-}
-
-
-p.stock=
-Number(p.stock||0)+Number(x.qty||0);
-
-
 db.sales=db.sales.filter(
-z=>z.id!==id
+s=>s.id!==id
 );
 
 
-saveDB();
+recalculateAllStock();
 
 refreshAll();
 
@@ -2241,19 +2118,12 @@ html+=`
 <tr>
 
 <th>Date</th>
-
 <th>Customer</th>
-
 <th>Product</th>
-
 <th>Qty</th>
-
 <th>Total</th>
-
 <th>Paid</th>
-
 <th>Due</th>
-
 <th>Actions</th>
 
 </tr>
@@ -2504,13 +2374,9 @@ let html=`
 <tr>
 
 <th>Customer</th>
-
 <th>Mobile</th>
-
 <th>Total Sales</th>
-
 <th>Paid</th>
-
 <th>Current Due</th>
 
 </tr>
@@ -2612,6 +2478,11 @@ return;
 const balance=getCustomerBalance(key);
 
 
+/*
+Collection cannot be greater than
+current due.
+*/
+
 if(amount>balance.due){
 
 alert(
@@ -2682,11 +2553,8 @@ html+=`
 <tr>
 
 <th>Date</th>
-
 <th>Customer</th>
-
 <th>Amount</th>
-
 <th>Note</th>
 
 </tr>
@@ -2829,11 +2697,8 @@ let html=`
 <tr>
 
 <th>Product</th>
-
 <th>Value</th>
-
 <th>Voltage</th>
-
 <th>Stock</th>
 
 </tr>
@@ -2842,6 +2707,9 @@ let html=`
 
 
 db.products.forEach(p=>{
+
+const stock=getProductStock(p.id);
+
 
 html+=`
 
@@ -2860,7 +2728,7 @@ ${esc(p.voltage||"-")}
 </td>
 
 <td>
-${p.stock}
+${stock}
 </td>
 
 </tr>
@@ -2888,9 +2756,7 @@ let html=`
 <tr>
 
 <th>Customer</th>
-
 <th>Mobile</th>
-
 <th>Current Due</th>
 
 </tr>
@@ -2945,6 +2811,9 @@ DASHBOARD
 
 
 function updateDashboard(){
+
+recalculateStockMemoryOnly();
+
 
 document.getElementById("totalProducts")
 .textContent=db.products.length;
@@ -3013,12 +2882,32 @@ a+getCustomerBalance(c.key).due,
 }
 
 
+/*
+Same as recalculateAllStock,
+but without saving repeatedly.
+*/
+
+function recalculateStockMemoryOnly(){
+
+db.products.forEach(p=>{
+
+p.stock=getProductStock(p.id);
+
+});
+
+}
+
+
 /* =========================
 REFRESH
 ========================= */
 
 
 function refreshAll(){
+
+recalculateStockMemoryOnly();
+
+saveDB();
 
 refreshSelects();
 
@@ -3075,7 +2964,9 @@ return String(str??"")
 }
 
 
-/* START */
+/* =========================
+START
+========================= */
 
 refreshAll();
 
