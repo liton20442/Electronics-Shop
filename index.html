@@ -8,23 +8,21 @@
 
 <meta name="theme-color" content="#0f766e">
 
-<!-- iPhone / iOS PWA -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Electronics Shop">
 
-<!-- Android / other browsers -->
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="application-name" content="Electronics Shop">
 
 <link rel="manifest" href="manifest.json">
 
-<!-- iPhone Home Screen Icon -->
 <link rel="apple-touch-icon" href="icon-180.png">
 
 <title>Electronics Shop</title>
 
 <style>
+
 *{
     box-sizing:border-box;
 }
@@ -54,11 +52,15 @@ button{
     cursor:pointer;
 }
 
-/* HEADER */
+
+/* =========================================================
+   HEADER
+========================================================= */
 
 .header{
     background:#0f766e;
     color:white;
+
     padding:
         calc(14px + env(safe-area-inset-top))
         18px
@@ -87,7 +89,10 @@ button{
     margin-top:2px;
 }
 
-/* NAVIGATION */
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 .nav{
     max-width:1200px;
@@ -131,7 +136,10 @@ button{
     color:white;
 }
 
-/* MAIN */
+
+/* =========================================================
+   MAIN
+========================================================= */
 
 .container{
     max-width:1200px;
@@ -156,7 +164,10 @@ h3{
     margin:0 0 12px;
 }
 
-/* CARD */
+
+/* =========================================================
+   CARD
+========================================================= */
 
 .card{
     background:white;
@@ -172,7 +183,10 @@ h3{
     box-shadow:0 2px 8px rgba(15,23,42,.04);
 }
 
-/* GRID */
+
+/* =========================================================
+   GRID
+========================================================= */
 
 .grid{
     display:grid;
@@ -186,7 +200,10 @@ h3{
     gap:12px;
 }
 
-/* FIELD */
+
+/* =========================================================
+   FIELD
+========================================================= */
 
 .field label{
     display:block;
@@ -233,7 +250,10 @@ h3{
     grid-column:1/-1;
 }
 
-/* BUTTONS */
+
+/* =========================================================
+   BUTTONS
+========================================================= */
 
 .actions{
     display:flex;
@@ -275,7 +295,10 @@ h3{
     color:white;
 }
 
-/* TABLE */
+
+/* =========================================================
+   TABLE
+========================================================= */
 
 .table-wrap{
     overflow:auto;
@@ -309,7 +332,10 @@ th{
     top:0;
 }
 
-/* SMALL BUTTON */
+
+/* =========================================================
+   SMALL BUTTON
+========================================================= */
 
 .small-btn{
     border:0;
@@ -335,7 +361,10 @@ th{
     color:#b91c1c;
 }
 
-/* SEARCH */
+
+/* =========================================================
+   SEARCH
+========================================================= */
 
 .search{
     width:100%;
@@ -351,155 +380,271 @@ th{
 
 
 /* =========================================================
-   DASHBOARD - NEW PROFESSIONAL DESIGN
+   DASHBOARD - NEW MODERN DESIGN
 ========================================================= */
 
-.dashboard-header{
+.dashboard-page{
+    padding-top:2px;
+}
+
+
+/* HERO */
+
+.dashboard-hero{
     position:relative;
 
     overflow:hidden;
 
-    background:
-        linear-gradient(
-            135deg,
-            #0f766e 0%,
-            #0d9488 55%,
-            #14b8a6 100%
-        );
+    min-height:185px;
 
-    color:white;
-
-    border-radius:20px;
-
-    padding:22px;
+    border-radius:22px;
 
     margin-bottom:16px;
 
+    padding:22px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #064e3b 0%,
+            #0f766e 42%,
+            #0d9488 72%,
+            #14b8a6 100%
+        );
+
     box-shadow:
-        0 10px 28px rgba(15,118,110,.20);
+        0 12px 30px rgba(15,118,110,.22);
 }
 
-.dashboard-header::before{
+.dashboard-hero::before{
     content:"";
 
     position:absolute;
 
-    width:170px;
-    height:170px;
+    width:240px;
+    height:240px;
 
     border-radius:50%;
+
+    right:-75px;
+    top:-110px;
 
     background:rgba(255,255,255,.08);
-
-    right:-55px;
-    top:-65px;
 }
 
-.dashboard-header::after{
+.dashboard-hero::after{
     content:"";
 
     position:absolute;
 
-    width:110px;
-    height:110px;
+    width:150px;
+    height:150px;
 
     border-radius:50%;
 
-    background:rgba(255,255,255,.06);
+    right:95px;
+    bottom:-105px;
 
-    right:75px;
-    bottom:-70px;
+    background:rgba(255,255,255,.06);
 }
 
-.dashboard-header-content{
+.dashboard-hero-content{
     position:relative;
-    z-index:2;
 
+    z-index:5;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:20px;
+}
+
+.dashboard-hero-left{
+    max-width:650px;
+}
+
+.dashboard-small-title{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    background:rgba(255,255,255,.13);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    border-radius:30px;
+
+    padding:6px 10px;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:.8px;
+
+    text-transform:uppercase;
+}
+
+.dashboard-small-title span{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#a7f3d0;
+}
+
+.dashboard-hero h2{
+    margin:11px 0 5px;
+
+    font-size:29px;
+
+    line-height:1.1;
+
+    color:white;
+}
+
+.dashboard-hero-description{
+    margin:0;
+
+    max-width:600px;
+
+    font-size:13px;
+
+    line-height:1.55;
+
+    color:rgba(255,255,255,.86);
+}
+
+.dashboard-hero-right{
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    width:82px;
+    height:82px;
+
+    flex:0 0 82px;
+
+    border-radius:23px;
+
+    background:rgba(255,255,255,.12);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.12);
+}
+
+.dashboard-hero-right-icon{
+    font-size:36px;
+
+    line-height:1;
+}
+
+.dashboard-hero-right-text{
+    margin-top:5px;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    opacity:.85;
+
+    letter-spacing:.4px;
+}
+
+
+/* HERO HIGHLIGHTS */
+
+.dashboard-hero-bottom{
+    position:absolute;
+
+    z-index:5;
+
+    left:22px;
+    right:22px;
+    bottom:18px;
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+}
+
+.hero-mini{
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    background:rgba(255,255,255,.10);
+
+    border:1px solid rgba(255,255,255,.14);
+
+    border-radius:9px;
+
+    padding:7px 10px;
+
+    font-size:10px;
+
+    color:rgba(255,255,255,.9);
+}
+
+.hero-mini-icon{
+    font-size:13px;
+}
+
+.hero-mini strong{
+    color:white;
+}
+
+
+/* SECTION TITLE */
+
+.dashboard-section-title{
     display:flex;
 
     align-items:center;
 
     justify-content:space-between;
 
-    gap:15px;
+    gap:10px;
+
+    margin:0 2px 10px;
 }
 
-.dashboard-welcome{
-    min-width:0;
-}
-
-.dashboard-welcome .eyebrow{
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:6px;
-
-    font-size:11px;
-
-    font-weight:800;
-
-    letter-spacing:.7px;
-
-    text-transform:uppercase;
-
-    background:rgba(255,255,255,.14);
-
-    border:1px solid rgba(255,255,255,.18);
-
-    padding:5px 9px;
-
-    border-radius:20px;
-
-    margin-bottom:8px;
-}
-
-.dashboard-welcome h2{
+.dashboard-section-title h3{
     margin:0;
 
-    font-size:27px;
+    font-size:15px;
 
-    line-height:1.15;
-
-    color:white;
+    font-weight:850;
 }
 
-.dashboard-welcome p{
-    margin:7px 0 0;
+.dashboard-section-title span{
+    font-size:10px;
 
-    font-size:13px;
+    color:#94a3b8;
 
-    color:rgba(255,255,255,.88);
-
-    line-height:1.5;
-}
-
-.dashboard-icon{
-    flex:0 0 auto;
-
-    width:64px;
-    height:64px;
-
-    border-radius:18px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:rgba(255,255,255,.14);
-
-    border:1px solid rgba(255,255,255,.18);
-
-    font-size:31px;
-
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.12);
+    font-weight:700;
 }
 
 
-/* DASHBOARD STAT GRID */
+/* STAT GRID */
 
 .dashboard-grid{
     display:grid;
@@ -508,7 +653,7 @@ th{
 
     gap:12px;
 
-    margin-bottom:16px;
+    margin-bottom:17px;
 }
 
 .dashboard-stat{
@@ -516,18 +661,18 @@ th{
 
     overflow:hidden;
 
+    min-height:126px;
+
     background:white;
 
     border:1px solid #e2e8f0;
 
-    border-radius:16px;
+    border-radius:17px;
 
     padding:15px;
 
-    min-height:116px;
-
     box-shadow:
-        0 3px 12px rgba(15,23,42,.045);
+        0 4px 14px rgba(15,23,42,.055);
 
     transition:
         transform .18s ease,
@@ -538,7 +683,21 @@ th{
     transform:translateY(-2px);
 
     box-shadow:
-        0 8px 20px rgba(15,23,42,.08);
+        0 9px 22px rgba(15,23,42,.09);
+}
+
+.dashboard-stat::before{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+    bottom:0;
+
+    width:4px;
+
+    background:#0f766e;
 }
 
 .dashboard-stat::after{
@@ -546,56 +705,33 @@ th{
 
     position:absolute;
 
-    width:70px;
-    height:70px;
+    width:85px;
+    height:85px;
+
+    right:-38px;
+    bottom:-38px;
 
     border-radius:50%;
 
     background:#f0fdfa;
-
-    right:-28px;
-    bottom:-28px;
 }
 
 .dashboard-stat-top{
+    position:relative;
+
+    z-index:2;
+
     display:flex;
 
     align-items:center;
 
     justify-content:space-between;
 
-    gap:10px;
-
-    position:relative;
-
-    z-index:2;
+    gap:8px;
 }
 
-.dashboard-stat-icon{
-    width:38px;
-    height:38px;
-
-    border-radius:11px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:#f0fdfa;
-
-    color:#0f766e;
-
-    font-size:18px;
-
-    font-weight:800;
-
-    flex:0 0 auto;
-}
-
-.dashboard-stat .label{
-    font-size:11px;
+.dashboard-stat-label{
+    font-size:10px;
 
     color:#64748b;
 
@@ -604,35 +740,84 @@ th{
     text-transform:uppercase;
 
     letter-spacing:.35px;
+}
 
-    margin-top:11px;
+.dashboard-stat-icon{
+    width:40px;
+    height:40px;
 
-    position:relative;
+    border-radius:12px;
 
-    z-index:2;
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex:0 0 auto;
+
+    font-size:19px;
+
+    background:#ecfdf5;
+
+    color:#0f766e;
 }
 
 .dashboard-stat .value{
-    font-size:22px;
-
-    font-weight:850;
-
-    margin-top:3px;
-
-    color:#0f172a;
-
-    line-height:1.25;
-
     position:relative;
 
     z-index:2;
 
-    overflow:hidden;
+    margin-top:13px;
 
-    text-overflow:ellipsis;
+    font-size:23px;
+
+    font-weight:900;
+
+    line-height:1.15;
+
+    color:#0f172a;
+
+    overflow-wrap:anywhere;
 }
 
-.dashboard-stat.sales .dashboard-stat-icon{
+
+/* CARD TYPES */
+
+.dashboard-stat.products::before{
+    background:#0f766e;
+}
+
+.dashboard-stat.customers::before{
+    background:#2563eb;
+}
+
+.dashboard-stat.purchase::before{
+    background:#ea580c;
+}
+
+.dashboard-stat.sales::before{
+    background:#0891b2;
+}
+
+.dashboard-stat.stock::before{
+    background:#16a34a;
+}
+
+.dashboard-stat.due::before{
+    background:#dc2626;
+}
+
+.dashboard-stat.profit::before{
+    background:#7c3aed;
+}
+
+.dashboard-stat.collection::before{
+    background:#0284c7;
+}
+
+
+.dashboard-stat.customers .dashboard-stat-icon{
     background:#eff6ff;
     color:#2563eb;
 }
@@ -640,6 +825,11 @@ th{
 .dashboard-stat.purchase .dashboard-stat-icon{
     background:#fff7ed;
     color:#ea580c;
+}
+
+.dashboard-stat.sales .dashboard-stat-icon{
+    background:#ecfeff;
+    color:#0891b2;
 }
 
 .dashboard-stat.stock .dashboard-stat-icon{
@@ -658,39 +848,53 @@ th{
 }
 
 .dashboard-stat.collection .dashboard-stat-icon{
-    background:#ecfeff;
-    color:#0891b2;
+    background:#eff6ff;
+    color:#0284c7;
+}
+
+.dashboard-stat.sales .value{
+    color:#0f766e;
+}
+
+.dashboard-stat.due .value{
+    color:#b91c1c;
+}
+
+.dashboard-stat.profit .value{
+    color:#6d28d9;
 }
 
 
-/* DASHBOARD LOWER AREA */
+/* LOWER DASHBOARD */
 
 .dashboard-lower{
     display:grid;
 
-    grid-template-columns:1.15fr .85fr;
+    grid-template-columns:1.08fr .92fr;
 
     gap:15px;
 
-    margin-bottom:0;
+    align-items:stretch;
 }
 
 
-/* BUSINESS OVERVIEW */
+/* DASHBOARD CARD */
 
 .dashboard-card{
+    position:relative;
+
     background:white;
 
     border:1px solid #e2e8f0;
 
-    border-radius:16px;
+    border-radius:17px;
 
     padding:16px;
 
     box-shadow:
-        0 3px 12px rgba(15,23,42,.045);
+        0 4px 14px rgba(15,23,42,.05);
 
-    margin-bottom:15px;
+    margin-bottom:0;
 }
 
 .dashboard-card-header{
@@ -702,7 +906,7 @@ th{
 
     gap:10px;
 
-    margin-bottom:12px;
+    margin-bottom:14px;
 }
 
 .dashboard-card-title{
@@ -710,18 +914,16 @@ th{
 
     align-items:center;
 
-    gap:9px;
+    gap:10px;
+
+    min-width:0;
 }
 
 .dashboard-card-title-icon{
-    width:36px;
-    height:36px;
+    width:38px;
+    height:38px;
 
-    border-radius:10px;
-
-    background:#f0fdfa;
-
-    color:#0f766e;
+    flex:0 0 38px;
 
     display:flex;
 
@@ -729,23 +931,33 @@ th{
 
     justify-content:center;
 
-    font-size:17px;
+    border-radius:11px;
+
+    background:#ecfdf5;
+
+    color:#0f766e;
+
+    font-size:18px;
 }
 
 .dashboard-card h3{
     margin:0;
 
-    font-size:16px;
+    font-size:15px;
+
+    font-weight:850;
 
     color:#0f172a;
 }
 
 .dashboard-card-subtitle{
-    font-size:11px;
+    margin-top:2px;
+
+    font-size:10px;
 
     color:#94a3b8;
 
-    margin-top:2px;
+    font-weight:600;
 }
 
 .dashboard-badge{
@@ -759,15 +971,17 @@ th{
 
     border-radius:20px;
 
-    font-size:10px;
+    font-size:9px;
 
-    font-weight:800;
+    font-weight:900;
+
+    letter-spacing:.4px;
 
     white-space:nowrap;
 }
 
 
-/* OVERVIEW LIST */
+/* OVERVIEW */
 
 .overview-list{
     display:flex;
@@ -786,11 +1000,13 @@ th{
 
     gap:15px;
 
-    padding:11px 12px;
+    min-height:44px;
 
-    background:#f8fafc;
+    padding:9px 11px;
 
     border:1px solid #eef2f7;
+
+    background:#f8fafc;
 
     border-radius:10px;
 }
@@ -809,11 +1025,11 @@ th{
     width:7px;
     height:7px;
 
+    flex:0 0 7px;
+
     border-radius:50%;
 
     background:#0f766e;
-
-    flex:0 0 auto;
 }
 
 .overview-row-label{
@@ -827,7 +1043,7 @@ th{
 .overview-row-value{
     font-size:13px;
 
-    font-weight:850;
+    font-weight:900;
 
     color:#0f172a;
 
@@ -837,7 +1053,7 @@ th{
 }
 
 
-/* TODAY SUMMARY */
+/* TODAY */
 
 .today-summary-grid{
     display:grid;
@@ -848,25 +1064,68 @@ th{
 }
 
 .today-item{
+    position:relative;
+
+    overflow:hidden;
+
+    min-height:90px;
+
     border:1px solid #e2e8f0;
 
     background:#f8fafc;
 
-    border-radius:11px;
+    border-radius:12px;
 
     padding:12px;
-
-    min-height:82px;
 }
 
-.today-item .today-icon{
-    font-size:16px;
+.today-item::after{
+    content:"";
 
-    margin-bottom:6px;
+    position:absolute;
+
+    width:50px;
+    height:50px;
+
+    border-radius:50%;
+
+    right:-22px;
+    bottom:-22px;
+
+    background:#ecfdf5;
 }
 
-.today-item .today-label{
-    font-size:10px;
+.today-icon{
+    position:relative;
+
+    z-index:2;
+
+    width:29px;
+    height:29px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:8px;
+
+    background:white;
+
+    border:1px solid #e2e8f0;
+
+    font-size:14px;
+
+    margin-bottom:7px;
+}
+
+.today-label{
+    position:relative;
+
+    z-index:2;
+
+    font-size:9px;
 
     color:#64748b;
 
@@ -874,13 +1133,17 @@ th{
 
     text-transform:uppercase;
 
-    letter-spacing:.3px;
+    letter-spacing:.35px;
 }
 
-.today-item .today-value{
+.today-value{
+    position:relative;
+
+    z-index:2;
+
     font-size:15px;
 
-    font-weight:850;
+    font-weight:900;
 
     color:#0f172a;
 
@@ -888,7 +1151,69 @@ th{
 }
 
 
-/* KEEP ORIGINAL STAT STYLE FOR REPORTS */
+/* QUICK ACTIONS */
+
+.quick-actions{
+    margin-top:15px;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,minmax(0,1fr));
+
+    gap:9px;
+}
+
+.quick-action{
+    border:1px solid #e2e8f0;
+
+    background:white;
+
+    border-radius:12px;
+
+    padding:10px;
+
+    text-align:center;
+
+    color:#334155;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    box-shadow:0 2px 8px rgba(15,23,42,.035);
+
+    transition:.18s ease;
+}
+
+.quick-action:hover{
+    transform:translateY(-1px);
+
+    border-color:#99f6e4;
+}
+
+.quick-action-icon{
+    width:31px;
+    height:31px;
+
+    margin:0 auto 5px;
+
+    border-radius:9px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#f0fdfa;
+
+    font-size:15px;
+}
+
+
+/* =========================================================
+   ORIGINAL STAT STYLE FOR REPORTS
+========================================================= */
 
 .stat{
     background:white;
@@ -945,7 +1270,9 @@ th{
 }
 
 
-/* MOBILE / TABLET */
+/* =========================================================
+   TABLET
+========================================================= */
 
 @media(max-width:1000px){
 
@@ -960,6 +1287,10 @@ th{
 }
 
 
+/* =========================================================
+   900
+========================================================= */
+
 @media(max-width:900px){
 
     .grid,
@@ -967,8 +1298,16 @@ th{
         grid-template-columns:repeat(2,minmax(0,1fr));
     }
 
+    .quick-actions{
+        grid-template-columns:repeat(4,minmax(0,1fr));
+    }
+
 }
 
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:600px){
 
@@ -1020,49 +1359,101 @@ th{
 
     /* MOBILE DASHBOARD */
 
-    .dashboard-header{
-        border-radius:16px;
+    .dashboard-hero{
+        min-height:210px;
 
-        padding:17px;
+        border-radius:17px;
+
+        padding:16px;
 
         margin-bottom:12px;
     }
 
-    .dashboard-header-content{
-        align-items:flex-start;
+    .dashboard-hero-content{
+        gap:10px;
     }
 
-    .dashboard-welcome h2{
-        font-size:22px;
+    .dashboard-small-title{
+        font-size:8px;
+
+        padding:5px 8px;
     }
 
-    .dashboard-welcome p{
-        font-size:11px;
+    .dashboard-hero h2{
+        font-size:23px;
+
+        margin-top:9px;
+    }
+
+    .dashboard-hero-description{
+        font-size:10px;
+
+        line-height:1.5;
 
         max-width:245px;
     }
 
-    .dashboard-icon{
-        width:48px;
-        height:48px;
+    .dashboard-hero-right{
+        width:53px;
+        height:53px;
 
-        border-radius:14px;
+        flex-basis:53px;
 
+        border-radius:15px;
+    }
+
+    .dashboard-hero-right-icon{
         font-size:23px;
     }
+
+    .dashboard-hero-right-text{
+        display:none;
+    }
+
+    .dashboard-hero-bottom{
+        left:16px;
+        right:16px;
+        bottom:14px;
+
+        gap:6px;
+    }
+
+    .hero-mini{
+        padding:6px 8px;
+
+        font-size:8px;
+    }
+
+    .hero-mini-icon{
+        font-size:11px;
+    }
+
+
+    .dashboard-section-title{
+        margin-bottom:8px;
+    }
+
+    .dashboard-section-title h3{
+        font-size:13px;
+    }
+
+    .dashboard-section-title span{
+        font-size:9px;
+    }
+
 
     .dashboard-grid{
         grid-template-columns:repeat(2,minmax(0,1fr));
 
-        gap:9px;
+        gap:8px;
 
         margin-bottom:12px;
     }
 
     .dashboard-stat{
-        min-height:106px;
+        min-height:112px;
 
-        padding:12px;
+        padding:11px;
 
         border-radius:13px;
     }
@@ -1076,103 +1467,184 @@ th{
         font-size:15px;
     }
 
-    .dashboard-stat .label{
-        font-size:9px;
-
-        margin-top:9px;
+    .dashboard-stat-label{
+        font-size:8px;
     }
 
     .dashboard-stat .value{
         font-size:16px;
+
+        margin-top:11px;
+    }
+
+
+    .dashboard-lower{
+        gap:10px;
     }
 
     .dashboard-card{
-        padding:13px;
+        padding:12px;
 
         border-radius:13px;
-
-        margin-bottom:12px;
     }
 
     .dashboard-card-title-icon{
         width:32px;
         height:32px;
 
+        flex-basis:32px;
+
         font-size:15px;
     }
 
     .dashboard-card h3{
-        font-size:14px;
+        font-size:13px;
+    }
+
+    .dashboard-card-subtitle{
+        font-size:9px;
     }
 
     .dashboard-badge{
-        font-size:9px;
+        font-size:8px;
 
-        padding:4px 7px;
+        padding:4px 6px;
+    }
+
+
+    .overview-list{
+        gap:6px;
     }
 
     .overview-row{
-        padding:10px;
+        min-height:40px;
+
+        padding:8px 9px;
     }
 
     .overview-row-label{
-        font-size:11px;
+        font-size:10px;
     }
 
     .overview-row-value{
-        font-size:11px;
+        font-size:10px;
     }
+
 
     .today-summary-grid{
         grid-template-columns:repeat(2,minmax(0,1fr));
+
+        gap:7px;
     }
 
     .today-item{
-        min-height:76px;
+        min-height:78px;
 
-        padding:10px;
+        padding:9px;
     }
 
-    .today-item .today-label{
-        font-size:9px;
-    }
+    .today-icon{
+        width:26px;
+        height:26px;
 
-    .today-item .today-value{
         font-size:12px;
+
+        margin-bottom:5px;
+    }
+
+    .today-label{
+        font-size:8px;
+    }
+
+    .today-value{
+        font-size:12px;
+    }
+
+
+    .quick-actions{
+        grid-template-columns:repeat(4,minmax(0,1fr));
+
+        gap:6px;
+
+        margin-top:10px;
+    }
+
+    .quick-action{
+        padding:8px 4px;
+
+        border-radius:9px;
+
+        font-size:8px;
+    }
+
+    .quick-action-icon{
+        width:27px;
+        height:27px;
+
+        margin-bottom:4px;
+
+        font-size:13px;
     }
 
 }
 
 
-/* VERY SMALL PHONES */
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
 
 @media(max-width:380px){
+
+    .dashboard-hero{
+        min-height:215px;
+    }
 
     .dashboard-grid{
         gap:7px;
     }
 
     .dashboard-stat{
-        padding:10px;
+        padding:9px;
 
-        min-height:100px;
+        min-height:105px;
     }
 
     .dashboard-stat .value{
         font-size:14px;
     }
 
-    .dashboard-welcome h2{
+    .dashboard-hero h2{
+        font-size:21px;
+    }
+
+    .dashboard-hero-description{
+        font-size:9px;
+    }
+
+    .dashboard-hero-right{
+        width:45px;
+        height:45px;
+
+        flex-basis:45px;
+    }
+
+    .dashboard-hero-right-icon{
         font-size:20px;
     }
 
-    .dashboard-icon{
-        width:43px;
-        height:43px;
-        font-size:20px;
+    .hero-mini{
+        font-size:7px;
+
+        padding:5px 6px;
     }
 
 }
+
+
+/* =========================================================
+   END DASHBOARD
+========================================================= */
+
 </style>
 </head>
 
@@ -1232,36 +1704,75 @@ th{
 <main class="container">
 
 
-<!-- ================= DASHBOARD ================= -->
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
 
-<section id="dashboard" class="page active">
+<section id="dashboard" class="page active dashboard-page">
 
-    <!-- PROFESSIONAL DASHBOARD HEADER -->
 
-    <div class="dashboard-header">
+    <!-- HERO -->
 
-        <div class="dashboard-header-content">
+    <div class="dashboard-hero">
 
-            <div class="dashboard-welcome">
+        <div class="dashboard-hero-content">
 
-                <div class="eyebrow">
-                    ● Live Business Overview
+            <div class="dashboard-hero-left">
+
+                <div class="dashboard-small-title">
+                    <span></span>
+                    Live Business Overview
                 </div>
 
                 <h2>
-                    Dashboard
+                    Welcome to your Shop
                 </h2>
 
-                <p>
-                    Manage your electronics shop,
-                    monitor sales, stock, customers
-                    and outstanding dues from one place.
+                <p class="dashboard-hero-description">
+                    Keep track of your products, purchases,
+                    sales, stock, customers and outstanding
+                    dues from one simple dashboard.
                 </p>
 
             </div>
 
-            <div class="dashboard-icon">
-                ⚡
+
+            <div class="dashboard-hero-right">
+
+                <div class="dashboard-hero-right-icon">
+                    ⚡
+                </div>
+
+                <div class="dashboard-hero-right-text">
+                    SHOP
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-hero-bottom">
+
+            <div class="hero-mini">
+                <span class="hero-mini-icon">📦</span>
+                <span>
+                    <strong id="heroProductCount">Products</strong>
+                </span>
+            </div>
+
+            <div class="hero-mini">
+                <span class="hero-mini-icon">💰</span>
+                <span>
+                    <strong id="heroSalesText">Sales</strong>
+                </span>
+            </div>
+
+            <div class="hero-mini">
+                <span class="hero-mini-icon">📊</span>
+                <span>
+                    <strong>Live Data</strong>
+                </span>
             </div>
 
         </div>
@@ -1269,18 +1780,34 @@ th{
     </div>
 
 
-    <!-- DASHBOARD STAT CARDS -->
+    <!-- KPI TITLE -->
+
+    <div class="dashboard-section-title">
+
+        <h3>
+            Business at a Glance
+        </h3>
+
+        <span>
+            All time
+        </span>
+
+    </div>
+
+
+    <!-- STAT CARDS -->
 
     <div class="dashboard-grid">
 
-        <div class="dashboard-stat">
+
+        <!-- PRODUCTS -->
+
+        <div class="dashboard-stat products">
 
             <div class="dashboard-stat-top">
 
-                <div>
-                    <div class="label">
-                        Products
-                    </div>
+                <div class="dashboard-stat-label">
+                    Products
                 </div>
 
                 <div class="dashboard-stat-icon">
@@ -1297,14 +1824,14 @@ th{
         </div>
 
 
-        <div class="dashboard-stat">
+        <!-- CUSTOMERS -->
+
+        <div class="dashboard-stat customers">
 
             <div class="dashboard-stat-top">
 
-                <div>
-                    <div class="label">
-                        Customers
-                    </div>
+                <div class="dashboard-stat-label">
+                    Customers
                 </div>
 
                 <div class="dashboard-stat-icon">
@@ -1321,14 +1848,14 @@ th{
         </div>
 
 
+        <!-- PURCHASE -->
+
         <div class="dashboard-stat purchase">
 
             <div class="dashboard-stat-top">
 
-                <div>
-                    <div class="label">
-                        Total Purchase
-                    </div>
+                <div class="dashboard-stat-label">
+                    Total Purchase
                 </div>
 
                 <div class="dashboard-stat-icon">
@@ -1345,14 +1872,14 @@ th{
         </div>
 
 
+        <!-- SALES -->
+
         <div class="dashboard-stat sales">
 
             <div class="dashboard-stat-top">
 
-                <div>
-                    <div class="label">
-                        Total Sales
-                    </div>
+                <div class="dashboard-stat-label">
+                    Total Sales
                 </div>
 
                 <div class="dashboard-stat-icon">
@@ -1369,14 +1896,14 @@ th{
         </div>
 
 
+        <!-- STOCK -->
+
         <div class="dashboard-stat stock">
 
             <div class="dashboard-stat-top">
 
-                <div>
-                    <div class="label">
-                        Stock Value
-                    </div>
+                <div class="dashboard-stat-label">
+                    Stock Value
                 </div>
 
                 <div class="dashboard-stat-icon">
@@ -1393,14 +1920,14 @@ th{
         </div>
 
 
+        <!-- DUE -->
+
         <div class="dashboard-stat due">
 
             <div class="dashboard-stat-top">
 
-                <div>
-                    <div class="label">
-                        Total Due
-                    </div>
+                <div class="dashboard-stat-label">
+                    Total Due
                 </div>
 
                 <div class="dashboard-stat-icon">
@@ -1417,14 +1944,14 @@ th{
         </div>
 
 
+        <!-- PROFIT -->
+
         <div class="dashboard-stat profit">
 
             <div class="dashboard-stat-top">
 
-                <div>
-                    <div class="label">
-                        Estimated Profit
-                    </div>
+                <div class="dashboard-stat-label">
+                    Estimated Profit
                 </div>
 
                 <div class="dashboard-stat-icon">
@@ -1441,14 +1968,14 @@ th{
         </div>
 
 
+        <!-- COLLECTION -->
+
         <div class="dashboard-stat collection">
 
             <div class="dashboard-stat-top">
 
-                <div>
-                    <div class="label">
-                        Due Collection
-                    </div>
+                <div class="dashboard-stat-label">
+                    Due Collection
                 </div>
 
                 <div class="dashboard-stat-icon">
@@ -1491,7 +2018,7 @@ th{
                         </h3>
 
                         <div class="dashboard-card-subtitle">
-                            Current business position
+                            Your current business position
                         </div>
 
                     </div>
@@ -1506,6 +2033,7 @@ th{
 
 
             <div class="overview-list">
+
 
                 <div class="overview-row">
 
@@ -1606,12 +2134,13 @@ th{
 
                 </div>
 
+
             </div>
 
         </div>
 
 
-        <!-- TODAY SUMMARY -->
+        <!-- TODAY -->
 
         <div class="dashboard-card">
 
@@ -1626,11 +2155,11 @@ th{
                     <div>
 
                         <h3>
-                            Today's Summary
+                            Today's Activity
                         </h3>
 
                         <div class="dashboard-card-subtitle">
-                            Today's activity
+                            What happened today
                         </div>
 
                     </div>
@@ -1720,11 +2249,100 @@ th{
 
     </div>
 
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="dashboard-card"
+         style="margin-top:15px;">
+
+        <div class="dashboard-card-header">
+
+            <div class="dashboard-card-title">
+
+                <div class="dashboard-card-title-icon">
+                    ⚡
+                </div>
+
+                <div>
+
+                    <h3>
+                        Quick Actions
+                    </h3>
+
+                    <div class="dashboard-card-subtitle">
+                        Quickly go to your daily tasks
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+
+            <button class="quick-action"
+                    onclick="showPage('products')">
+
+                <div class="quick-action-icon">
+                    📦
+                </div>
+
+                Products
+
+            </button>
+
+
+            <button class="quick-action"
+                    onclick="showPage('purchase')">
+
+                <div class="quick-action-icon">
+                    🛒
+                </div>
+
+                Purchase
+
+            </button>
+
+
+            <button class="quick-action"
+                    onclick="showPage('sales')">
+
+                <div class="quick-action-icon">
+                    💰
+                </div>
+
+                New Sale
+
+            </button>
+
+
+            <button class="quick-action"
+                    onclick="showPage('due')">
+
+                <div class="quick-action-icon">
+                    💵
+                </div>
+
+                Collect Due
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+
 </section>
 
 
 
-<!-- ================= PRODUCTS ================= -->
+<!-- =========================================================
+     PRODUCTS
+========================================================= -->
 
 <section id="products" class="page">
 
@@ -1802,7 +2420,7 @@ th{
         <input class="search"
                id="productSearch"
                placeholder="Search product..."
-               oninput="renderProducts()">
+               oninput="renderProducts">
 
         <div class="table-wrap">
 
@@ -1835,7 +2453,9 @@ th{
 
 
 
-<!-- ================= PURCHASE ================= -->
+<!-- =========================================================
+     PURCHASE
+========================================================= -->
 
 <section id="purchase" class="page">
 
@@ -1850,6 +2470,7 @@ th{
 
             <div class="field">
                 <label>Date *</label>
+
                 <input type="date"
                        id="purchaseDate">
             </div>
@@ -1894,6 +2515,7 @@ th{
 
             <div class="field">
                 <label>Total Purchase</label>
+
                 <input id="purchaseTotal"
                        readonly>
             </div>
@@ -1988,7 +2610,9 @@ th{
 
 
 
-<!-- ================= SALES ================= -->
+<!-- =========================================================
+     SALES
+========================================================= -->
 
 <section id="sales" class="page">
 
@@ -2003,6 +2627,7 @@ th{
 
             <div class="field">
                 <label>Date *</label>
+
                 <input type="date"
                        id="saleDate">
             </div>
@@ -2159,7 +2784,9 @@ th{
 
 
 
-<!-- ================= CUSTOMERS ================= -->
+<!-- =========================================================
+     CUSTOMERS
+========================================================= -->
 
 <section id="customers" class="page">
 
@@ -2253,7 +2880,9 @@ th{
 
 
 
-<!-- ================= DUE COLLECTION ================= -->
+<!-- =========================================================
+     DUE COLLECTION
+========================================================= -->
 
 <section id="due" class="page">
 
@@ -2394,7 +3023,9 @@ th{
 
 
 
-<!-- ================= REPORTS ================= -->
+<!-- =========================================================
+     REPORTS
+========================================================= -->
 
 <section id="reports" class="page">
 
@@ -5038,7 +5669,7 @@ function renderCollections(){
 
 
 /* =========================================================
-   DASHBOARD
+   DASHBOARD CALCULATIONS
 ========================================================= */
 
 function getTotalPurchase(){
@@ -5241,6 +5872,36 @@ function updateDashboard(){
         "overviewDue"
     ).textContent =
         money(totalDue);
+
+
+    /* HERO LIVE COUNTERS */
+
+    const heroProduct =
+        document.getElementById(
+            "heroProductCount"
+        );
+
+    if(heroProduct){
+
+        heroProduct.textContent =
+            db.products.length +
+            " Products";
+
+    }
+
+
+    const heroSales =
+        document.getElementById(
+            "heroSalesText"
+        );
+
+    if(heroSales){
+
+        heroSales.textContent =
+            money(totalSales) +
+            " Sales";
+
+    }
 
 
     const date =
@@ -5726,7 +6387,6 @@ initialize();
 
 /* =========================================================
    SERVICE WORKER
-   Makes the website installable / offline capable
 ========================================================= */
 
 if("serviceWorker" in navigator){
