@@ -16,7 +16,6 @@
 <meta name="application-name" content="Electronics Shop">
 
 <link rel="manifest" href="manifest.json">
-
 <link rel="apple-touch-icon" href="icon-180.png">
 
 <title>Electronics Shop</title>
@@ -33,7 +32,7 @@ body{
     padding:0;
     min-height:100%;
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-    background:#f1f5f9;
+    background:#f4f7f9;
     color:#0f172a;
 }
 
@@ -380,242 +379,188 @@ th{
 
 
 /* =========================================================
-   DASHBOARD - NEW MODERN DESIGN
+   DASHBOARD - NEW VERSION
 ========================================================= */
 
 .dashboard-page{
-    padding-top:2px;
+    padding-top:0;
 }
 
 
-/* HERO */
+/* =========================================================
+   DASHBOARD WELCOME
+========================================================= */
 
-.dashboard-hero{
+.dashboard-welcome{
     position:relative;
-
     overflow:hidden;
 
-    min-height:185px;
+    background:white;
 
-    border-radius:22px;
+    border:1px solid #dbe5e8;
 
-    margin-bottom:16px;
+    border-radius:20px;
 
-    padding:22px;
+    padding:20px;
 
-    color:white;
+    margin-bottom:17px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #064e3b 0%,
-            #0f766e 42%,
-            #0d9488 72%,
-            #14b8a6 100%
-        );
-
-    box-shadow:
-        0 12px 30px rgba(15,118,110,.22);
+    box-shadow:0 5px 18px rgba(15,23,42,.055);
 }
 
-.dashboard-hero::before{
+.dashboard-welcome::before{
     content:"";
 
     position:absolute;
 
-    width:240px;
-    height:240px;
+    width:180px;
+    height:180px;
+
+    right:-70px;
+    top:-80px;
 
     border-radius:50%;
 
-    right:-75px;
-    top:-110px;
-
-    background:rgba(255,255,255,.08);
+    background:#ccfbf1;
 }
 
-.dashboard-hero::after{
+.dashboard-welcome::after{
     content:"";
 
     position:absolute;
 
-    width:150px;
-    height:150px;
+    width:100px;
+    height:100px;
+
+    right:70px;
+    bottom:-65px;
 
     border-radius:50%;
 
-    right:95px;
-    bottom:-105px;
-
-    background:rgba(255,255,255,.06);
+    background:#f0fdfa;
 }
 
-.dashboard-hero-content{
+.dashboard-welcome-inner{
     position:relative;
-
-    z-index:5;
+    z-index:2;
 
     display:flex;
 
     justify-content:space-between;
 
-    align-items:flex-start;
+    align-items:center;
 
     gap:20px;
 }
 
-.dashboard-hero-left{
-    max-width:650px;
+.dashboard-welcome-left{
+    min-width:0;
 }
 
-.dashboard-small-title{
+.dashboard-welcome-label{
     display:inline-flex;
 
     align-items:center;
 
     gap:7px;
 
-    background:rgba(255,255,255,.13);
-
-    border:1px solid rgba(255,255,255,.18);
-
-    border-radius:30px;
-
-    padding:6px 10px;
+    color:#0f766e;
 
     font-size:10px;
 
-    font-weight:800;
-
-    letter-spacing:.8px;
+    font-weight:900;
 
     text-transform:uppercase;
+
+    letter-spacing:.8px;
 }
 
-.dashboard-small-title span{
-    width:7px;
-    height:7px;
+.dashboard-welcome-label::before{
+    content:"";
+
+    width:8px;
+    height:8px;
 
     border-radius:50%;
 
-    background:#a7f3d0;
+    background:#10b981;
+
+    box-shadow:0 0 0 4px #d1fae5;
 }
 
-.dashboard-hero h2{
-    margin:11px 0 5px;
+.dashboard-welcome h2{
+    margin:8px 0 5px;
 
-    font-size:29px;
+    font-size:27px;
 
-    line-height:1.1;
+    line-height:1.15;
 
-    color:white;
+    color:#0f172a;
 }
 
-.dashboard-hero-description{
+.dashboard-welcome-text{
     margin:0;
 
-    max-width:600px;
+    max-width:650px;
+
+    color:#64748b;
 
     font-size:13px;
 
     line-height:1.55;
-
-    color:rgba(255,255,255,.86);
 }
 
-.dashboard-hero-right{
-    display:flex;
+.dashboard-date-box{
+    position:relative;
+    z-index:3;
 
-    flex-direction:column;
+    flex:0 0 auto;
 
-    align-items:center;
+    min-width:115px;
 
-    justify-content:center;
+    padding:12px 14px;
 
-    width:82px;
-    height:82px;
+    border-radius:14px;
 
-    flex:0 0 82px;
+    background:#f0fdfa;
 
-    border-radius:23px;
+    border:1px solid #ccfbf1;
 
-    background:rgba(255,255,255,.12);
-
-    border:1px solid rgba(255,255,255,.18);
-
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.12);
+    text-align:center;
 }
 
-.dashboard-hero-right-icon{
-    font-size:36px;
+.dashboard-date-icon{
+    font-size:22px;
 
     line-height:1;
+
+    margin-bottom:5px;
 }
 
-.dashboard-hero-right-text{
-    margin-top:5px;
-
-    font-size:9px;
-
-    font-weight:800;
-
-    opacity:.85;
-
-    letter-spacing:.4px;
-}
-
-
-/* HERO HIGHLIGHTS */
-
-.dashboard-hero-bottom{
-    position:absolute;
-
-    z-index:5;
-
-    left:22px;
-    right:22px;
-    bottom:18px;
-
-    display:flex;
-
-    gap:10px;
-
-    flex-wrap:wrap;
-}
-
-.hero-mini{
-    display:flex;
-
-    align-items:center;
-
-    gap:7px;
-
-    background:rgba(255,255,255,.10);
-
-    border:1px solid rgba(255,255,255,.14);
-
-    border-radius:9px;
-
-    padding:7px 10px;
+.dashboard-date-title{
+    color:#0f766e;
 
     font-size:10px;
 
-    color:rgba(255,255,255,.9);
+    font-weight:900;
+
+    text-transform:uppercase;
 }
 
-.hero-mini-icon{
-    font-size:13px;
+.dashboard-date-sub{
+    color:#64748b;
+
+    font-size:9px;
+
+    margin-top:2px;
 }
 
-.hero-mini strong{
-    color:white;
-}
 
+/* =========================================================
+   DASHBOARD SECTION HEADING
+========================================================= */
 
-/* SECTION TITLE */
-
-.dashboard-section-title{
+.dashboard-heading{
     display:flex;
 
     align-items:center;
@@ -627,24 +572,28 @@ th{
     margin:0 2px 10px;
 }
 
-.dashboard-section-title h3{
+.dashboard-heading h3{
     margin:0;
 
     font-size:15px;
 
     font-weight:850;
+
+    color:#0f172a;
 }
 
-.dashboard-section-title span{
-    font-size:10px;
-
+.dashboard-heading span{
     color:#94a3b8;
+
+    font-size:10px;
 
     font-weight:700;
 }
 
 
-/* STAT GRID */
+/* =========================================================
+   KPI GRID
+========================================================= */
 
 .dashboard-grid{
     display:grid;
@@ -661,29 +610,26 @@ th{
 
     overflow:hidden;
 
-    min-height:126px;
-
     background:white;
+
+    min-height:132px;
+
+    padding:15px;
 
     border:1px solid #e2e8f0;
 
     border-radius:17px;
 
-    padding:15px;
+    box-shadow:0 4px 14px rgba(15,23,42,.055);
 
-    box-shadow:
-        0 4px 14px rgba(15,23,42,.055);
-
-    transition:
-        transform .18s ease,
-        box-shadow .18s ease;
+    transition:transform .18s ease,
+               box-shadow .18s ease;
 }
 
 .dashboard-stat:hover{
     transform:translateY(-2px);
 
-    box-shadow:
-        0 9px 22px rgba(15,23,42,.09);
+    box-shadow:0 9px 24px rgba(15,23,42,.09);
 }
 
 .dashboard-stat::before{
@@ -705,15 +651,15 @@ th{
 
     position:absolute;
 
-    width:85px;
-    height:85px;
+    width:100px;
+    height:100px;
 
-    right:-38px;
-    bottom:-38px;
+    right:-50px;
+    bottom:-50px;
 
     border-radius:50%;
 
-    background:#f0fdfa;
+    background:#f8fafc;
 }
 
 .dashboard-stat-top{
@@ -723,30 +669,30 @@ th{
 
     display:flex;
 
-    align-items:center;
-
     justify-content:space-between;
+
+    align-items:center;
 
     gap:8px;
 }
 
 .dashboard-stat-label{
-    font-size:10px;
-
     color:#64748b;
 
-    font-weight:800;
+    font-size:10px;
+
+    font-weight:850;
 
     text-transform:uppercase;
 
-    letter-spacing:.35px;
+    letter-spacing:.3px;
 }
 
 .dashboard-stat-icon{
     width:40px;
     height:40px;
 
-    border-radius:12px;
+    flex:0 0 40px;
 
     display:flex;
 
@@ -754,13 +700,13 @@ th{
 
     justify-content:center;
 
-    flex:0 0 auto;
-
-    font-size:19px;
+    border-radius:12px;
 
     background:#ecfdf5;
 
     color:#0f766e;
+
+    font-size:19px;
 }
 
 .dashboard-stat .value{
@@ -768,7 +714,9 @@ th{
 
     z-index:2;
 
-    margin-top:13px;
+    margin-top:15px;
+
+    color:#0f172a;
 
     font-size:23px;
 
@@ -776,13 +724,11 @@ th{
 
     line-height:1.15;
 
-    color:#0f172a;
-
     overflow-wrap:anywhere;
 }
 
 
-/* CARD TYPES */
+/* KPI COLORS */
 
 .dashboard-stat.products::before{
     background:#0f766e;
@@ -865,7 +811,9 @@ th{
 }
 
 
-/* LOWER DASHBOARD */
+/* =========================================================
+   LOWER DASHBOARD
+========================================================= */
 
 .dashboard-lower{
     display:grid;
@@ -878,7 +826,9 @@ th{
 }
 
 
-/* DASHBOARD CARD */
+/* =========================================================
+   DASHBOARD CARD
+========================================================= */
 
 .dashboard-card{
     position:relative;
@@ -891,8 +841,7 @@ th{
 
     padding:16px;
 
-    box-shadow:
-        0 4px 14px rgba(15,23,42,.05);
+    box-shadow:0 4px 14px rgba(15,23,42,.05);
 
     margin-bottom:0;
 }
@@ -920,10 +869,10 @@ th{
 }
 
 .dashboard-card-title-icon{
-    width:38px;
-    height:38px;
+    width:39px;
+    height:39px;
 
-    flex:0 0 38px;
+    flex:0 0 39px;
 
     display:flex;
 
@@ -931,7 +880,7 @@ th{
 
     justify-content:center;
 
-    border-radius:11px;
+    border-radius:12px;
 
     background:#ecfdf5;
 
@@ -943,33 +892,33 @@ th{
 .dashboard-card h3{
     margin:0;
 
+    color:#0f172a;
+
     font-size:15px;
 
     font-weight:850;
-
-    color:#0f172a;
 }
 
 .dashboard-card-subtitle{
     margin-top:2px;
 
-    font-size:10px;
-
     color:#94a3b8;
+
+    font-size:10px;
 
     font-weight:600;
 }
 
 .dashboard-badge{
-    background:#f0fdfa;
+    padding:5px 9px;
 
-    color:#0f766e;
+    border-radius:20px;
+
+    background:#f0fdfa;
 
     border:1px solid #ccfbf1;
 
-    padding:5px 8px;
-
-    border-radius:20px;
+    color:#0f766e;
 
     font-size:9px;
 
@@ -981,7 +930,9 @@ th{
 }
 
 
-/* OVERVIEW */
+/* =========================================================
+   BUSINESS OVERVIEW
+========================================================= */
 
 .overview-list{
     display:flex;
@@ -1000,15 +951,15 @@ th{
 
     gap:15px;
 
-    min-height:44px;
+    min-height:45px;
 
     padding:9px 11px;
 
-    border:1px solid #eef2f7;
-
     background:#f8fafc;
 
-    border-radius:10px;
+    border:1px solid #edf2f7;
+
+    border-radius:11px;
 }
 
 .overview-row-left{
@@ -1033,19 +984,19 @@ th{
 }
 
 .overview-row-label{
+    color:#475569;
+
     font-size:12px;
 
     font-weight:700;
-
-    color:#475569;
 }
 
 .overview-row-value{
+    color:#0f172a;
+
     font-size:13px;
 
     font-weight:900;
-
-    color:#0f172a;
 
     text-align:right;
 
@@ -1053,7 +1004,9 @@ th{
 }
 
 
-/* TODAY */
+/* =========================================================
+   TODAY SUMMARY
+========================================================= */
 
 .today-summary-grid{
     display:grid;
@@ -1068,15 +1021,15 @@ th{
 
     overflow:hidden;
 
-    min-height:90px;
+    min-height:92px;
+
+    padding:12px;
 
     border:1px solid #e2e8f0;
 
-    background:#f8fafc;
-
     border-radius:12px;
 
-    padding:12px;
+    background:#f8fafc;
 }
 
 .today-item::after{
@@ -1084,13 +1037,13 @@ th{
 
     position:absolute;
 
-    width:50px;
-    height:50px;
+    width:60px;
+    height:60px;
+
+    right:-27px;
+    bottom:-27px;
 
     border-radius:50%;
-
-    right:-22px;
-    bottom:-22px;
 
     background:#ecfdf5;
 }
@@ -1100,8 +1053,8 @@ th{
 
     z-index:2;
 
-    width:29px;
-    height:29px;
+    width:30px;
+    height:30px;
 
     display:flex;
 
@@ -1109,15 +1062,15 @@ th{
 
     justify-content:center;
 
-    border-radius:8px;
+    margin-bottom:7px;
+
+    border-radius:9px;
 
     background:white;
 
     border:1px solid #e2e8f0;
 
     font-size:14px;
-
-    margin-bottom:7px;
 }
 
 .today-label{
@@ -1125,15 +1078,15 @@ th{
 
     z-index:2;
 
-    font-size:9px;
-
     color:#64748b;
 
-    font-weight:800;
+    font-size:9px;
+
+    font-weight:850;
 
     text-transform:uppercase;
 
-    letter-spacing:.35px;
+    letter-spacing:.3px;
 }
 
 .today-value{
@@ -1141,21 +1094,25 @@ th{
 
     z-index:2;
 
-    font-size:15px;
-
-    font-weight:900;
+    margin-top:3px;
 
     color:#0f172a;
 
-    margin-top:3px;
+    font-size:15px;
+
+    font-weight:900;
 }
 
 
-/* QUICK ACTIONS */
+/* =========================================================
+   QUICK ACTIONS
+========================================================= */
+
+.dashboard-quick-card{
+    margin-top:15px;
+}
 
 .quick-actions{
-    margin-top:15px;
-
     display:grid;
 
     grid-template-columns:repeat(4,minmax(0,1fr));
@@ -1166,11 +1123,11 @@ th{
 .quick-action{
     border:1px solid #e2e8f0;
 
-    background:white;
+    background:#fff;
 
-    border-radius:12px;
+    border-radius:13px;
 
-    padding:10px;
+    padding:11px 8px;
 
     text-align:center;
 
@@ -1189,21 +1146,23 @@ th{
     transform:translateY(-1px);
 
     border-color:#99f6e4;
+
+    background:#f0fdfa;
 }
 
 .quick-action-icon{
-    width:31px;
-    height:31px;
+    width:33px;
+    height:33px;
 
-    margin:0 auto 5px;
-
-    border-radius:9px;
+    margin:0 auto 6px;
 
     display:flex;
 
     align-items:center;
 
     justify-content:center;
+
+    border-radius:10px;
 
     background:#f0fdfa;
 
@@ -1298,10 +1257,6 @@ th{
         grid-template-columns:repeat(2,minmax(0,1fr));
     }
 
-    .quick-actions{
-        grid-template-columns:repeat(4,minmax(0,1fr));
-    }
-
 }
 
 
@@ -1359,85 +1314,75 @@ th{
 
     /* MOBILE DASHBOARD */
 
-    .dashboard-hero{
-        min-height:210px;
-
-        border-radius:17px;
-
+    .dashboard-welcome{
         padding:16px;
+
+        border-radius:16px;
 
         margin-bottom:12px;
     }
 
-    .dashboard-hero-content{
+    .dashboard-welcome-inner{
+        align-items:flex-start;
+
         gap:10px;
     }
 
-    .dashboard-small-title{
+    .dashboard-welcome-label{
         font-size:8px;
 
-        padding:5px 8px;
+        letter-spacing:.55px;
     }
 
-    .dashboard-hero h2{
-        font-size:23px;
-
-        margin-top:9px;
+    .dashboard-welcome-label::before{
+        width:6px;
+        height:6px;
     }
 
-    .dashboard-hero-description{
+    .dashboard-welcome h2{
+        font-size:22px;
+
+        margin:8px 0 5px;
+    }
+
+    .dashboard-welcome-text{
+        max-width:245px;
+
         font-size:10px;
 
         line-height:1.5;
-
-        max-width:245px;
     }
 
-    .dashboard-hero-right{
-        width:53px;
-        height:53px;
+    .dashboard-date-box{
+        min-width:65px;
 
-        flex-basis:53px;
+        padding:8px 7px;
 
-        border-radius:15px;
+        border-radius:11px;
     }
 
-    .dashboard-hero-right-icon{
-        font-size:23px;
+    .dashboard-date-icon{
+        font-size:18px;
     }
 
-    .dashboard-hero-right-text{
-        display:none;
-    }
-
-    .dashboard-hero-bottom{
-        left:16px;
-        right:16px;
-        bottom:14px;
-
-        gap:6px;
-    }
-
-    .hero-mini{
-        padding:6px 8px;
-
+    .dashboard-date-title{
         font-size:8px;
     }
 
-    .hero-mini-icon{
-        font-size:11px;
+    .dashboard-date-sub{
+        font-size:7px;
     }
 
 
-    .dashboard-section-title{
+    .dashboard-heading{
         margin-bottom:8px;
     }
 
-    .dashboard-section-title h3{
+    .dashboard-heading h3{
         font-size:13px;
     }
 
-    .dashboard-section-title span{
+    .dashboard-heading span{
         font-size:9px;
     }
 
@@ -1451,7 +1396,7 @@ th{
     }
 
     .dashboard-stat{
-        min-height:112px;
+        min-height:111px;
 
         padding:11px;
 
@@ -1461,6 +1406,8 @@ th{
     .dashboard-stat-icon{
         width:32px;
         height:32px;
+
+        flex-basis:32px;
 
         border-radius:9px;
 
@@ -1472,9 +1419,9 @@ th{
     }
 
     .dashboard-stat .value{
-        font-size:16px;
-
         margin-top:11px;
+
+        font-size:16px;
     }
 
 
@@ -1488,11 +1435,17 @@ th{
         border-radius:13px;
     }
 
+    .dashboard-card-title{
+        gap:8px;
+    }
+
     .dashboard-card-title-icon{
         width:32px;
         height:32px;
 
         flex-basis:32px;
+
+        border-radius:9px;
 
         font-size:15px;
     }
@@ -1502,13 +1455,13 @@ th{
     }
 
     .dashboard-card-subtitle{
-        font-size:9px;
+        font-size:8px;
     }
 
     .dashboard-badge{
-        font-size:8px;
-
         padding:4px 6px;
+
+        font-size:8px;
     }
 
 
@@ -1520,6 +1473,8 @@ th{
         min-height:40px;
 
         padding:8px 9px;
+
+        border-radius:9px;
     }
 
     .overview-row-label{
@@ -1541,6 +1496,8 @@ th{
         min-height:78px;
 
         padding:9px;
+
+        border-radius:10px;
     }
 
     .today-icon{
@@ -1561,12 +1518,14 @@ th{
     }
 
 
+    .dashboard-quick-card{
+        margin-top:10px;
+    }
+
     .quick-actions{
         grid-template-columns:repeat(4,minmax(0,1fr));
 
         gap:6px;
-
-        margin-top:10px;
     }
 
     .quick-action{
@@ -1584,6 +1543,8 @@ th{
         margin-bottom:4px;
 
         font-size:13px;
+
+        border-radius:8px;
     }
 
 }
@@ -1595,8 +1556,28 @@ th{
 
 @media(max-width:380px){
 
-    .dashboard-hero{
-        min-height:215px;
+    .dashboard-welcome{
+        padding:13px;
+    }
+
+    .dashboard-welcome h2{
+        font-size:20px;
+    }
+
+    .dashboard-welcome-text{
+        font-size:9px;
+
+        max-width:220px;
+    }
+
+    .dashboard-date-box{
+        min-width:58px;
+
+        padding:7px 5px;
+    }
+
+    .dashboard-date-icon{
+        font-size:16px;
     }
 
     .dashboard-grid{
@@ -1604,38 +1585,13 @@ th{
     }
 
     .dashboard-stat{
-        padding:9px;
+        min-height:104px;
 
-        min-height:105px;
+        padding:9px;
     }
 
     .dashboard-stat .value{
         font-size:14px;
-    }
-
-    .dashboard-hero h2{
-        font-size:21px;
-    }
-
-    .dashboard-hero-description{
-        font-size:9px;
-    }
-
-    .dashboard-hero-right{
-        width:45px;
-        height:45px;
-
-        flex-basis:45px;
-    }
-
-    .dashboard-hero-right-icon{
-        font-size:20px;
-    }
-
-    .hero-mini{
-        font-size:7px;
-
-        padding:5px 6px;
     }
 
 }
@@ -1711,68 +1667,45 @@ th{
 <section id="dashboard" class="page active dashboard-page">
 
 
-    <!-- HERO -->
+    <!-- NEW WELCOME PANEL -->
 
-    <div class="dashboard-hero">
+    <div class="dashboard-welcome">
 
-        <div class="dashboard-hero-content">
+        <div class="dashboard-welcome-inner">
 
-            <div class="dashboard-hero-left">
+            <div class="dashboard-welcome-left">
 
-                <div class="dashboard-small-title">
-                    <span></span>
-                    Live Business Overview
+                <div class="dashboard-welcome-label">
+                    Live Business Dashboard
                 </div>
 
                 <h2>
                     Welcome to your Shop
                 </h2>
 
-                <p class="dashboard-hero-description">
-                    Keep track of your products, purchases,
-                    sales, stock, customers and outstanding
-                    dues from one simple dashboard.
+                <p class="dashboard-welcome-text">
+                    Manage products, purchases, sales,
+                    stock, customers and outstanding dues
+                    from one simple place.
                 </p>
 
             </div>
 
 
-            <div class="dashboard-hero-right">
+            <div class="dashboard-date-box">
 
-                <div class="dashboard-hero-right-icon">
+                <div class="dashboard-date-icon">
                     ⚡
                 </div>
 
-                <div class="dashboard-hero-right-text">
+                <div class="dashboard-date-title">
                     SHOP
                 </div>
 
-            </div>
+                <div class="dashboard-date-sub">
+                    Live Data
+                </div>
 
-        </div>
-
-
-        <div class="dashboard-hero-bottom">
-
-            <div class="hero-mini">
-                <span class="hero-mini-icon">📦</span>
-                <span>
-                    <strong id="heroProductCount">Products</strong>
-                </span>
-            </div>
-
-            <div class="hero-mini">
-                <span class="hero-mini-icon">💰</span>
-                <span>
-                    <strong id="heroSalesText">Sales</strong>
-                </span>
-            </div>
-
-            <div class="hero-mini">
-                <span class="hero-mini-icon">📊</span>
-                <span>
-                    <strong>Live Data</strong>
-                </span>
             </div>
 
         </div>
@@ -1782,25 +1715,23 @@ th{
 
     <!-- KPI TITLE -->
 
-    <div class="dashboard-section-title">
+    <div class="dashboard-heading">
 
         <h3>
             Business at a Glance
         </h3>
 
         <span>
-            All time
+            All Time
         </span>
 
     </div>
 
 
-    <!-- STAT CARDS -->
+    <!-- KPI CARDS -->
 
     <div class="dashboard-grid">
 
-
-        <!-- PRODUCTS -->
 
         <div class="dashboard-stat products">
 
@@ -1824,8 +1755,6 @@ th{
         </div>
 
 
-        <!-- CUSTOMERS -->
-
         <div class="dashboard-stat customers">
 
             <div class="dashboard-stat-top">
@@ -1847,8 +1776,6 @@ th{
 
         </div>
 
-
-        <!-- PURCHASE -->
 
         <div class="dashboard-stat purchase">
 
@@ -1872,8 +1799,6 @@ th{
         </div>
 
 
-        <!-- SALES -->
-
         <div class="dashboard-stat sales">
 
             <div class="dashboard-stat-top">
@@ -1895,8 +1820,6 @@ th{
 
         </div>
 
-
-        <!-- STOCK -->
 
         <div class="dashboard-stat stock">
 
@@ -1920,8 +1843,6 @@ th{
         </div>
 
 
-        <!-- DUE -->
-
         <div class="dashboard-stat due">
 
             <div class="dashboard-stat-top">
@@ -1944,8 +1865,6 @@ th{
         </div>
 
 
-        <!-- PROFIT -->
-
         <div class="dashboard-stat profit">
 
             <div class="dashboard-stat-top">
@@ -1967,8 +1886,6 @@ th{
 
         </div>
 
-
-        <!-- COLLECTION -->
 
         <div class="dashboard-stat collection">
 
@@ -2252,8 +2169,7 @@ th{
 
     <!-- QUICK ACTIONS -->
 
-    <div class="dashboard-card"
-         style="margin-top:15px;">
+    <div class="dashboard-card dashboard-quick-card">
 
         <div class="dashboard-card-header">
 
@@ -2420,7 +2336,7 @@ th{
         <input class="search"
                id="productSearch"
                placeholder="Search product..."
-               oninput="renderProducts">
+               oninput="renderProducts()">
 
         <div class="table-wrap">
 
@@ -3218,8 +3134,7 @@ let db = {
 function uid(prefix){
 
     return prefix + "-" +
-        Date.now().toString(36) +
-        "-" +
+        Date.now().toString(36) + "-" +
         Math.random().toString(36).slice(2,7);
 
 }
@@ -5872,36 +5787,6 @@ function updateDashboard(){
         "overviewDue"
     ).textContent =
         money(totalDue);
-
-
-    /* HERO LIVE COUNTERS */
-
-    const heroProduct =
-        document.getElementById(
-            "heroProductCount"
-        );
-
-    if(heroProduct){
-
-        heroProduct.textContent =
-            db.products.length +
-            " Products";
-
-    }
-
-
-    const heroSales =
-        document.getElementById(
-            "heroSalesText"
-        );
-
-    if(heroSales){
-
-        heroSales.textContent =
-            money(totalSales) +
-            " Sales";
-
-    }
 
 
     const date =
