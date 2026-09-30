@@ -294,6 +294,108 @@ th{
 
 
 /* =========================================================
+   STOCK TABLE
+========================================================= */
+
+.stock-table th,
+.stock-table td{
+    text-align:left;
+}
+
+.stock-table th:nth-child(5),
+.stock-table th:nth-child(6),
+.stock-table th:nth-child(7),
+.stock-table td:nth-child(5),
+.stock-table td:nth-child(6),
+.stock-table td:nth-child(7){
+    text-align:right;
+}
+
+.stock-in{
+    font-weight:800;
+}
+
+.stock-out{
+    font-weight:800;
+}
+
+.stock-balance{
+    font-weight:900;
+}
+
+.stock-negative{
+    color:#dc2626;
+}
+
+.stock-positive{
+    color:#15803d;
+}
+
+
+/* =========================================================
+   STOCK SUMMARY
+========================================================= */
+
+.stock-summary{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:12px;
+    margin-bottom:15px;
+}
+
+.stock-summary-card{
+    background:white;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    padding:15px;
+    box-shadow:0 2px 8px rgba(15,23,42,.04);
+}
+
+.stock-summary-label{
+    color:#64748b;
+    font-size:14px;
+    font-weight:800;
+    text-transform:uppercase;
+}
+
+.stock-summary-value{
+    margin-top:7px;
+    font-size:25px;
+    font-weight:900;
+}
+
+.stock-summary-in .stock-summary-value{
+    color:#15803d;
+}
+
+.stock-summary-out .stock-summary-value{
+    color:#dc2626;
+}
+
+.stock-summary-balance .stock-summary-value{
+    color:#0f766e;
+}
+
+
+/* =========================================================
+   STOCK FILTER
+========================================================= */
+
+.stock-filter-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:12px;
+    align-items:end;
+}
+
+.stock-filter-actions{
+    display:flex;
+    gap:8px;
+    align-items:end;
+}
+
+
+/* =========================================================
    SMALL BUTTON
 ========================================================= */
 
@@ -928,6 +1030,10 @@ th{
         grid-template-columns:repeat(2,minmax(0,1fr));
     }
 
+    .stock-filter-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
 }
 
 
@@ -1049,6 +1155,23 @@ th{
 
     .empty{
         font-size:16px;
+    }
+
+    .stock-summary{
+        grid-template-columns:1fr;
+        gap:9px;
+    }
+
+    .stock-summary-card{
+        padding:13px;
+    }
+
+    .stock-summary-value{
+        font-size:23px;
+    }
+
+    .stock-filter-grid{
+        grid-template-columns:1fr;
     }
 
 
@@ -1421,6 +1544,10 @@ th{
 
     <button onclick="showPage('sales')">
         Sales
+    </button>
+
+    <button onclick="showPage('stock')">
+        Stock
     </button>
 
     <button onclick="showPage('customers')">
@@ -1999,13 +2126,13 @@ th{
 
 
             <button class="quick-action"
-                    onclick="showPage('due')">
+                    onclick="showPage('stock')">
 
                 <div class="quick-action-icon">
-                    💵
+                    🏪
                 </div>
 
-                Collect Due
+                Stock
 
             </button>
 
@@ -2318,7 +2445,7 @@ th{
                        type="number"
                        min="0"
                        step="0.01"
-                       oninput="calculateSaleTotal">
+                       oninput="calculateSaleTotal()">
             </div>
 
             <div class="field">
@@ -2410,6 +2537,163 @@ th{
                 </thead>
 
                 <tbody id="salesTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     STOCK
+========================================================= -->
+
+<section id="stock" class="page">
+
+    <h2>Stock</h2>
+
+
+    <div class="card">
+
+        <h3>Stock Filter</h3>
+
+        <div class="stock-filter-grid">
+
+            <div class="field">
+
+                <label>View Stock By</label>
+
+                <select id="stockViewBy"
+                        onchange="stockFilterChanged()">
+
+                    <option value="all">
+                        All Items
+                    </option>
+
+                    <option value="item">
+                        Item / Product
+                    </option>
+
+                    <option value="category">
+                        Category
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field"
+                 id="stockItemField"
+                 style="display:none;">
+
+                <label>Select Item</label>
+
+                <select id="stockItem"
+                        onchange="renderStock()">
+                </select>
+
+            </div>
+
+
+            <div class="field"
+                 id="stockCategoryField"
+                 style="display:none;">
+
+                <label>Select Category</label>
+
+                <select id="stockCategory"
+                        onchange="renderStock()">
+                </select>
+
+            </div>
+
+
+            <div class="stock-filter-actions">
+
+                <button class="btn secondary"
+                        onclick="resetStockFilter()">
+                    Show All
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="stock-summary">
+
+        <div class="stock-summary-card stock-summary-in">
+
+            <div class="stock-summary-label">
+                Total In
+            </div>
+
+            <div class="stock-summary-value"
+                 id="stockTotalIn">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stock-summary-card stock-summary-out">
+
+            <div class="stock-summary-label">
+                Total Out
+            </div>
+
+            <div class="stock-summary-value"
+                 id="stockTotalOut">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stock-summary-card stock-summary-balance">
+
+            <div class="stock-summary-label">
+                Total Balance
+            </div>
+
+            <div class="stock-summary-value"
+                 id="stockTotalBalance">
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="table-wrap">
+
+            <table class="stock-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Part Number</th>
+                        <th>Value</th>
+                        <th>In</th>
+                        <th>Out</th>
+                        <th>Balance</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="stockTable"></tbody>
 
             </table>
 
@@ -2962,6 +3246,26 @@ function getAllCategories(){
 
             if(product.category){
                 categories.add(product.category);
+            }
+
+        }
+    );
+
+    db.purchases.forEach(
+        function(item){
+
+            if(item.category){
+                categories.add(item.category);
+            }
+
+        }
+    );
+
+    db.sales.forEach(
+        function(item){
+
+            if(item.category){
+                categories.add(item.category);
             }
 
         }
@@ -4302,6 +4606,511 @@ function renderSales(){
 
 
 /* =========================================================
+   STOCK
+========================================================= */
+
+function getStockRows(){
+
+    const rows = [];
+
+    const productMap =
+        new Map(
+            db.products.map(
+                function(product){
+                    return [product.id, product];
+                }
+            )
+        );
+
+    const ids =
+        new Set();
+
+    db.products.forEach(
+        function(product){
+            ids.add(product.id);
+        }
+    );
+
+    db.purchases.forEach(
+        function(item){
+
+            if(item.productId){
+                ids.add(item.productId);
+            }
+
+        }
+    );
+
+    db.sales.forEach(
+        function(item){
+
+            if(item.productId){
+                ids.add(item.productId);
+            }
+
+        }
+    );
+
+    ids.forEach(
+        function(productId){
+
+            const product =
+                productMap.get(productId);
+
+            const purchases =
+                db.purchases.filter(
+                    function(item){
+                        return item.productId === productId;
+                    }
+                );
+
+            const sales =
+                db.sales.filter(
+                    function(item){
+                        return item.productId === productId;
+                    }
+                );
+
+            const totalIn =
+                purchases.reduce(
+                    function(total,item){
+
+                        return total +
+                            Number(item.qty || 0);
+
+                    },
+                    0
+                );
+
+            const totalOut =
+                sales.reduce(
+                    function(total,item){
+
+                        return total +
+                            Number(item.qty || 0);
+
+                    },
+                    0
+                );
+
+            const balance =
+                totalIn - totalOut;
+
+            const fallbackPurchase =
+                purchases[0] || {};
+
+            const fallbackSale =
+                sales[0] || {};
+
+            rows.push({
+
+                productId:productId,
+
+                product:
+                    product
+                    ? product.name
+                    : (
+                        fallbackPurchase.productName ||
+                        fallbackSale.productName ||
+                        "Deleted Product"
+                    ),
+
+                category:
+                    product?.category ||
+                    fallbackPurchase.category ||
+                    fallbackSale.category ||
+                    "",
+
+                partNumber:
+                    product?.partNumber ||
+                    fallbackPurchase.partNumber ||
+                    fallbackSale.partNumber ||
+                    "",
+
+                value:
+                    product?.value ||
+                    "",
+
+                in:totalIn,
+
+                out:totalOut,
+
+                balance:balance
+
+            });
+
+        }
+    );
+
+    return rows;
+
+}
+
+function loadStockFilters(){
+
+    const itemSelect =
+        document.getElementById("stockItem");
+
+    const categorySelect =
+        document.getElementById("stockCategory");
+
+    const oldItem =
+        itemSelect.value;
+
+    const oldCategory =
+        categorySelect.value;
+
+    const rows =
+        getStockRows();
+
+    const productOptions =
+        rows
+        .slice()
+        .sort(
+            function(a,b){
+                return a.product.localeCompare(
+                    b.product
+                );
+            }
+        );
+
+    itemSelect.innerHTML =
+        `
+        <option value="">
+            Select Item
+        </option>
+        ` +
+
+        productOptions
+        .map(
+            function(row){
+
+                return `
+                <option value="${escapeHTML(row.productId)}">
+                    ${escapeHTML(row.product)}
+                </option>
+                `;
+
+            }
+        )
+        .join("");
+
+    const categories =
+        [...new Set(
+            rows
+            .map(
+                function(row){
+                    return row.category;
+                }
+            )
+            .filter(Boolean)
+        )]
+        .sort(
+            function(a,b){
+                return a.localeCompare(b);
+            }
+        );
+
+    categorySelect.innerHTML =
+        `
+        <option value="">
+            Select Category
+        </option>
+        ` +
+
+        categories
+        .map(
+            function(category){
+
+                return `
+                <option value="${escapeHTML(category)}">
+                    ${escapeHTML(category)}
+                </option>
+                `;
+
+            }
+        )
+        .join("");
+
+    if(
+        oldItem &&
+        [...itemSelect.options]
+        .some(
+            function(option){
+                return option.value === oldItem;
+            }
+        )
+    ){
+        itemSelect.value = oldItem;
+    }
+
+    if(
+        oldCategory &&
+        [...categorySelect.options]
+        .some(
+            function(option){
+                return option.value === oldCategory;
+            }
+        )
+    ){
+        categorySelect.value = oldCategory;
+    }
+
+}
+
+function stockFilterChanged(){
+
+    const viewBy =
+        document
+        .getElementById("stockViewBy")
+        .value;
+
+    const itemField =
+        document.getElementById(
+            "stockItemField"
+        );
+
+    const categoryField =
+        document.getElementById(
+            "stockCategoryField"
+        );
+
+    if(viewBy === "item"){
+
+        itemField.style.display = "block";
+        categoryField.style.display = "none";
+
+    }else if(viewBy === "category"){
+
+        itemField.style.display = "none";
+        categoryField.style.display = "block";
+
+    }else{
+
+        itemField.style.display = "none";
+        categoryField.style.display = "none";
+
+    }
+
+    renderStock();
+
+}
+
+function resetStockFilter(){
+
+    document.getElementById(
+        "stockViewBy"
+    ).value = "all";
+
+    document.getElementById(
+        "stockItem"
+    ).value = "";
+
+    document.getElementById(
+        "stockCategory"
+    ).value = "";
+
+    stockFilterChanged();
+
+}
+
+function renderStock(){
+
+    loadStockFilters();
+
+    const viewBy =
+        document
+        .getElementById("stockViewBy")
+        .value;
+
+    const selectedItem =
+        document
+        .getElementById("stockItem")
+        .value;
+
+    const selectedCategory =
+        document
+        .getElementById("stockCategory")
+        .value;
+
+    let rows =
+        getStockRows();
+
+    if(viewBy === "item"){
+
+        if(selectedItem){
+
+            rows =
+                rows.filter(
+                    function(row){
+                        return row.productId === selectedItem;
+                    }
+                );
+
+        }else{
+
+            rows = [];
+
+        }
+
+    }
+
+    if(viewBy === "category"){
+
+        if(selectedCategory){
+
+            rows =
+                rows.filter(
+                    function(row){
+                        return row.category === selectedCategory;
+                    }
+                );
+
+        }else{
+
+            rows = [];
+
+        }
+
+    }
+
+    rows.sort(
+        function(a,b){
+
+            return a.product.localeCompare(
+                b.product
+            );
+
+        }
+    );
+
+    const totalIn =
+        rows.reduce(
+            function(total,row){
+                return total + row.in;
+            },
+            0
+        );
+
+    const totalOut =
+        rows.reduce(
+            function(total,row){
+                return total + row.out;
+            },
+            0
+        );
+
+    const totalBalance =
+        rows.reduce(
+            function(total,row){
+                return total + row.balance;
+            },
+            0
+        );
+
+    document.getElementById(
+        "stockTotalIn"
+    ).textContent =
+        totalIn;
+
+    document.getElementById(
+        "stockTotalOut"
+    ).textContent =
+        totalOut;
+
+    document.getElementById(
+        "stockTotalBalance"
+    ).textContent =
+        totalBalance;
+
+    const table =
+        document.getElementById("stockTable");
+
+    if(!rows.length){
+
+        let message =
+            "No stock records found.";
+
+        if(
+            viewBy === "item" &&
+            !selectedItem
+        ){
+            message =
+                "Please select an item.";
+        }
+
+        if(
+            viewBy === "category" &&
+            !selectedCategory
+        ){
+            message =
+                "Please select a category.";
+        }
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="7"
+                    class="empty">
+                    ${message}
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+    table.innerHTML =
+        rows.map(
+            function(row){
+
+                const balanceClass =
+                    row.balance < 0
+                    ? "stock-negative"
+                    : "stock-positive";
+
+                return `
+                <tr>
+
+                    <td>
+                        ${escapeHTML(row.product)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(row.category)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(row.partNumber)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(row.value)}
+                    </td>
+
+                    <td class="stock-in">
+                        ${row.in}
+                    </td>
+
+                    <td class="stock-out">
+                        ${row.out}
+                    </td>
+
+                    <td class="stock-balance ${balanceClass}">
+                        ${row.balance}
+                    </td>
+
+                </tr>
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
    CUSTOMERS
 ========================================================= */
 
@@ -5384,11 +6193,15 @@ function refreshAll(){
 
     loadDueCustomers();
 
+    loadStockFilters();
+
     renderProducts();
 
     renderPurchases();
 
     renderSales();
+
+    renderStock();
 
     renderCustomers();
 
