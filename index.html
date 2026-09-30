@@ -42,6 +42,9 @@
 .today-item strong{display:block!important;font-size:1.2rem!important;margin-top:5px!important}
 @media(max-width:650px){.today-summary{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important}.today-item{padding:10px 7px!important}.today-item strong{font-size:1rem!important}}
 @media(max-width:420px){.today-summary{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px!important}.today-item{padding:9px 5px!important}.today-item strong{font-size:.88rem!important}}
+
+.backup-actions{grid-template-columns:repeat(2,1fr)!important}.backup-actions button{border-color:#b8d8d5;background:#f5fbfa}.backup-actions button:first-child{background:#e9f7f5}
+@media(max-width:650px){.backup-actions{grid-template-columns:1fr 1fr!important;gap:8px!important}.backup-actions button{padding:12px 8px;font-size:.88rem}}
 </style>
 </head>
 <body>
@@ -72,6 +75,10 @@
 <div class="card"><h2 class="section-title">Quick Actions</h2><div class="dashboard-actions">
 <button onclick="showPage('products')">➕ Add Product</button><button onclick="showPage('purchase')">🛒 New Purchase</button><button onclick="showPage('sales')">💰 New Sale</button><button onclick="showPage('due')">💵 Collect Due</button>
 </div></div>
+<div class="card"><h2 class="section-title">Backup & Restore</h2><div class="dashboard-actions backup-actions">
+<button onclick="backupData()">☁️ Backup</button><button onclick="document.getElementById('restoreFile').click()">♻️ Restore Backup</button>
+<input id="restoreFile" type="file" accept="application/json,.json" class="hidden" onchange="restoreBackup(this)">
+</div><div class="info">Backup creates a complete copy of your shop data. Each backup is saved as a new file.</div></div>
 </section>
 <section id="products" class="page"><h1 class="page-title">Products</h1><div class="card"><h2 id="productFormTitle">Add Product</h2><input type="hidden" id="productId"><div class="grid"><div class="field"><label>Product Name *</label><input id="productName" list="productNameList" placeholder="Type a new product name"><datalist id="productNameList"></datalist></div><div class="field"><label>Number</label><input id="productNumber" placeholder="e.g. 9W, 12W, 56 inch"></div><div class="field"><label>Volt</label><input id="productVolt" placeholder="e.g. 220V, 5V"></div><div class="field"><label>Sale Price (Optional)</label><input id="productSalePrice" type="number" min="0" step="0.01" placeholder="Optional"></div><div class="field full"><label>Other Information</label><textarea id="productOther" placeholder="Other information"></textarea></div></div><div class="info">Product Name is the main product identity. No separate Category table is used. After saving a product, its name will appear in the dropdowns used in Purchase and Sales.</div><div class="actions"><button class="btn btn-primary" onclick="saveProduct()">Save Product</button><button class="btn btn-secondary" onclick="clearProductForm()">Clear</button></div></div>
 <div class="card"><div class="search-row"><input id="productSearch" placeholder="Search product..." oninput="renderProducts()"></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Product Name</th><th>Number</th><th>Volt</th><th>Sale Price</th><th>Stock</th><th>Action</th></tr></thead><tbody id="productTable"></tbody></table></div></div></section>
@@ -196,6 +203,40 @@ function generateReport(){const f=$('reportFrom').value,t=$('reportTo').value;if
 function clearReport(){$('reportArea').classList.add('hidden')}
 function refreshAll(){normalizeDB();loadProductNameList();loadSupplierList();loadTransactionProducts('purchase');loadTransactionProducts('sale');loadSaleCustomers();loadDueCustomers();loadStockFilters();renderProducts();renderPurchases();renderSales();renderStock();renderCustomers();renderCollections();updateDashboard();updateCollectionDue()}
 function renderSales(){$('salesTable').innerHTML=db.sales.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.productName||getProductName(x.productId))}</td><td>${esc(x.number??x.partNumber??'')}</td><td>${esc(x.volt??x.voltage??'')}</td><td>${num(x.qty)}</td><td>${money(x.unitPrice)}</td><td>${money(x.total)}</td><td>${esc(customerName(x.customerId))}</td><td>${esc(x.paymentType||'')}</td><td><button class="btn btn-secondary btn-small" onclick="editSale('${x.id}')">Edit</button> <button class="btn btn-danger btn-small" onclick="deleteSale('${x.id}')">Delete</button></td></tr>`).join('')||`<tr><td colspan="10" class="empty">No sales records.</td></tr>`}
+function makeBackupFile(){
+  const backup={app:"Electronics Shop",version:1,createdAt:new Date().toISOString(),data:db};
+  return new Blob([JSON.stringify(backup,null,2)],{type:"application/json"});
+}
+async function backupData(){
+  try{
+    const blob=makeBackupFile();
+    const stamp=new Date().toISOString().replace(/[:.]/g,'-');
+    const fileName=`electronics-shop-backup-${stamp}.json`;
+    const file=new File([blob],fileName,{type:'application/json'});
+    if(navigator.share && (!navigator.canShare || navigator.canShare({files:[file]}))){
+      await navigator.share({title:'Electronics Shop Backup',text:'Electronics Shop complete backup.',files:[file]});
+      return;
+    }
+    const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=fileName;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    alert('Backup file saved successfully.');
+  }catch(e){if(e&&e.name==='AbortError')return;console.error(e);alert('Backup could not be created.');}
+}
+function restoreBackup(input){
+  const file=input.files&&input.files[0];if(!file)return;
+  if(!confirm('Restore this backup? Current data will be replaced by the backup data.')){input.value='';return;}
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const parsed=JSON.parse(reader.result);
+      const incoming=parsed&&parsed.data?parsed.data:parsed;
+      if(!incoming||typeof incoming!=='object'||!Array.isArray(incoming.products)||!Array.isArray(incoming.purchases)||!Array.isArray(incoming.sales)){throw new Error('Invalid backup');}
+      db={products:incoming.products||[],purchases:incoming.purchases||[],sales:incoming.sales||[],customers:incoming.customers||[],dueCollections:incoming.dueCollections||[],suppliers:incoming.suppliers||[]};
+      normalizeDB();saveDB();refreshAll();alert('Backup restored successfully.');
+    }catch(e){console.error(e);alert('This is not a valid Electronics Shop backup file.');}
+    input.value='';
+  };
+  reader.readAsText(file);
+}
 function initialize(){loadDB();$('purchaseDate').value=today();$('saleDate').value=today();$('collectionDate').value=today();const d=new Date();$('reportFrom').value=new Date(d.getFullYear(),d.getMonth(),1).toISOString().slice(0,10);$('reportTo').value=today();refreshAll()}
 initialize();
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(e=>console.log('Service worker:',e)))}
